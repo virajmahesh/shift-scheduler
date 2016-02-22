@@ -54,3 +54,7 @@ group :test do
   gem 'metric_fu'
 end
 
+group :production do
+  gem 'pg', '0.15.1'
+end
+
