@@ -1,4 +1,5 @@
 *.DS_Store
+.gitignore~
 *.rbc
 capybara-*.html
 .rspec
