@@ -10,8 +10,8 @@ Scenario: attempt to sign up for shift that has space
         And shift 1 has 4 users
         Given the user John Doe exists
         When John Doe signs up for shift 1
-        shift 1 should have one more user
-        John Doe should have one more commitment
+        Then shift 1 should have one more user
+        And John Doe should have one more commitment
         And John Doe should be on the event page
         And John Doe should see 'You have been signed up for the shift' on the event page
 
