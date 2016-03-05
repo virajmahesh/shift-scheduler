@@ -18,4 +18,4 @@ Background: shifts in database
 Scenario: view all shifts
 	Given that I am on the event page for event 1
 	And that I am signed in 
-	Then I should see see "Shifts of the event are: flyering: from 11:00 to 11:30, tabling: from 11:30 to 12:30"
+	Then I should see "Shifts of the event are: flyering: from 11:00 to 11:30, tabling: from 11:30 to 12:30"
