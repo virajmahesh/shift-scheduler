@@ -1,0 +1,14 @@
+engines:
+
+  rubocop:
+    enabled: true
+  csslint:
+    enabled: true
+
+ratings:
+  paths:
+  - app/**
+
+exclude_paths:
+- spec/**/*
+- features/**/*
