@@ -1,0 +1,11 @@
+<div>
+  <% if @user.nil? == false %>
+      <%= content_tag :a, @user.username %>
+      <%= link_to('Logout', '/logout', method: :delete) %>
+  <% else %>
+      <%= link_to('Sign Up', '/signup') %>
+      <%= link_to('Login', '/login') %>
+  <% end %>
+</div>
+
+<h1> UpRise Shift Scheduler </h1>

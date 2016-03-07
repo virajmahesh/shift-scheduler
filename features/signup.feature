@@ -6,50 +6,75 @@ Feature: Users Can Signup for an Account and Use it to Login
 
 
   Background:
-    Given that I am on the uprise homepage
+    Given I am on the homepage
 
 
   Scenario: attempt to signup with valid information
-    When I click the signup button
+    When I follow "Sign Up"
     Then I should be on the signup page
 
-    When I enter 'john_doe@uprise.com' into the email field
-    And I enter 'john_doe' into the username field
-    And I enter 'password' into the password field
-    And I enter 'password' into the confirm password field
-    And I click signup
+    When I fill in "Email" with "john_doe@uprise.com"
+    And I fill in "Username" with "john_doe"
+    And I fill in "Password" with "password"
+    And I fill in "Confirm Password" with "password"
+    And I press "Sign Up"
 
-    Then a user with the username 'john_doe' and password 'password' should exist in the database
-    And I should be on the uprise homepage
-    And I should see 'john_doe' on the page
+    Then a user with the username "john_doe" and password "password" should exist in the database
+    And I should be on the homepage
+    And I should see "john_doe"
 
 
-  Scenario: attempt to signup with incomplete information
-    When I click the signup button
+  Scenario: attempt to signup with an existing user's email
+    Given a user has signed up with the email "john_doe@uprise.com"
+
+    When I follow "Sign Up"
     Then I should be on the signup page
 
-    When I enter 'john_doe@uprise.com' into the email field
-    And I enter 'john_doe' into the username field
-    And I click signup
+    When I fill in "Email" with "john_doe@uprise.com"
+    And I fill in "Username" with "john_doe"
+    And I fill in "Password" with "password"
+    And I fill in "Confirm Password" with "password"
+    And I press "Sign Up"
+
+    And I should be on the signup page
+    And I should see "An account with that email address already exists"
+
+
+  Scenario: attempt to signup without a password
+    When I follow "Sign Up"
+    Then I should be on the signup page
+
+    When I fill in "Email" with "john_doe@uprise.com"
+    And I fill in "Username" with "john_doe"
+    And I press "Sign Up"
 
     Then I should be on the signup page
-    And I should see 'Error! Please fill in all the required information' on the page
+    And I should see "Password can't be blank"
+
+
+  Scenario: attempt to signup without a username
+    When I follow "Sign Up"
+    Then I should be on the signup page
+
+    When I fill in "Email" with "john_doe@uprise.com"
+    And I fill in "Password" with "password"
+    And I fill in "Confirm Password" with "password"
+    And I press "Sign Up"
+
+    Then I should be on the signup page
+    And I should see "Username can't be blank"
 
 
   Scenario: passwords don't match while signing up
-    When I click the signup button
+    When I follow "Sign Up"
     Then I should be on the signup page
 
-    When I enter 'john_doe@uprise.com' into the email field
-    And I enter 'john_doe' into the username field
-    And I enter 'password' into the password field
-    And I enter 'pasword' into the confirm password field
-    And I click signup
+    When I fill in "Email" with "john_doe@uprise.com"
+    And I fill in "Username" with "john_doe"
+    And I fill in "Password" with "password"
+    And I fill in "Confirm Password" with "passw0rd"
+    And I press "Sign Up"
 
     Then I should be on the signup page
-    And I should see 'Error! Passwords don't match' on the page
-    And the password field should be empty
-    And the confirm password field should be empty
-    But the username field should contain 'john_doe'
-    And the email field should contain 'john_doe@uprise.com'
+    And I should see "Password confirmation doesn't match Password"
   
