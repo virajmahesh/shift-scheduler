@@ -1,6 +1,15 @@
 language: ruby
 rvm:
   - 2.2.2
+
+env:
+  - DB=sqlite
+
+script:
+  - bundle exec rake --trace db:migrate RAILS_ENV=test
+  - bundle exec cucumber
+  - bundle exec rspec
+
 addons:
     code_climate:
         repo_token: bcc51d0ee53a134dbbab7023cceacb480bb7360f84812025cad7f0afccfde69e
