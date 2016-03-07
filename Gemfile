@@ -32,6 +32,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use bcrypt to securely hash passwords
+gem 'bcrypt', '~> 3.1.7'
+
+gem 'rerun'
+
 group :development, :test do
   gem 'byebug'
   gem 'jasmine-rails'
@@ -44,6 +49,7 @@ group :development do
 end
 
 group :test do
+  gem 'test-unit'
   gem 'rspec-rails', '2.14'
   gem 'simplecov', :require => false
   gem 'cucumber-rails', :require => false
