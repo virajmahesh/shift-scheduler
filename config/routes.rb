@@ -62,6 +62,13 @@ Rails.application.routes.draw do
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
-
+  
   delete 'logout' => 'sessions#destroy'
+  
+  get 'shift/:id' => 'application#shift', :as => 'shift'
+  post 'shift/:id' => 'application#shift_signUp'
+  
+  get 'event/:id' => 'application#event', :as => 'event'
+
+
 end
