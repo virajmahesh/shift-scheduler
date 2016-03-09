@@ -20,16 +20,16 @@ module NavigationHelpers
       '/sessions'
       
     when /^the shift (\d+) page/
-      shift_path($1)
+      shift_path $1
       
     when /^the event (\d+) page/
-      event_path($1)
+      event_path $1
 
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
+    when /^the edit page for event (.*)$/
+    	edit_event_path $1
+    	
+    when /^the edit page for shift (.*)$/
+    	edit_shift_path $1
 
     else
       begin
