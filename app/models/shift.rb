@@ -1,2 +1,12 @@
 class Shift < ActiveRecord::Base
+  belongs_to :event
+  has_many :volunteer_commitments
+
+  def formatted_start_time
+    return self.start_time.strftime '%H:%M %p'
+  end
+
+  def formatted_end_time
+    return self.end_time.strftime '%H:%M %p'
+  end
 end

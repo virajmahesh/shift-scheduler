@@ -1,0 +1,28 @@
+<div id = flash>
+  <% if flash[:error] %>
+      <p><%= flash[:error] %></p></br>
+  <% end %>
+  <% if flash[:notice] %>
+      <p><%= flash[:notice] %></p></br>
+  <% end %>
+</div>
+
+<h2><%= @shift.role %></h2>
+
+Start Time: <%= @shift.start_time %>
+End Time: <%= @shift.end_time %>
+Limit: <%= @shift.limit %>
+
+<% if @shift.has_limit %>
+    <%= @shift.volunteer_commitments.length %>/<%= @shift.limit %> slots filled
+<% end %>
+
+
+<% if @user.signed_up_for @shift %>
+  <%= link_to 'Leave', "/user/leave_shift/#{@shift.id}" %> <br>
+<% elsif @shift.volunteer_commitments.length < @shift.limit %>
+  <%= link_to 'Join', "/user/join_shift/#{@shift.id}" %> <br>
+<% end %>
+<%= link_to 'Edit', edit_shift_path(@shift) %> <br>
+<%= button_to 'Add Shift', new_shift_path %> <br>
+<%= button_to 'Delete', shift_path(@shift), :method => :delete %> <br>

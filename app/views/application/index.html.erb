@@ -11,6 +11,7 @@
   <% if @user.nil? == false %>
       <%= content_tag :a, @user.username %>
       <%= link_to('Logout', '/logout', method: :delete) %>
+      <%= link_to('Create Event', new_event_path) %>
   <% else %>
       <%= link_to('Sign Up', '/signup') %>
       <%= link_to('Login', '/login') %>
@@ -18,3 +19,7 @@
 </div>
 
 <h1> UpRise Shift Scheduler </h1>
+
+<% Event.future_events.each do |e| %>
+  <%= e.formatted_event_date %>, <%= link_to e.event_name, event_path(e) %> <br>
+<% end %>

@@ -8,7 +8,6 @@ Feature: Users Can Signup for an Account and Use it to Login
   Background:
     Given I am on the homepage
 
-
   Scenario: attempt to signup with valid information
     When I follow "Sign Up"
     Then I should be on the signup page

@@ -5,51 +5,47 @@ Feature: User can Create, edit and delete shifts
   So that I can break and Event down into subtasks and organize volunteers by skill type.
 
   Background:
-    Given that I am on the "Batman for president" event page
-    And that I am the event creator
+    Given a user has signed up with the email "john_doe@gmail.com"
+    And user john_doe@gmail.com is logged in with password password
+
+    And the following events exists:
+      | Id | User    | Date       | Name          | Candidate |
+      | 1  | 1       | 03/03/2016 | Go Batman     | Batman    |
+
+    And the following shifts exist:
+      | Event    | Role     | Has Limit | Limit | Start Time | End Time |
+      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    |
+      | 1        | Flyering | true      | 0     | 12:00      | 12:30    |
+
+
 
   Scenario: attempt to create a shift
-    When I click the Add Shift button
-    Then I should be on the create shift page
+    When I visit event id 1 page
+    When I follow "Add Shift"
+    Then I should be on the new shift page
 
-    When I enter "1:00 PM" in the start time field
-    And I eneter " 2:00 PM" in the end time field
-    And I enter "set up" in the role field
-    And I check no limit
-    And I click 'Add Shift'
+    When I fill in "Start Time" with "1:00 PM"
+    And I fill in "End Time" with "2:00 PM"
+    And I fill in "Shift Role" with "set up"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "5"
+    And I press "Add Shift"
 
-    Then I should be on the "Batman for president" event page
-    And I should see the set up shift under event shifts
-
-  Scenario: attempt to create event with incomplete information
-    When I click the Add Shift button
-    Then I should be on the create shift page
-
-    When I enter "1:00 PM" in the start time field
-    And I eneter " 2:00 PM" in the end time field
-    And I enter "set up" in the role field
-    And I click 'Add Shift'
-
-    Then I should be on the create shift page
-    And I should see 'Error! Please fill in all the required information' on the page
+    Then a shift named "set up" should exist
 
   Scenario: attempt to delete a shift
-    When I chose the 'set up' shift
-    Then I should see the delete button
+    When I visit shift id 1 page
+    And I press "Delete"
 
-    When I click on the delete button
-    Then I should see a message saying "event deleted"
-    And I should not see 'set up' shift on the page
+    Then I should be on the home page
+    And a shift named "set up" should not exist
 
-  Scenario: attempt to edit an event
-    When I click on 'set up' shift
-    Then I should see the edit button
+  Scenario: attempt to edit a shift
+    When I visit shift id 1 page
+    And I follow "Edit"
+    Then I should be on the edit page for shift 1
 
-    When I click the edit button
-    Then I should be on the edit shift page
+    When I fill in "End Time" with "3:00 PM"
+    And I press "Save Changes"
 
-    When I enter "3:00 PM" in the end time field
-    And I click save changes
-
-    Then I should be on the "Batman for president" event page
-    And I should see "3:00 PM" as the end time of the event
+    Then I should be on the homepage
