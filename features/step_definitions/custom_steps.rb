@@ -76,6 +76,6 @@ Given(/^event (\d+) has (\d+) shifts with (\d+) spaces available$/) do |eventID,
   end
 end
 
-Given(/^(.*) visit the event (\d+) page$/) do |arg1, eventID|
+Given(/^* visit the event (\d+) page$/) do |eventID|
   visit event_path(eventID)
 end
