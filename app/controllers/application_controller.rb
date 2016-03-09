@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
-    #Shift.create(:id => 3,:limit => 5,:has_limit => true, :role => 'Tabler')
+    #Event.create(:id => 1, :user_id => 1, :description => "Go Bernie!", :location => "Berkeley", :candidate => "Bernie Sanders")
+    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1, :id => 8,:limit => 5,:has_limit => true, :role => 'Tabler')
+    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1, :id => 9,:limit => 5,:has_limit => true, :role => 'Tabler')
+    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1, :id => 10,:limit => 5,:has_limit => true, :role => 'Tabler')
     @user = User.find_by id: session[:user_id]
   end
   
@@ -38,6 +41,20 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "You have been signed up for the shift"
       redirect_to "/shift/"+params[:id] and return
     end
-    
   end
+  
+  def event
+    @event = Event.find_by id: params[:id]
+    @shifts = Shift.where event_id: params[:id]
+    @numFreeShifts = 0
+    @num_volunteers = {}
+    
+    @shifts.each do |shift|
+    @num_volunteers[shift.id] = VolunteerCommitment.where(shift_id: shift.id).size
+    
+    if shift.has_limit and @num_volunteers[shift.id] < shift.limit
+      @numFreeShifts = @numFreeShifts + 1
+    end
+  end
+end
 end
