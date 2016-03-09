@@ -1,0 +1,33 @@
+<div id = flash>
+ <% if flash[:error] %>
+  <p><%= flash[:error] %></p></br>
+ <% end %>
+ <% if flash[:notice] %>
+  <p><%= flash[:notice] %></p></br>
+ <% end %>
+</div>
+
+<strong>Role: <%= @shift.role %></strong></br>
+<strong>Last Updated: <%= @shift.updated_at %></strong></br>
+
+<div>
+  <% if @shift.has_limit %>
+      <strong>Limit: <%= @shift.limit %></strong></br>
+      <strong> <%=@shift.limit - @num_volunteers %> </strong> volunteers needed
+  <% end %>
+</div>
+</br>
+<div>
+  <% if @user.nil? == false %>
+      Logged in as <%= content_tag :a, @user.username %></br>
+      <%= link_to('Join', '/shift/'+@shift.id.to_s, method: :post, :id => "Join") %>
+  <% else %>
+      <%= link_to('Sign Up', '/signup') %>
+      <%= link_to('Login', '/login') %>
+  <% end %>
+</br>
+</br>
+<%= link_to('Go back to event', '/event/'+@shift.event_id.to_s, method: :get) %>
+</div>
+
+
