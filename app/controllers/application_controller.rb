@@ -4,11 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
-    #Event.create(:id => 1, :user_id => 1, :description => "Go Bernie!", :location => "Berkeley", :candidate => "Bernie Sanders")
-    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1, :id => 8,:limit => 5,:has_limit => true, :role => 'Tabler')
-    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1, :id => 9,:limit => 5,:has_limit => true, :role => 'Tabler')
-    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1, :id => 10,:limit => 5,:has_limit => true, :role => 'Tabler')
     @user = User.find_by id: session[:user_id]
+
+    #Seeding db for testing purpose. DELETE IN PRODUCTION
+    if not Event.exists?
+      Event.create(:event_date => Time.now, :event_name => "Build a Wall", :id => 1, :user_id => 218, :description => "Make Donald Drumpf Again!", :location => "Berkeley", :candidate => "Donald Drumpf")
+    end
+    if not Shift.exists?
+      Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1,:limit => 5,:has_limit => true, :role => 'Tabler')
+      Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => 1,:limit => 3,:has_limit => true, :role => 'Valet')
+    end
+      
   end
   
   def shift
@@ -45,6 +51,12 @@ class ApplicationController < ActionController::Base
   
   def event
     @event = Event.find_by id: params[:id]
+
+    if @event.nil?
+      flash[:error] = "Event not found"
+      redirect_to "/"
+    end
+    
     @shifts = Shift.where event_id: params[:id]
     @numFreeShifts = 0
     @num_volunteers = {}

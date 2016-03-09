@@ -25,6 +25,9 @@
       <%= link_to('Sign Up', '/signup') %>
       <%= link_to('Login', '/login') %>
   <% end %>
+</br>
+</br>
+<%= link_to('Go back to event', '/event/'+@shift.event_id.to_s, method: :get) %>
 </div>
 
 
