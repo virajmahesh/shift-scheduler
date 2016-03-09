@@ -6,13 +6,13 @@ Feature: Users Can See Which Shifts Have Been Filled
 
   Scenario: view total shifts available
     Given PENDING
-    Given I am on the event page for event 1
+    Given I am on the event 1 page
     And event 1 has 4 shifts available
     Then I should see "4 shifts available"
 
   Scenario: view event with filled shift
     Given PENDING
-    Given I am on the event page for event 1
+    Given I am on the event 1 page
     And shift 1 belongs to event 1
     And shift 1 has limit 5
     And there are 5 volunteers for shift 1

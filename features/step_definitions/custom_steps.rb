@@ -27,3 +27,13 @@ end
 Given /^PENDING/ do
   pending
 end
+
+Given (/^shift (.*) has limit (.*)$/) do |shift_id, limit|
+  Shift.create({:id => shift_id,:limit => limit,:has_limit => true, :role => 'Tabler', :created_at => Time.now, :updated_at => Time.now})
+end
+
+
+And (/^shift (.*) has (.*) users$/) do |shift_id, limit|
+  
+  
+end
