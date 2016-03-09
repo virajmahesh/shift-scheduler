@@ -5,62 +5,55 @@ Feature: User can Create, edit and delete events
   So that I can get potential volunteers interested in my cause/campaign.
 
   Background:
-    Given that I am on the uprise homepage
-    And that I am signed in
+    Given I am on the homepage
+    And a user has signed up with the email "john_doe@gmail.com"
+    And user john_doe@gmail.com is logged in with password password
+    
+    And the following events exists:
+      | User | Name       | Candidate | Date       |
+      | 1    | Go Batman  | Batman    | 03/04/2016 |
 
   Scenario: attempt to create an event
-    When I click the create button
-    Then I should be on the create event page
+    When I follow "Create Event"
+    Then I should be on the new event page
 
-    When I enter "Batman for President" in the events name field
-    And I enter "Gotham" in the location field
-    And I enter "03/03/2016" in the event date field
-    And I enter "Batman" in the candidate field
-    And I enter "a fund raiser for Batman" in the description field
-    And I click 'Create Event'
+    When I fill in "Event Name" with "Batman for President"
+    And I fill in "Location" with "Gotham"
+    And I fill in "Event Date" with "03/03/2016"
+    And I fill in "Candidate" with "Batman"
+    And I fill in "Description" with "A fund raiser for Batman"
+    And I press "Create Event"
 
-    Then I should be on the events created page
-    And I should see the new event on the page
+    Then I should be on the event 2 page
+    And I should see "Batman for President"
+    And I should see "Gotham"
+    And an event named "Batman for President" should exist
 
   Scenario: attempt to create event with incomplete information
-    When I click the create button
-    Then I should be on the create event page
+    When I follow "Create Event"
+    Then I should be on the new event page
 
-    When I enter "Batman for president" in the events name field
-    And I enter "Gotham" in the location field
-    And I enter "03/03/2016" in the event date field
-    And I click 'Create Event'
+    When I fill in "Location" with "Gotham"
+    And I fill in "Event Date" with "03/03/2016"
+    And I press "Create Event"
 
-    Then I should be on the signup page
-    And I should see 'Error! Please fill in all the required information' on the page
+    Then I should be on the new event page
+    And I should see "Event name can't be blank"
 
   Scenario: attempt to delete an event
-    When I click on 'my events'
-    Then I should be on my events created page
+    Given I am on the event 1 page
+    And I press "Delete"
 
-    When I click on the "Batman for president" event
-    And I click the delete button
-
-
-    Then I should be on the created events page
-    And I should see a message saying "event deleted"
-    And I should not see "Batman for president" event on the page
+    Then I should be on the home page
+    And an event named "Go Batman" should not exist
 
   Scenario: attempt to edit an event
-    When I click on 'my events'
-    Then I should be on my events created page
+     When I visit event id 1 page
+     And I follow "Edit"
 
-    When I click on the "Batman for president" event
-    And I click the edit event button
+    Then I should be on the edit page for event 1
 
-    Then I should be on the edit event page
+    When I fill in "Event Date" with "03/04/2016"
+    And I press "Save Changes"
 
-    When I enter "03/04/2016" in the event date field
-    And I click save changes
-
-    Then I should be on the "Batman for president" event page
-    And I should see "03/04/2016" as the date of the event
-
-
-
-
+    Then the "Event Date" field for event "Go Batman" should be "2016-04-03"

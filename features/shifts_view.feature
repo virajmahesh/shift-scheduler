@@ -5,16 +5,21 @@ Feature: Users Can See Different Shifts that Are a Part of an Event
   So that I can select which shifts I want to volunteer for
 
   Background: shifts in database
+    Given user John Doe exists with password hellboy
+    And user John Doe is logged in with password hellboy
 
-    Given event 1 exists
-    And the following shifts exist
+    Given the following events exists:
+      | Id | User    | Date       | Name          | Candidate |
+      | 1  | 1       | 03/03/2016 | Go Batman     | Batman    |
 
-      | event_id | start_time     | end_time       | role     | has_limit | limit |
-      | 1        | 11:30 4-1-2016 | 12:30 2016-4-1 | tabling  | true      | 3     |
-      | 1        | 11:00 4-1-2016 | 11:30 2016-4-1 | flyering | true      | 3     |
+    And the following shifts exist:
+      | Event    | Role     | Has Limit | Limit | Start Time | End Time |
+      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    |
+      | 1        | Flyering | true      | 0     | 12:00      | 12:30    |
 
 
   Scenario: view all shifts
-    Given that I am on the event page for event 1
-    And that I am signed in
-    Then I should see "Shifts of the event are: flyering: from 11:00 to 11:30, tabling: from 11:30 to 12:30"
+    Given I am on the event 1 page
+
+    Then I should see "11:00 AM to 11:30 AM, Tabling"
+    And I should see "12:00 PM to 12:30 PM, Flyering"

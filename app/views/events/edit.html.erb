@@ -1,0 +1,23 @@
+<h1>Edit Existing Event</h1>
+
+<%= form_tag event_path(@event), :method => :put do %>
+  <%= label :event, :event_name, 'Event Name' %>
+  <%= text_field :event, :event_name %><br>
+
+  <%= label :event, :event_date, 'Event Date' %>
+  <%= text_field :event, :event_date %><br>
+
+  <%= label :event, :location, 'Location' %>
+  <%= text_field :event, :location %><br>
+
+  <%= label :event, :candidate, 'Candidate' %>
+  <%= text_field :event, :candidate %><br>
+
+  <%= label :event, :description, 'Event Description' %>
+  <%= text_field :event, :description %><br>
+
+  <%= hidden_field :event, :user_id, :value => @user.id %>
+
+  <%= submit_tag 'Save Changes' %> <br>
+  <%= link_to 'Back to Homepage', '/' %>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306211058) do
+ActiveRecord::Schema.define(version: 20160311215346) do
 
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20160306211058) do
 
   create_table "shifts", force: :cascade do |t|
     t.integer  "event_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.time     "start_time"
+    t.time     "end_time"
     t.string   "role"
     t.boolean  "has_limit"
     t.integer  "limit"

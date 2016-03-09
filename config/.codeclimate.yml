@@ -6,8 +6,8 @@ engines:
 
 ratings:
   paths:
-  - app/**
-git add
+    - app/**
+
 exclude_paths:
-- spec/**/*
-- features/**/*
+  - spec/**/*
+  - features/**/*
