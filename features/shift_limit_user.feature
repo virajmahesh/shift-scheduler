@@ -7,18 +7,19 @@ Feature: Event Creators Can limit the number of users that can sign up for a shi
   Scenario: attempt to sign up for shift that has space
     Given shift 1 has a limit 5
     And shift 1 has 4 users
-    Given the user John Doe exists
+    Given user John Doe exists with password hellboy
+    And user John Doe is logged in with password hellboy
     When John Doe signs up for shift 1
-    Then shift 1 should have one more user
-    And John Doe should have one more commitment
-    And John Doe should be on the shift 1 page
-    And John Doe should see 'You have been signed up for the shift'
+    Then shift 1 should have 5 users
+    And John Doe should have 1 commitments
+    And John Doe should see "You have been signed up"
 
   Scenario: attempt to sign up for shift that is at capacity
     Given shift 1 has a limit 5
     And shift 1 has 5 users
-    Given the user John Doe exists
-    When John Doe sign up for shift 1
-    Then John Doe's volunteer commitments should not change
-    And John Doe should be on the shift 1 page
-    And John Doe should see 'Shift already full'
+    Given user John Doe exists with password hellboy
+    And user John Doe is logged in with password hellboy
+    When John Doe signs up for shift 1
+    Then shift 1 should have 5 users
+    And John Doe should have 0 commitments
+    And John Doe should see "Shift already full"

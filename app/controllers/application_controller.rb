@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
-    Shift.create({:id => 3,:limit => 5,:has_limit => true, :role => 'Quentin Tarantino', :created_at => Time.now, :updated_at => Time.now})
+    #Shift.create(:id => 3,:limit => 5,:has_limit => true, :role => 'Tabler')
     @user = User.find_by id: session[:user_id]
   end
   

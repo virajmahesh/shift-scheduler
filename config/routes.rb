@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   
   delete 'logout' => 'sessions#destroy'
   
-  get 'shift/:id' => 'application#shift'
+  get 'shift/:id' => 'application#shift', :as => 'shift'
   post 'shift/:id' => 'application#shift_signUp'
 
 end

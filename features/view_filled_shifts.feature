@@ -25,5 +25,3 @@ Feature: Users Can See Which Shifts Have Been Filled
     And shift 1 has limit 5
     And there are 3 volunteers for shift 1
     Then I should see "Shift 1 available"
-
-
