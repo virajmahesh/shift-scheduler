@@ -14,29 +14,53 @@ class ApplicationController < ActionController::Base
     if @shift.nil?
       flash[:error] = "Shift not found."
       redirect_to "/"
-    end  
+    end
+    @signup = nil
+    if !@user.nil?
+      @signup = VolunteerCommitment.find_by user_id: @user.id, shift_id: @shift.id
+    end
+  end
+  
+  def shift_leave
+    id = params[:id]
+    @shift = Shift.find_by id: id
+    @user = User.find_by id: session[:user_id]
+    @signup = VolunteerCommitment.find_by user_id: @user.id, shift_id: @shift.id
+    if !@signup
+      flash[:error] = "You haven't signed up for this shift"
+    else
+      @signup.destroy
+      flash[:notice] = "You have left the shift"
+    end
+    redirect_to shift_path(id) and return
+    
   end
   
   def shift_signUp
-    @shift = Shift.find_by id: params[:id]
+    id = params[:id]
     @user = User.find_by id: session[:user_id]
-    @num_volunteers = VolunteerCommitment.where(shift_id: params[:id]).size
+    @shift = Shift.find_by id: id
+    @num_volunteers = VolunteerCommitment.where(shift_id: id).size
     
-    if @shift.has_limit and @shift.limit <= @num_volunteers
+    #Checking for valid limit and login
+    if @shift.has_limit and @num_volunteers >= @shift.limit
       flash[:error] = "Shift already full"
-      redirect_to "/shift/"+params[:id] and return
-    end
-    
-    if @user.nil?
+      redirect_to shift_path(id) and return
+    elsif @user.nil?
       flash[:error] = "Login Required"
       redirect_to "/" and return
     end
     
-    if @num_volunteers < @shift.limit and not @user.nil?
+    @signup = VolunteerCommitment.find_by user_id: @user.id, shift_id: @shift.id
+    
+    #Checking if already signed up
+    if @signup
+      flash[:error] = "You have already signed up for the shift"
+    else
       VolunteerCommitment.create({:user_id => @user.id, :shift_id => @shift.id, :created_at => Time.now, :updated_at => Time.now})
       flash[:notice] = "You have been signed up for the shift"
-      redirect_to "/shift/"+params[:id] and return
     end
+    redirect_to shift_path(id) and return
   end
   
   def event

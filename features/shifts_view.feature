@@ -9,9 +9,9 @@ Feature: Users Can See Different Shifts that Are a Part of an Event
     Given event 1 exists
     And the following shifts exist
 
-      | event_id | start_time     | end_time       | role     | has_limit | limit | volunteers |
-      | 1        | 11:30 4-1-2016 | 12:30 2016-4-1 | tabling  | true      | 3     | 1          |
-      | 1        | 11:00 4-1-2016 | 11:30 2016-4-1 | flyering | true      | 3     | 2          |
+      | event_id | start_time     | end_time       | role     | has_limit | limit |
+      | 1        | 11:30 4-1-2016 | 12:30 2016-4-1 | tabling  | true      | 3     |
+      | 1        | 11:00 4-1-2016 | 11:30 2016-4-1 | flyering | true      | 3     |
 
 
   Scenario: view all shifts
