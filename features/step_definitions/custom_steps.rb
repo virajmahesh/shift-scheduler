@@ -11,6 +11,12 @@ Given(/^the following users have registered for accounts:$/) do |table|
   end
 end
 
+Given /^the following shifts exist$/ do |shifts_table|
+  shifts_table.hashes.each do |shift|
+    Shift.create! shift
+  end
+end
+
 Then (/^a user with the username "(.*)" and password "(.*)" should exist in the database$/) do |username, password|
   user = User.find_by username: username
 
@@ -24,6 +30,9 @@ Given (/^a user has signed up with the email "(.*)"$/) do |email|
               password: 'password', password_confirmation: 'password'
 end
 
+When /^I try to join shift (\d+) through the URL$/ do |id|
+  post shift_path(id)
+end
 Given /^PENDING/ do
   pending
 end
@@ -67,12 +76,12 @@ Then(/^(.*) should have (\d+) commitments$/) do |username, numCommitments|
 end
 
 Given(/^event (\d+) exists$/) do |eventID|
-  Event.create(:id => 1, :user_id => 1, :description => "Go Bernie!", :location => "Berkeley", :candidate => "Bernie Sanders")
+  Event.create(:id => eventID, :user_id => 1, :description => "Go Bernie!", :location => "Berkeley", :candidate => "Bernie Sanders")
 end
 
 Given(/^event (\d+) has (\d+) shifts with (\d+) spaces available$/) do |eventID, numShifts, limit|
-  (1..numShifts.to_i).each do |index|
-    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => eventID,:limit => limit.to_i,:has_limit => true, :role => 'Tabler')
+  (1..numShifts.to_i).each do
+    Shift.create(:start_time => Time.now, :end_time => Time.now, :event_id => eventID, :limit => limit.to_i, :has_limit => true, :role => 'Tabler')
   end
 end
 

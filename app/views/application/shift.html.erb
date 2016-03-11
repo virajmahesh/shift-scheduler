@@ -20,7 +20,11 @@
 <div>
   <% if @user.nil? == false %>
       Logged in as <%= content_tag :a, @user.username %></br>
-      <%= link_to('Join', '/shift/'+@shift.id.to_s, method: :post, :id => "Join") %>
+      <% if !@signup %>
+         <%= link_to('Join', '/shift/'+@shift.id.to_s, method: :post, :id => "Join") %>
+      <% else %>
+         <%= link_to('Leave', '/shift/'+@shift.id.to_s, method: :delete, :id => "Leave") %>
+      <% end %>
   <% else %>
       <%= link_to('Sign Up', '/signup') %>
       <%= link_to('Login', '/login') %>
