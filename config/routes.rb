@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   
   get 'shift/:id' => 'application#shift', :as => 'shift'
   post 'shift/:id' => 'application#shift_signUp'
+  delete 'shift/:id' => 'application#shift_leave'
   
   get 'event/:id' => 'application#event', :as => 'event'
 

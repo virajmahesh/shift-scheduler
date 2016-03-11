@@ -18,6 +18,12 @@ module NavigationHelpers
 
     when /^the sessions page$/
       '/sessions'
+      
+    when /^the shift (\d+) page/
+      shift_path($1)
+      
+    when /^the event (\d+) page/
+      event_path($1)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
