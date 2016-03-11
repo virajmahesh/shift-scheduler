@@ -34,6 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use bcrypt to securely hash passwords
 gem 'bcrypt', '~> 3.1.7'
+gem 'mailboxer'
 
 gem 'rerun'
 
@@ -64,4 +65,3 @@ end
 group :production do
   gem 'pg', '0.15.1'
 end
-

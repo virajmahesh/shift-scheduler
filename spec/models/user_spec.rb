@@ -28,5 +28,10 @@ describe User do
       @user.should == false
     end
 
+
+    it 'should return email when mailboxer calls email' do
+      @user.mailboxer_email(@user) == 'email@email.com'
+    end
+
   end
 end
