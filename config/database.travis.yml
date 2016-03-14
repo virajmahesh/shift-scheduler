@@ -1,0 +1,10 @@
+sqlite: &sqlite
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  password:
+  database: travis_ci_test
+  min_messages: ERROR

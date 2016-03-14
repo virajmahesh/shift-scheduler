@@ -4,6 +4,13 @@ rvm:
 
 env:
   - DB=sqlite
+  - DB=postgresql
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database travis_ci_test' -U postgres
 
 script:
   - bundle exec rake --trace db:migrate RAILS_ENV=test
