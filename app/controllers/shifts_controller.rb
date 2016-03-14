@@ -33,14 +33,16 @@ class ShiftsController < ApplicationController
     @shift = Shift.find params[:id]
     @shift.update_attributes!(shift_params)
     flash[:notice] = "#{@shift.role} shift was successfully updated."
-    redirect_to '/'
+    redirect_to shift_path @shift
   end
 
   def destroy
     @shift = Shift.find params[:id]
+    @event = @shift.event
+
     @shift.destroy
     flash[:notice] = " '#{@shift.role}' shift deleted."
-    redirect_to '/'
+    redirect_to event_path @event
   end
   
 end
