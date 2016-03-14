@@ -49,14 +49,6 @@ When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
-When /^(?:|I )visit event id (.+) page$/ do |eventID|
-  visit event_path(eventID)
-end
-
-When /^(?:|I )visit shift id (.+) page$/ do |shiftID|
-  visit shift_path(shiftID)
-end
-
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
