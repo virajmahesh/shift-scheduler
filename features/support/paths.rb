@@ -18,18 +18,20 @@ module NavigationHelpers
 
     when /^the sessions page$/
       '/sessions'
+
+    when /^the page for the "(.*)" shift for the "(.*)" event/
+      event = Event.find_by event_name: $2
+      shift_path Shift.find_by role: $1, event: event
       
-    when /^the shift (\d+) page/
-      shift_path $1
-      
-    when /^the event (\d+) page/
-      event_path $1
+    when /^the page for the "(.*)" event/
+      event_path Event.find_by event_name: $1
 
     when /^the edit page for event (.*)$/
     	edit_event_path $1
-    	
-    when /^the edit page for shift (.*)$/
-    	edit_shift_path $1
+
+    when /^the edit page for the "(.*)" shift for the "(.*)" event/
+      event = Event.find_by event_name: $2
+      edit_shift_path Shift.find_by role: $1, event: event
 
     else
       begin

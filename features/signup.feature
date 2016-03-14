@@ -4,11 +4,15 @@ Feature: Users Can Signup for an Account and Use it to Login
   I want to signup for an account
   So that I can volunteer for events and all my activity is in one place
 
-
   Background:
+
+    Given the following users have registered for accounts:
+      | email               | username | password          |
+      | jane_doe@uprise.com | jane_doe | jane_doe_password |
+
     Given I am on the homepage
 
-  Scenario: attempt to signup with valid information
+  Scenario: Attempt to signup with valid information
     When I follow "Sign Up"
     Then I should be on the signup page
 
@@ -23,14 +27,12 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I should see "john_doe"
 
 
-  Scenario: attempt to signup with an existing user's email
-    Given a user has signed up with the email "john_doe@uprise.com"
-
+  Scenario: Attempt to signup with an existing user's email
     When I follow "Sign Up"
     Then I should be on the signup page
 
-    When I fill in "Email" with "john_doe@uprise.com"
-    And I fill in "Username" with "john_doe"
+    When I fill in "Email" with "jane_doe@uprise.com"
+    And I fill in "Username" with "jane_doe_new"
     And I fill in "Password" with "password"
     And I fill in "Confirm Password" with "password"
     And I press "Sign Up"
@@ -39,7 +41,21 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I should see "An account with that email address already exists"
 
 
-  Scenario: attempt to signup without a password
+  Scenario: Attempt to signup with an existing user's username
+    When I follow "Sign Up"
+    Then I should be on the signup page
+
+    When I fill in "Email" with "jane_doe_new@uprise.com"
+    And I fill in "Username" with "jane_doe"
+    And I fill in "Password" with "password"
+    And I fill in "Confirm Password" with "password"
+    And I press "Sign Up"
+
+    And I should be on the signup page
+    And I should see "An account with that username already exists"
+
+
+  Scenario: Attempt to signup without a password
     When I follow "Sign Up"
     Then I should be on the signup page
 
@@ -51,7 +67,7 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I should see "Password can't be blank"
 
 
-  Scenario: attempt to signup without a username
+  Scenario: Attempt to signup without a username
     When I follow "Sign Up"
     Then I should be on the signup page
 
@@ -64,7 +80,7 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I should see "Username can't be blank"
 
 
-  Scenario: passwords don't match while signing up
+  Scenario: Passwords don't match while signing up
     When I follow "Sign Up"
     Then I should be on the signup page
 
