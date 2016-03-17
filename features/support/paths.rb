@@ -13,35 +13,36 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the home\s?page$/
-      '/'
+      when /^the home\s?page$/
+        '/'
 
-    when /^the sessions page$/
-      '/sessions'
+      when /^the sessions page$/
+        '/sessions'
 
-    when /^the page for the "(.*)" shift for the "(.*)" event/
-      event = Event.find_by event_name: $2
-      shift_path Shift.find_by role: $1, event: event
-      
-    when /^the page for the "(.*)" event/
-      event_path Event.find_by event_name: $1
 
-    when /^the edit page for event (.*)$/
-    	edit_event_path $1
+      when /^the page for the "(.*)" shift for the "(.*)" event$/
+        event = Event.find_by event_name: $2
+        shift_path Shift.find_by role: $1, event: event
 
-    when /^the edit page for the "(.*)" shift for the "(.*)" event/
-      event = Event.find_by event_name: $2
-      edit_shift_path Shift.find_by role: $1, event: event
+      when /^the edit page for the "(.*)" shift for the "(.*)" event$/
+        event = Event.find_by event_name: $2
+        edit_shift_path Shift.find_by role: $1, event: event
 
-    else
-      begin
-        page_name =~ /^the (.*) page$/
-        path_components = $1.split(/\s+/)
-        self.send(path_components.push('path').join('_').to_sym)
-      rescue NoMethodError, ArgumentError
-        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-          "Now, go and add a mapping in #{__FILE__}"
-      end
+      when /^the page for the "(.*)" event$/
+        event_path Event.find_by event_name: $1
+
+      when /^the edit page for the "(.*)" event$/
+        edit_event_path Event.find_by event_name: $1
+
+      else
+        begin
+          page_name =~ /^the (.*) page$/
+          path_components = $1.split(/\s+/)
+          self.send(path_components.push('path').join('_').to_sym)
+        rescue NoMethodError, ArgumentError
+          raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+                    "Now, go and add a mapping in #{__FILE__}"
+        end
     end
   end
 end
