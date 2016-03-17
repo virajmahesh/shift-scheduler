@@ -34,6 +34,8 @@ Feature: User can Create, edit and delete events
     Then I should be on the new event page
     When I fill in "Location" with "Gotham"
     And I fill in "Event Date" with "03/03/2016"
+    And I fill in "Candidate" with "Batman"
+    And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
     Then I should be on the new event page
     And I should see "Event name can't be blank"
@@ -46,6 +48,31 @@ Feature: User can Create, edit and delete events
     And I press "Create Event"
     Then I should be on the new event page
     And I should see "Event date can't be blank"
+    
+  Scenario: Attempt to create without location
+    Given PENDING
+    When I follow "Create Event"
+    Then I should be on the new event page
+    When I fill in "Event Name" with "Batman for President"
+    And I fill in "Event Date" with "03/03/2016"
+    And I fill in "Candidate" with "Batman"
+    And I fill in "Description" with "A fund raiser for Batman"
+    And I press "Create Event"
+    Then I should be on the new event page
+    And I should see "Location can't be blank"
+    
+    
+  Scenario: Attempt to create without candidate
+    Given PENDING
+    When I follow "Create Event"
+    Then I should be on the new event page
+    When I fill in "Event Name" with "Batman for President"
+    And I fill in "Event Date" with "03/03/2016"
+    And I fill in "Description" with "A fund raiser for Batman"
+    And I press "Create Event"
+    Then I should be on the new event page
+    And I should see "Candidate can't be blank"
+    
 
   Scenario: Attempt to modify an event when logged out
     Given PENDING
