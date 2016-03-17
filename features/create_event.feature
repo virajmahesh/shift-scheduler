@@ -13,7 +13,7 @@ Feature: User can Create, edit and delete events
     And I log in with username "john_doe" and password "john_doe_password"
     And the following events exist:
       | User | Name       | Candidate | Date       |
-      | 1    | Go Batman  | Batman    | 03/04/2016 |
+      | 1    | Go Batman  | Batman    | 03/04/2018 |
 
   Scenario: Attempt to create an event
     When I follow "Create Event"
@@ -29,7 +29,7 @@ Feature: User can Create, edit and delete events
     And I should see "Gotham"
     And an event named "Batman for President" should exist
 
-  Scenario: Attempt to create event with incomplete information
+  Scenario: Attempt to create event without a name
     When I follow "Create Event"
     Then I should be on the new event page
     When I fill in "Location" with "Gotham"
@@ -37,6 +37,37 @@ Feature: User can Create, edit and delete events
     And I press "Create Event"
     Then I should be on the new event page
     And I should see "Event name can't be blank"
+
+  Scenario: Attempt to create event without an event date
+    When I follow "Create Event"
+    Then I should be on the new event page
+    When I fill in "Event Name" with "Batman for President"
+    And I fill in "Location" with "Gotham"
+    And I press "Create Event"
+    Then I should be on the new event page
+    And I should see "Event date can't be blank"
+
+  Scenario: Attempt to modify an event when logged out
+    Given PENDING
+    When I follow "Logout"
+    Then I should be on the homepage
+    And I should not see "john_doe"
+    When I follow "Go Batman"
+    Then I should not see "Edit"
+    And I should not see "Delete"
+    And I should not see "Add Shift"
+
+  Scenario: Attempt to modify an event when logged in as a user that did not create the event
+    Given PENDING
+    When I follow "Logout"
+    Then I should be on the homepage
+    And I should not see "john_doe"
+    And I log in with username "jane_doe" and password "jane_doe_password"
+    Then I should be on the homepage
+    When I follow "Go Batman"
+    Then I should not see "Edit"
+    And I should not see "Delete"
+
 
   Scenario: Attempt to delete an event
     Given I am on the page for the "Go Batman" event
@@ -47,7 +78,7 @@ Feature: User can Create, edit and delete events
   Scenario: Attempt to edit an event
     Given I am on the page for the "Go Batman" event
     And I follow "Edit"
-    Then I should be on the edit page for event 1
+    Then I should be on the edit page for the "Go Batman" event
     When I fill in "Event Date" with "03/04/2019"
     And I press "Save Changes"
     Then I should be on the page for the "Go Batman" event

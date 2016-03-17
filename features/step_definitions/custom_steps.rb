@@ -82,3 +82,7 @@ Then(/^a user with the username "(.*)" and password "(.*)" should exist in the d
   user = User.find_by username: username
   user.authenticate(password).nil?.should == false
 end
+
+Given (/^PENDING$/) do
+  pending
+end
