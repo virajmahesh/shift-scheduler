@@ -84,3 +84,21 @@ Feature: User can Create, edit and delete events
     Then I should be on the page for the "Go Batman" event
     And I should see "April 3, 2019"
     And I should not see "03/04/2016"
+    
+  Scenario: If form input is partially invalid, valid input should be preserved
+    Given PENDING
+    When I follow "Create Event"
+    
+    When I fill in "Event Name" with "Batman for President"
+    And I fill in "Location" with "Gotham"
+    And I fill in "Event Date" with "invalid datetime format"
+    And I fill in "Candidate" with "Batman"
+    And I fill in "Description" with "A fund raiser for Batman"
+    And I press "Create Event"
+    
+    Then I should be on the new event page
+    And I should see "Batman for President"
+    And I should see "Gotham"
+    And I should not see "invalid datetime format"
+    And I should see "Batman"
+    And I should see "A fund raise for Batman"

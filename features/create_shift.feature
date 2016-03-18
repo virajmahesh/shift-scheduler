@@ -137,3 +137,39 @@ Feature: User can Create, edit and delete shifts
     When I fill in "End Time" with "3:00 PM"
     And I press "Save Changes"
     Then I should be on the page for the "Tabling" shift for the "Go Batman" event
+
+  Scenario: If start time after end time, valid input should be preserved
+    Given PENDING
+    Given I am on the page for the "Go Batman" event
+    When I follow "Add Shift"
+    Then I should be on the new shift page
+    When I fill in "Start Time" with "2:00 PM"
+    And I fill in "End Time" with "1:00 PM"
+    And I fill in "Shift Role" with "Set Up"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "5"
+    And I press "Add Shift"
+    
+    Then I should be on the new shift page
+    And I should not see "2:00 PM"
+    And I should not see "1:00 PM"
+    And I should see "Set Up"
+    And I should see "5"
+    
+  Scenario: If incorrectly formatted times, valid input should be preserved
+    Given PENDING
+    Given I am on the page for the "Go Batman" event
+    When I follow "Add Shift"
+    Then I should be on the new shift page
+    When I fill in "Start Time" with "invalid time"
+    And I fill in "End Time" with "incorrect datetime"
+    And I fill in "Shift Role" with "Tabling"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "543"
+    And I press "Add Shift"
+    
+    Then I should be on the new shift page
+    And I should not see "invalid time"
+    And I should not see "incorrect datetime"
+    And I should see "Tabling"
+    And I should see "543"
