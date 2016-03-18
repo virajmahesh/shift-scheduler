@@ -1,20 +1,18 @@
 Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
-  resources :events
-  resources :shifts
+  resources :events do
+    resources :shifts
+  end
+
+  devise_for :users, controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations'
+  }
 
   root 'application#index'
 
-  get 'signup' => 'user#new'
-  post 'signup' => 'user#create'
-
-  get 'user/join_shift/:id/' => 'user#join_shift'
-  get 'user/leave_shift/:id' => 'user#leave_shift'
-
-  get 'login' => 'sessions#new'
-  post 'login' => 'sessions#create'
-  
-  delete 'logout' => 'sessions#destroy'
+  get '/user/join_shift/:id/' => 'users#join_shift'
+  get '/user/leave_shift/:id' => 'users#leave_shift'
 
 end
