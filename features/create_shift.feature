@@ -3,6 +3,8 @@ Feature: User can Create, edit and delete shifts
   As a User
   I want to create/edit/delete one or more shifts for each Event
   So that I can break and Event down into subtasks and organize volunteers by skill type.
+  I want the text box for the event description to be larger so that I can have craft a better description for my event.
+
 
   Background:
     Given the following users have registered for accounts:
@@ -98,6 +100,14 @@ Feature: User can Create, edit and delete shifts
     Then a shift with role "Set Up" should not exist
     And I should be on the new shift page
     And I should see "Please enter the number of volunteers needed"
+
+  Scenario: Attempt to fill in the event description box
+    Given PENDING
+    Given I am on the page for the "Go Batman" event
+    When I fill in "Description" with "long description text"
+    Then I should see enough space to on the multiline textbox for the event description
+
+
 
   Scenario: Attempt to modify a shift when logged out
     Given PENDING
