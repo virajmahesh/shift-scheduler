@@ -19,7 +19,7 @@
 
 <h3>Shifts</h3>
   <% @event.ordered_shifts.each do |s| %>
-    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, shift_path(s) %>
+    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, shift_path(s) %></br>
   <% end %>
 
 <%= link_to 'Add Shift', new_shift_path(:event_id => @event.id) %><br><br>
