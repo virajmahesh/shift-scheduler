@@ -105,7 +105,7 @@ Feature: User can Create, edit and delete shifts
     Given PENDING
     Given I am on the page for the "Go Batman" event
     When I fill in "Description" with "long description text"
-    Then I should see enough space to on the multiline textbox for the event description
+    Then I should see enough space on the multiline textbox for the event description
 
 
 
