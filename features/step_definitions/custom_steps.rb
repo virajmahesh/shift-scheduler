@@ -83,6 +83,11 @@ Then(/^a user with the username "(.*)" and password "(.*)" should exist in the d
   user.authenticate(password).nil?.should == false
 end
 
+Then(/^the page should contain "([^"]*)"$/) do |content|
+  pending
+end
+
+
 Given (/^PENDING$/) do
   pending
 end
