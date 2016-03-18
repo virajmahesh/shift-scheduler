@@ -161,15 +161,15 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
     Then I should be on the new shift page
-    When I fill in "Start Time" with "invalid time"
-    And I fill in "End Time" with "incorrect datetime"
+    When I fill in "Start Time" with "10:99 PM"
+    And I fill in "End Time" with "Whenever"
     And I fill in "Shift Role" with "Tabling"
     And I check "Shift Has Limit"
     And I fill in "Shift Limit" with "543"
     And I press "Add Shift"
     
     Then I should be on the new shift page
-    And I should not see "invalid time"
-    And I should not see "incorrect datetime"
+    And I should not see "10:99 PM"
+    And I should not see "Whenever"
     And I should see "Tabling"
     And I should see "543"
