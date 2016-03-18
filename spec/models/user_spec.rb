@@ -12,26 +12,20 @@ describe User do
 
   describe 'user user' do
     it 'should hash user passwords before storing them' do
-      @user.password_digest.should_not ==  'password'
+      @user.encrypted_password.should_not ==  'password'
     end
   end
 
-  describe 'user authentication' do
-
-    it 'should succeed when the user inputs the correct password' do
-      @user = @user.authenticate 'password'
-      @user.should == @user
+  describe 'Signed Up For Shift' do
+    it 'should return true when the user is signed up for the shift' do
+      @shift = Shift.create
     end
+  end
 
-    it 'should fail when the user inputs the wrong password' do
-      @user = @user.authenticate 'passw0rd'
-      @user.should == false
-    end
-
-
+  describe 'Email Notifications' do
     it 'should return email when mailboxer calls email' do
       @user.mailboxer_email(@user) == 'email@email.com'
     end
-
   end
+
 end

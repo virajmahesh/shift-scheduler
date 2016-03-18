@@ -1,5 +1,5 @@
 <h1>Create New Shift</h1>
-<%= form_tag shifts_path do %>
+<%= form_tag event_shifts_path(@event) do %>
 
   <%= label :shift, :start_time, 'Start Time' %>
   <%= text_field :shift, :start_time %><br>
@@ -16,9 +16,7 @@
   <%= label :shift, :limit, 'Shift Limit' %>
   <%= text_field :shift, :limit %><br>
 
-  <%= hidden_field :shift, :event_id, :value => @event.id %>
-
   <%= submit_tag 'Add Shift' %>
 
 <% end %>
-<%= link_to 'Back to all events', events_path %>
+<%= link_to 'Back to Event', event_path(@event) %>

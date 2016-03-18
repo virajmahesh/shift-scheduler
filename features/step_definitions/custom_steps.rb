@@ -41,9 +41,9 @@ Then (/^the "(.*)" shift for the "(.*)" event should have (\d+) volunteers$/) do
 end
 
 Given(/^I log in with username "(.*)" and password "(.*)"$/) do |username, password|
-  visit login_path
-  fill_in 'login', :with => username
-  fill_in 'password', :with => password
+  visit new_user_session_path
+  fill_in 'Email/Username', :with => username
+  fill_in 'Password', :with => password
   click_button 'Login'
 end
 
@@ -80,7 +80,8 @@ end
 
 Then(/^a user with the username "(.*)" and password "(.*)" should exist in the database$/) do |username, password|
   user = User.find_by username: username
-  user.authenticate(password).nil?.should == false
+  user.nil?.should == false
+  user.valid_password?(password).should == true
 end
 
 Then(/^the page should contain "([^"]*)"$/) do |content|

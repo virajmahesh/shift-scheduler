@@ -1,6 +1,6 @@
 <h1>Edit Existing Shift</h1>
 
-<%= form_tag shift_path(@shift), :method => :put do %>
+<%= form_tag event_shift_path(@event, @shift), :method => :put do %>
     <%= label :shift, :role, 'Shift Role' %>
     <%= text_field :shift, :role %>
 
@@ -16,11 +16,9 @@
     <%= label :shift, :limit, "Shift Limit" %>
     <%= text_field :shift, :limit %>
 
-    <%= hidden_field :shift, :event_id, :value => @event.id %>
-
     <br/>
     <br/>
     <%= submit_tag 'Save Changes' %>
-    <%= link_to 'Back to Events Shifts', event_path %>
+    <%= link_to 'Back to Event', event_path %>
 
 <% end %>
