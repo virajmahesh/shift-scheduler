@@ -32,6 +32,10 @@ Feature: User can Create, edit and delete shifts
     And I fill in "Shift Limit" with "5"
     And I press "Add Shift"
     Then a shift with role "Set Up" should exist
+    Then I should be on the page for the "Set Up" shift for the "Go Batman" event
+    And the page should contain "<h2>Set Up</h2>"
+
+    
 
   Scenario: Attempt to create a shift without a start time
     Given PENDING
