@@ -39,4 +39,4 @@ Feature: Users Can Login With Their Credentials
     And I fill in "Email/Username" with "jane_doe_password"
     And I press "Login"
     Then I should be on the login page
-    And I should see "Error: Invalid email/username or password"
+    And I should see "Invalid login or password"

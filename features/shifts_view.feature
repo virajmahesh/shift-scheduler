@@ -6,10 +6,10 @@ Feature: Users Can See Different Shifts that Are a Part of an Event
 
   Background: shifts in database
     Given the following users have registered for accounts:
-      | email               | username | password |
-      | john_doe@uprise.com | john_doe | hellboy  |
+      | email               | username | password  |
+      | john_doe@uprise.com | john_doe | hellboy1  |
     And I am on the homepage
-    And I log in with username "john_doe" and password "hellboy"
+    And I log in with username "john_doe" and password "hellboy1"
     And the following events exist:
       | User    | Date       | Name          | Candidate |
       | 1       | 03/03/2016 | Go Batman     | Batman    |
