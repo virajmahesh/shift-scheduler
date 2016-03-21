@@ -25,9 +25,7 @@
   <%= label :event, :description, 'Event Description' %>
   <%= text_field :event, :description %><br>
 
-  <%= hidden_field :event, :user_id, :value => @user.id %>
-
   <%= submit_tag 'Create Event' %>
 
 <% end %>
-<%= link_to 'Back to all events', events_path %>
+<%= link_to 'Back to Homepage', root_path %>

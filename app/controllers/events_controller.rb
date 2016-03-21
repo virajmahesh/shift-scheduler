@@ -8,8 +8,8 @@ class EventsController < ApplicationController
     @event = Event.find params[:id]
   end
 
-  def new
-    @user = User.find session[:user_id]
+  def edit
+    @event = Event.find params[:id]
   end
 
   def create
@@ -21,11 +21,6 @@ class EventsController < ApplicationController
       flash[:notice] = "#{@event.event_name} was successfully created."
       redirect_to event_path @event
     end
-  end
-
-  def edit
-    @user = User.find session[:user_id]
-    @event = Event.find params[:id]
   end
 
   def update

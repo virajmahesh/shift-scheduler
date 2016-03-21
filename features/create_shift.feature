@@ -24,7 +24,7 @@ Feature: User can Create, edit and delete shifts
   Scenario: Attempt to create a shift
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
-    Then I should be on the new shift page
+    Then I should be on the new shift page for the "Go Batman" event
     When I fill in "Start Time" with "1:00 PM"
     And I fill in "End Time" with "2:00 PM"
     And I fill in "Shift Role" with "Set Up"
@@ -33,9 +33,7 @@ Feature: User can Create, edit and delete shifts
     And I press "Add Shift"
     Then a shift with role "Set Up" should exist
     Then I should be on the page for the "Set Up" shift for the "Go Batman" event
-    And the page should contain "<h2>Set Up</h2>"
-
-    
+    And the page should contain "Set Up"
 
   Scenario: Attempt to create a shift without a start time
     Given PENDING

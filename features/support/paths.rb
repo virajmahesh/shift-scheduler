@@ -12,21 +12,29 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
+      when /^the users page$/
+        '/users'
 
       when /^the home\s?page$/
-        '/'
+        root_path
 
-      when /^the sessions page$/
-        '/sessions'
+      when /^the signup page$/
+        new_user_registration_path
 
+      when /^the login page$/
+        new_user_session_path
+
+      when /^the new shift page for the "(.*)" event$/
+        event = Event.find_by event_name: $1
+        new_event_shift_path event
 
       when /^the page for the "(.*)" shift for the "(.*)" event$/
-        event = Event.find_by event_name: $2
-        shift_path Shift.find_by role: $1, event: event
+         event = Event.find_by event_name: $2
+        event_shift_path event, Shift.find_by(role: $1, event: event)
 
       when /^the edit page for the "(.*)" shift for the "(.*)" event$/
         event = Event.find_by event_name: $2
-        edit_shift_path Shift.find_by role: $1, event: event
+        edit_event_shift_path event, Shift.find_by(role: $1, event: event)
 
       when /^the page for the "(.*)" event$/
         event_path Event.find_by event_name: $1
