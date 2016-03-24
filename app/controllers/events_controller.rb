@@ -1,7 +1,13 @@
 class EventsController < ApplicationController
 
+  before_action :parse_user
+
+  def parse_user
+    @user = current_user
+  end
+
   def event_params
-    params.require(:event).permit(:user_id, :location, :event_name, :event_date, :candidate, :description)
+    params.require(:event).permit(:location, :event_name, :event_date, :candidate, :description)
   end
 
   def show
@@ -13,7 +19,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create event_params
+    @event = Event.create event_params.merge(user: @user)
     if @event.invalid?
       flash[:error] = @event.errors.full_messages.first
       redirect_to '/events/new'

@@ -109,10 +109,7 @@ Feature: User can Create, edit and delete shifts
     When I fill in "Description" with "long description text"
     Then I should see enough space on the multiline textbox for the event description
 
-
-
   Scenario: Attempt to modify a shift when logged out
-    Given PENDING
     Given I am on the homepage
     Then I should see "Go Batman"
     When I follow "Logout"
@@ -124,7 +121,6 @@ Feature: User can Create, edit and delete shifts
     And I should not see "Delete"
 
   Scenario: Attempt to modify a shift when logged in as user that did not create the event
-    Given PENDING
     Given I follow "Logout"
     And I log in with username "jane_doe" and password "jane_doe_password"
     Then I should be on the homepage
@@ -132,6 +128,18 @@ Feature: User can Create, edit and delete shifts
     And I follow "Tabling"
     Then I should not see "Edit"
     And I should not see "Delete"
+    And I should not see "Leave"
+    And I should see "Join"
+
+  Scenario: Attempt to modify a shift when logged out
+    Given I follow "Logout"
+    Then I should be on the homepage
+    When I follow "Go Batman"
+    And I follow "Tabling"
+    Then I should not see "Edit"
+    And I should not see "Delete"
+    And I should not see "Leave"
+    And I should not see "Join"
 
   Scenario: Attempt to delete a shift
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
