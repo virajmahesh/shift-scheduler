@@ -52,6 +52,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.2.2)
+    cancancan (1.13.1)
     cane (2.6.2)
       parallel
     capybara (2.6.2)
@@ -354,6 +355,7 @@ DEPENDENCIES
   autotest-rails
   bcrypt (~> 3.1.7)
   byebug
+  cancancan (~> 1.8)
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   cucumber-rails

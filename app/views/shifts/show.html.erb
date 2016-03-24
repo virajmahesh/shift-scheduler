@@ -18,11 +18,20 @@ Limit: <%= @shift.limit %>
 <% end %>
 
 
-<% if current_user.signed_up_for @shift %>
-  <%= link_to 'Leave', "/user/leave_shift/#{@shift.id}" %> <br>
-<% elsif @shift.volunteer_commitments.length < @shift.limit %>
-  <%= link_to 'Join', "/user/join_shift/#{@shift.id}" %> <br>
+<% if not current_user.nil? %>
+    <% if current_user.signed_up_for @shift %>
+      <%= link_to 'Leave', "/user/leave_shift/#{@shift.id}" %> <br>
+    <% elsif @shift.volunteer_commitments.length < @shift.limit %>
+      <%= link_to 'Join', "/user/join_shift/#{@shift.id}" %> <br>
+    <% end %>
 <% end %>
-<%= link_to 'Edit', edit_event_shift_path(@event, @shift) %> <br>
-<%= button_to 'Add Shift', new_event_shift_path(@event) %> <br>
-<%= button_to 'Delete', event_shift_path(@event, @shift), :method => :delete %> <br>
+
+<% if can? :update, @shift %>
+    <%= link_to 'Edit', edit_event_shift_path(@event, @shift) %> <br>
+<%end%>
+<% if can? :create, @shift %>
+    <%= button_to 'Add Shift', new_event_shift_path(@event) %> <br>
+<% end %>
+<% if can? :destroy, @shift %>
+    <%= button_to 'Delete', event_shift_path(@event, @shift), :method => :delete %> <br>
+<% end %>
