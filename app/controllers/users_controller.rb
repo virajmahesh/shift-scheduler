@@ -1,9 +1,4 @@
-class UsersController < ActionController::Base
-  before_action :parse_user
-
-  def parse_user
-    @user = current_user
-  end
+class UsersController < ApplicationController
 
   def user_params
     params.permit(:email, :username, :password, :password_confirmation,

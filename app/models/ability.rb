@@ -30,7 +30,11 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
     user ||= User.new
 
-    can [:create, :read], Event
+    unless user.id.nil?
+      can :create, Event
+    end
+
+    can :read, Event
     can [:update, :destroy, :create_shift], Event, user: {id: user.id}
 
     can :read, Shift

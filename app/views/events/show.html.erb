@@ -19,12 +19,16 @@
 
 <h3>Shifts</h3>
   <% @event.ordered_shifts.each do |s| %>
-    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %></br>
+    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
   <% end %>
 
-<% if can? :create_shift, @event%>
+<% if can? :create_shift, @event %>
   <%= link_to 'Add Shift', new_event_shift_path(@event) %><br><br>
 <% end %>
 
-<%= link_to 'Edit', edit_event_path(@event) %><br>
-<%= button_to 'Delete', event_path(@event), :method => :delete%><br>
+<% if can? :edit, @event %>
+    <%= link_to 'Edit', edit_event_path(@event) %><br>
+<% end %>
+<% if can? :destroy, @event %>
+    <%= link_to 'Delete', event_path(@event), method: :delete %><br>
+<% end %>

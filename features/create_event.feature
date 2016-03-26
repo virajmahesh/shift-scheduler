@@ -60,8 +60,7 @@ Feature: User can Create, edit and delete events
     And I press "Create Event"
     Then I should be on the new event page
     And I should see "Location can't be blank"
-    
-    
+
   Scenario: Attempt to create without candidate
     Given PENDING
     When I follow "Create Event"
@@ -72,7 +71,6 @@ Feature: User can Create, edit and delete events
     And I press "Create Event"
     Then I should be on the new event page
     And I should see "Candidate can't be blank"
-    
 
   Scenario: Attempt to modify an event when logged out
     Given PENDING
@@ -85,7 +83,6 @@ Feature: User can Create, edit and delete events
     And I should not see "Add Shift"
 
   Scenario: Attempt to modify an event when logged in as a user that did not create the event
-    Given PENDING
     When I follow "Logout"
     Then I should be on the homepage
     And I should not see "john_doe"
@@ -95,10 +92,9 @@ Feature: User can Create, edit and delete events
     Then I should not see "Edit"
     And I should not see "Delete"
 
-
   Scenario: Attempt to delete an event
     Given I am on the page for the "Go Batman" event
-    And I press "Delete"
+    And I follow "Delete"
     Then I should be on the home page
     And an event named "Go Batman" should not exist
 
@@ -110,7 +106,7 @@ Feature: User can Create, edit and delete events
     And I press "Save Changes"
     Then I should be on the page for the "Go Batman" event
     And I should see "April 3, 2019"
-    And I should not see "03/04/2016"
+    And I should not see "April 3, 2016"
 
   Scenario: If form input is partially invalid, valid input should be preserved
     Given PENDING
