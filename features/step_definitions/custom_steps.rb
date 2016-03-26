@@ -13,10 +13,9 @@ end
 
 Given(/^the following events exist:$/) do |table|
   table.hashes.each do |event|
-    e = Event.create user: User.find(event['User']), event_name: event['Name'],
+    Event.create user: User.find(event['User']), event_name: event['Name'],
                  candidate: event['Candidate'], event_date: event['Event Date'],
                  location: event['Location']
-    puts e.errors.full_messages.first
   end
 end
 
@@ -26,6 +25,16 @@ Given(/^the following shifts exist:$/) do |table|
                  has_limit: shift['Has Limit'], limit: shift['Limit'],
                  start_time: shift['Start Time'], end_time: shift['End Time'],
                  description: shift['Description']
+  end
+end
+
+Given(/^the following volunteer commitments exist:$/) do |table|
+  table.hashes.each do |commitment|
+    user = User.find_by username: commitment['User']
+    event = Event.find_by event_name: commitment['Event']
+    shift = Shift.find_by event: event, role: commitment['Shift']
+
+    VolunteerCommitment.create user: user, shift: shift
   end
 end
 
@@ -102,14 +111,6 @@ When (/^I select "(.*)" as the (.*) "(.*) Time"$/) do |time, model, field|
 
   select time.strftime('%I %p'), from: "#{model}[#{field}_time(4i)]"
   select time.strftime('%M'), from: "#{model}[#{field}_time(5i)]"
-end
-
-Given (/^the following volunteer commitments exist:$/) do |table|
-  pending
-end
-
-Then(/^the page should contain "([^"]*)"$/) do |content|
-  pending
 end
 
 Given (/^PENDING$/) do
