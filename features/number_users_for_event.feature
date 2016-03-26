@@ -11,6 +11,7 @@ Feature: Display The Number Of Users That Have Signed Up For An Event
       | other_user@uprise.com| other_user | test1234 |
       | main_user@uprise.com | main_user  | test1234 |
     And I log in with username "test_user" and password "test1234"
+
     And the following events exist:
       | User    | Event Date | Name        | Candidate | Location   |
       | 1       | 03/03/2019 | Go Batman   | Batman    | Gotham     |
@@ -20,28 +21,29 @@ Feature: Display The Number Of Users That Have Signed Up For An Event
       | 1     | 12:00 PM   | 1:00 PM  | Chef | true      | 10    |
       | 1     | 12:00 PM   | 1:00 PM  | Fix  | true      | 150   |
       | 2     | 12:00 PM   | 1:00 PM  | Sing | true      | 20    |
+    And I am on the homepage
 
-  Scenario: Only one user signed up for an event
-    Given I am on the homepage
-    And the following volunteer commitments exist:
+  Scenario: view one user signed up for one event, no one signed up for other
+    Given the following volunteer commitments exist:
       | User      | Event     | Shift  |
-      | test_user | Go Batman | 1      |
+      | test_user | Go Batman | Chef   |
+    And I am on the page for the "Go Batman" event
     Then I should see "1 Volunteer(s) have already signed up to help out with this event"
     And I should not see "Be the first one to join"
 
   Scenario: Multiple users signed up for different shifts in same event
-    Given I am on the homepage
-    And the following volunteer commitments exist:
+    Given the following volunteer commitments exist:
       | User      | Event     | Shift |
-      | test_user | Go Batman | 1     |
-      | other_user| Go Batman | 2     |
+      | test_user | Go Batman | Chef  |
+      | other_user| Go Batman | Fix   |
+    And I am on the page for the "Go Batman" event
     Then I should see "2 Volunteer(s) have already signed up to help out with this event"
     And I should not see "Be the first one to join"
 
-  Scenario: view multiple users signed up for different shifts in same events, non-unique
-    Given I am on the homepage
-    And the following volunteer commitments exist:
+  Scenario: User signed up for multiple shifts in the same event
+    Given the following volunteer commitments exist:
       | User      | Event     | Shift |
-      | test_user | Go Batman | 1     |
-      | test_user | Go Batman | 2     |
+      | test_user | Go Batman | Fix   |
+      | test_user | Go Batman | Sing  |
+    And I am on the page for the "Go Batman" event
     Then I should see "1 Volunteer(s) have already signed up to help out with this event"
