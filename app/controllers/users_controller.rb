@@ -24,6 +24,7 @@ class UsersController < ActionController::Base
   def leave_shift
     @shift = Shift.find params[:id]
     @commitment = VolunteerCommitment.find_by user: @user, shift: @shift
+
     unless @commitment.nil?
       flash[:notice] = 'You have left the shift'
       @commitment.destroy
