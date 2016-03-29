@@ -2,10 +2,10 @@
 <%= form_tag event_shifts_path(@event) do %>
 
   <%= label :shift, :start_time, 'Start Time' %>
-  <%= text_field :shift, :start_time %><br>
+  <%= time_select :shift, :start_time, ampm: true %><br>
 
   <%= label :shift, :end_time, 'End Time' %>
-  <%= text_field :shift, :end_time %><br>
+  <%= time_select :shift, :end_time, ampm: true %><br>
 
   <%= label :shift, :role, 'Shift Role' %>
   <%= text_field :shift, :role %><br>
