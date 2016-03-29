@@ -84,6 +84,23 @@ Then(/^a user with the username "(.*)" and password "(.*)" should exist in the d
   user.valid_password?(password).should == true
 end
 
+When /^I select "(.*)" as the "(.*) Date"/ do |date, model|
+  model.downcase!
+  date = Date.parse(date)
+  select date.year.to_s, from: "#{model}[#{model}_date(1i)]"
+  select date.strftime('%B'), from:  "#{model}[#{model}_date(2i)]"
+  select date.day.to_s, from:  "#{model}[#{model}_date(3i)]"
+end
+
+When /^I select "(.*)" as the (.*) "(.*) Time"/ do |time, model, field|
+  model.downcase!
+  field = field.downcase + '_time'
+  time = Time.parse(time)
+
+  select time.strftime('%l %p'), from: "#{model}[#{model}_date(4i)]"
+  select time.strftime('%M'), from: "#{model}[#{model}_date(4i)]"
+end
+
 Then(/^the page should contain "([^"]*)"$/) do |content|
   pending
 end

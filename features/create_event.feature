@@ -20,7 +20,7 @@ Feature: User can Create, edit and delete events
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
     And I fill in "Location" with "Gotham"
-    And I fill in "Event Date" with "03/03/2016"
+    And I select "03/03/2016" as the "Event Date"
     And I fill in "Candidate" with "Batman"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
@@ -33,7 +33,7 @@ Feature: User can Create, edit and delete events
     When I follow "Create Event"
     Then I should be on the new event page
     When I fill in "Location" with "Gotham"
-    And I fill in "Event Date" with "03/03/2016"
+    And I select "03/03/2016" as the "Event Date"
     And I fill in "Candidate" with "Batman"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
@@ -54,7 +54,7 @@ Feature: User can Create, edit and delete events
     When I follow "Create Event"
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
-    And I fill in "Event Date" with "03/03/2016"
+    And I select "03/03/2016" as the "Event Date"
     And I fill in "Candidate" with "Batman"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
@@ -102,7 +102,7 @@ Feature: User can Create, edit and delete events
     Given I am on the page for the "Go Batman" event
     And I follow "Edit"
     Then I should be on the edit page for the "Go Batman" event
-    When I fill in "Event Date" with "03/04/2019"
+    When I select "03/04/2019" as the "Event Date"
     And I press "Save Changes"
     Then I should be on the page for the "Go Batman" event
     And I should see "April 3, 2019"
