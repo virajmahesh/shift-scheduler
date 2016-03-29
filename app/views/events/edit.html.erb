@@ -5,7 +5,7 @@
   <%= text_field :event, :event_name %><br>
 
   <%= label :event, :event_date, 'Event Date' %>
-  <%= text_field :event, :event_date %><br>
+  <%= date_select :event, :event_date, order: [:month, :day, :year] %><br>
 
   <%= label :event, :location, 'Location' %>
   <%= text_field :event, :location %><br>

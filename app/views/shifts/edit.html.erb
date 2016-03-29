@@ -5,10 +5,10 @@
     <%= text_field :shift, :role %>
 
     <%= label :shift, :start_time, 'Start Time' %>
-    <%= text_field :shift, :start_time %>
+    <%= time_select :shift, :start_time, ampm: true %>
 
     <%= label :shift, :end_time, 'End Time' %>
-    <%= text_field :shift, :end_time %>
+    <%= time_select :shift, :end_time, ampm: true %>
 
     <%= label :shift, :has_limit, "Shift Has Limit" %>
     <%= check_box :shift, :has_limit %>

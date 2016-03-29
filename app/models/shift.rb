@@ -5,10 +5,10 @@ class Shift < ActiveRecord::Base
   has_one :user, :through => :event
 
   def formatted_start_time
-    return self.start_time.strftime '%H:%M %p'
+    self.start_time.strftime '%I:%M %p'
   end
 
   def formatted_end_time
-    return self.end_time.strftime '%H:%M %p'
+    self.end_time.strftime '%I:%M %p'
   end
 end
