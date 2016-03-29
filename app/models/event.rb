@@ -2,8 +2,8 @@ class Event < ActiveRecord::Base
   belongs_to :user
   has_many :shifts
 
-  validates :event_name, :presence => true
-  validates :event_date, :presence => true
+  validates :event_name, presence: true
+  validates :event_date, presence: true
 
   def ordered_shifts
     self.shifts.order("start_time")
