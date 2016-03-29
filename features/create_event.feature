@@ -78,8 +78,8 @@ Feature: User can Create, edit and delete events
     Then I should be on the homepage
     And I should not see "john_doe"
     When I follow "Go Batman"
-    Then I should not see "Edit"
-    And I should not see "Delete"
+    Then I should not see "Edit Event"
+    And I should not see "Delete Event"
     And I should not see "Add Shift"
 
   Scenario: Attempt to modify an event when logged in as a user that did not create the event
@@ -89,18 +89,18 @@ Feature: User can Create, edit and delete events
     And I log in with username "jane_doe" and password "jane_doe_password"
     Then I should be on the homepage
     When I follow "Go Batman"
-    Then I should not see "Edit"
-    And I should not see "Delete"
+    Then I should not see "Edit Event"
+    And I should not see "Delete Event"
 
   Scenario: Attempt to delete an event
     Given I am on the page for the "Go Batman" event
-    And I follow "Delete"
+    And I follow "Delete Event"
     Then I should be on the home page
     And an event named "Go Batman" should not exist
 
   Scenario: Attempt to edit an event
     Given I am on the page for the "Go Batman" event
-    And I follow "Edit"
+    And I follow "Edit Event"
     Then I should be on the edit page for the "Go Batman" event
     When I select "03/04/2019" as the "Event Date"
     And I press "Save Changes"

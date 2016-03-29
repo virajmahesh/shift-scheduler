@@ -9,9 +9,9 @@
 
 <h2><%= @shift.role %></h2>
 
-Start Time: <%= @shift.start_time %>
-End Time: <%= @shift.end_time %>
-Limit: <%= @shift.limit %>
+Start Time: <%= @shift.formatted_start_time %> <br>
+End Time: <%= @shift.formatted_end_time %> <br>
+Limit: <%= @shift.limit %> <br>
 
 <% if @shift.has_limit %>
     <%= @shift.volunteer_commitments.length %>/<%= @shift.limit %> slots filled
@@ -27,11 +27,13 @@ Limit: <%= @shift.limit %>
 <% end %>
 
 <% if can? :update, @shift %>
-    <%= link_to 'Edit', edit_event_shift_path(@event, @shift) %> <br>
+    <%= link_to 'Edit Shift', edit_event_shift_path(@event, @shift) %> <br>
 <%end%>
 <% if can? :create, @shift %>
     <%= button_to 'Add Shift', new_event_shift_path(@event) %> <br>
 <% end %>
 <% if can? :destroy, @shift %>
-    <%= button_to 'Delete', event_shift_path(@event, @shift), :method => :delete %> <br>
+    <%= button_to 'Delete Shift', event_shift_path(@event, @shift), :method => :delete %> <br>
 <% end %>
+
+<%= link_to 'Back to Event', event_path(@event) %>
