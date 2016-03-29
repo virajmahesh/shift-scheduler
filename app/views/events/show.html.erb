@@ -27,8 +27,8 @@
 <% end %>
 
 <% if can? :edit, @event %>
-    <%= link_to 'Edit', edit_event_path(@event) %><br>
+    <%= link_to 'Edit Event', edit_event_path(@event) %><br>
 <% end %>
 <% if can? :destroy, @event %>
-    <%= link_to 'Delete', event_path(@event), method: :delete %><br>
+    <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
 <% end %>

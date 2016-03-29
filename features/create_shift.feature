@@ -117,8 +117,8 @@ Feature: User can Create, edit and delete shifts
     And I should not see "john_doe"
     When I follow "Go Batman"
     And I follow "Tabling"
-    Then I should not see "Edit"
-    And I should not see "Delete"
+    Then I should not see "Edit Shift"
+    And I should not see "Delete Shift"
 
   Scenario: Attempt to modify a shift when logged in as user that did not create the event
     Given I follow "Logout"
@@ -126,8 +126,8 @@ Feature: User can Create, edit and delete shifts
     Then I should be on the homepage
     When I follow "Go Batman"
     And I follow "Tabling"
-    Then I should not see "Edit"
-    And I should not see "Delete"
+    Then I should not see "Edit Shift"
+    And I should not see "Delete Shift"
     And I should not see "Leave"
     And I should see "Join"
 
@@ -136,8 +136,8 @@ Feature: User can Create, edit and delete shifts
     Then I should be on the homepage
     When I follow "Go Batman"
     And I follow "Tabling"
-    Then I should not see "Edit"
-    And I should not see "Delete"
+    Then I should not see "Edit Shift"
+    And I should not see "Delete Shift"
     And I should not see "Leave"
     And I should not see "Join"
 
@@ -152,7 +152,7 @@ Feature: User can Create, edit and delete shifts
 
   Scenario: Attempt to edit a shift
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
-    And I follow "Edit"
+    And I follow "Edit Shift"
     Then I should be on the edit page for the "Tabling" shift for the "Go Batman" event
     When I select "3:00 PM" as the "End Time"
     And I press "Save Changes"
