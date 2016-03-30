@@ -18,7 +18,7 @@ class ShiftsController < ApplicationController
     if can? :create_shift, @event
       @shift = Shift.create shift_params.merge(event: @event)
       if @shift.invalid?
-        flash[:error] = shift.errors.full_messages.first
+        flash[:error] = @shift.errors.full_messages.first
         redirect_to new_event_shift_path
       else
         flash[:notice] = "#{@shift.role} shift was successfully created."

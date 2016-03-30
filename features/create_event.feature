@@ -12,8 +12,8 @@ Feature: User can Create, edit and delete events
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
     And the following events exist:
-      | User | Name       | Candidate | Date       |
-      | 1    | Go Batman  | Batman    | 03/04/2018 |
+      | User | Name       | Location  | Candidate | Event Date       |
+      | 1    | Go Batman  | Gotham    | Batman    | 03/04/2018       |
 
   Scenario: Attempt to create an event
     When I follow "Create Event"
@@ -28,7 +28,7 @@ Feature: User can Create, edit and delete events
     And I should see "Batman for President"
     And I should see "Gotham"
     And an event named "Batman for President" should exist
-
+ 
   Scenario: Attempt to create event without a name
     When I follow "Create Event"
     Then I should be on the new event page
@@ -50,7 +50,6 @@ Feature: User can Create, edit and delete events
     And I should see "Event date can't be blank"
     
   Scenario: Attempt to create without location
-    Given PENDING
     When I follow "Create Event"
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
@@ -62,16 +61,16 @@ Feature: User can Create, edit and delete events
     And I should see "Location can't be blank"
 
   Scenario: Attempt to create without candidate
-    Given PENDING
     When I follow "Create Event"
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
-    And I fill in "Event Date" with "03/03/2016"
+    And I select "03/03/2016" as the "Event Date"
+    And I fill in "Location" with "Gotham"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
     Then I should be on the new event page
     And I should see "Candidate can't be blank"
-
+    
   Scenario: Attempt to modify an event when logged out
     Given PENDING
     When I follow "Logout"

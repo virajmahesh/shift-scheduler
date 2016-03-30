@@ -13,8 +13,8 @@ Feature: Event Creators Can limit the number of users that can sign up for a shi
     And I am on the homepage
     And I log in with username "john_doe" and password "password"
     And the following events exist:
-      | User    | Date       | Name          | Candidate |
-      | 1       | 03/03/2016 | Go Batman     | Batman    |
+      | User    | Event Date | Name          | Candidate | Location |
+      | 1       | 03/03/2016 | Go Batman     | Batman    | Gotham   |
     And the following shifts exist:
       | Event    | Role     | Has Limit | Limit | Start Time | End Time |
       | 1        | Tabling  | true      | 2     | 11:00      | 11:30    |
