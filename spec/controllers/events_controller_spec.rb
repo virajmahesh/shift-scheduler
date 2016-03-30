@@ -13,7 +13,8 @@ describe EventsController do
 
   describe 'POST create' do
     it 'should not allow an event to be created when no user is logged in' do
-      @event = {event_date: '10/03/2017', event_name: 'Support Hillary'}
+      @event = {event_date: '10/03/2017', event_name: 'Support Hillary',
+                location: 'Berkeley', candidate: 'Hillary'}
       post :create, event: @event
 
       Event.all.length.should == 0
@@ -22,7 +23,8 @@ describe EventsController do
 
     it 'should allow a shift to be created when a user is logged in' do
       sign_in @user
-      @event = {event_date: '10/03/2017', event_name: 'Support Hillary'}
+      @event = {event_date: '10/03/2017', event_name: 'Support Hillary',
+                location: 'Berkeley', candidate: 'Hillary'}
       post :create, event: @event
 
       Event.all.length.should == 1

@@ -14,8 +14,9 @@ Feature: User can Create, edit and delete shifts
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
     And the following events exist:
-      | User    | Date       | Name          | Candidate |
-      | 1       | 03/03/2018 | Go Batman     | Batman    |
+      | User | Name       | Location  | Candidate | Event Date       |
+      | 1    | Go Batman  | Gotham    | Batman    | 03/04/2018       |
+      | 1    | Go Joker   | Gotham    | Joker     | 03/05/2017       |
     And the following shifts exist:
       | Event    | Role     | Has Limit | Limit | Start Time | End Time |
       | 1        | Tabling  | true      | 4     | 11:00      | 11:30    |
@@ -25,51 +26,23 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
     Then I should be on the new shift page for the "Go Batman" event
-    When I select "1:00 PM" as the "Start Time"
-    And I fill in "End Time" with "2:00 PM"
+    When I select "1:00 PM" as the shift "Start Time"
+    And I select "3:00 PM" as the shift "End Time"
     And I fill in "Shift Role" with "Set Up"
     And I check "Shift Has Limit"
     And I fill in "Shift Limit" with "5"
     And I press "Add Shift"
     Then a shift with role "Set Up" should exist
     Then I should be on the page for the "Set Up" shift for the "Go Batman" event
-    And the page should contain "Set Up"
+    And I should see "Set Up"
 
-  Scenario: Attempt to create a shift without a start time
-    Given PENDING
+
+  Scenario: Attempt to create a shift without a role
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
-    Then I should be on the new shift page
-    And I fill in "End Time" with "2:00 PM"
-    And I fill in "Shift Role" with "Set Up"
-    And I check "Shift Has Limit"
-    And I fill in "Shift Limit" with "5"
-    And I press "Add Shift"
-    Then a shift with role "Set Up" should not exist
-    And I should be on the page for the "Go Batman" event
-    And I should see "Start Time Can't Be Blank"
-
-  Scenario: Attempt to create a shift without an end time
-    Given PENDING
-    Given I am on the page for the "Go Batman" event
-    When I follow "Add Shift"
-    Then I should be on the new shift page
-    When I fill in "Start Time" with "1:00 PM"
-    And I fill in "Shift Role" with "Set Up"
-    And I check "Shift Has Limit"
-    And I fill in "Shift Limit" with "5"
-    And I press "Add Shift"
-    Then a shift with role "Set Up" should not exist
-    And I should be on the page for the "Go Batman" event
-    And I should see "End Time Can't Be Blank"
-
-  Scenario: Attempt to create a shift without an end time
-    Given PENDING
-    Given I am on the page for the "Go Batman" event
-    When I follow "Add Shift"
-    Then I should be on the new shift page
-    When I fill in "Start Time" with "1:00 PM"
-    And I fill in "End Time" with "2:00 PM"
+    Then I should be on the new shift page for the "Go Batman" event
+    When I select "1:00 PM" as the shift "Start Time"
+    And I select "3:00 PM" as the shift "End Time"
     And I check "Shift Has Limit"
     And I fill in "Shift Limit" with "5"
     And I press "Add Shift"
@@ -77,25 +50,23 @@ Feature: User can Create, edit and delete shifts
     And I should see "Role can't be blank"
 
   Scenario: Attempt to create a shift without a limit
-    Given PENDING
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
-    Then I should be on the new shift page
-    When I fill in "Start Time" with "1:00 PM"
-    And I fill in "End Time" with "2:00 PM"
+    Then I should be on the new shift page for the "Go Batman" event
+    When I select "1:00 PM" as the shift "Start Time"
+    And I select "3:00 PM" as the shift "End Time"
     And I fill in "Shift Role" with "Set Up"
     And I press "Add Shift"
     Then a shift with role "Set Up" should exist
     And I should be on the page for the "Set Up" shift for the "Go Batman" event
-    And I should see "1:00 PM - 2:00 PM, Setup"
 
   Scenario: Indicate that shift has a limit but don't enter a limit
     Given PENDING
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
-    Then I should be on the new shift page
-    When I fill in "Start Time" with "1:00 PM"
-    And I fill in "End Time" with "2:00 PM"
+    Then I should be on the new shift page for the "Go Batman" event
+    When I select "1:00 PM" as the shift "Start Time"
+    And I select "3:00 PM" as the shift "End Time"
     And I fill in "Shift Role" with "Set Up"
     And I check "Shift Has Limit"
     And I press "Add Shift"
@@ -154,7 +125,7 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
     And I follow "Edit Shift"
     Then I should be on the edit page for the "Tabling" shift for the "Go Batman" event
-    When I select "3:00 PM" as the "End Time"
+    When I select "3:00 PM" as the shift "End Time"
     And I press "Save Changes"
     Then I should be on the page for the "Tabling" shift for the "Go Batman" event
 
