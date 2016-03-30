@@ -84,7 +84,7 @@ Then(/^a user with the username "(.*)" and password "(.*)" should exist in the d
   user.valid_password?(password).should == true
 end
 
-When /^I select "(.*)" as the "(.*) Date"/ do |date, model|
+When (/^I select "(.*)" as the "(.*) Date"$/) do |date, model|
   model.downcase!
   date = Date.parse(date)
   select date.year.to_s, from: "#{model}[#{model}_date(1i)]"
@@ -92,7 +92,7 @@ When /^I select "(.*)" as the "(.*) Date"/ do |date, model|
   select date.day.to_s, from:  "#{model}[#{model}_date(3i)]"
 end
 
-When /^I select "(.*)" as the (.*) "(.*) Time"/ do |time, model, field|
+When (/^I select "(.*)" as the (.*) "(.*) Time"$/) do |time, model, field|
   model.downcase!
   field = field.downcase + '_time'
   time = Time.parse(time)
@@ -101,10 +101,13 @@ When /^I select "(.*)" as the (.*) "(.*) Time"/ do |time, model, field|
   select time.strftime('%M'), from: "#{model}[#{model}_date(4i)]"
 end
 
-Then(/^the page should contain "([^"]*)"$/) do |content|
+Given (/^the following volunteer commitments exist:$/) do |table|
   pending
 end
 
+Then(/^the page should contain "([^"]*)"$/) do |content|
+  pending
+end
 
 Given (/^PENDING$/) do
   pending
