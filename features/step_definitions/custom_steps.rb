@@ -13,8 +13,10 @@ end
 
 Given(/^the following events exist:$/) do |table|
   table.hashes.each do |event|
-    Event.create user: User.find(event['User']), event_name: event['Name'],
-                 candidate: event['Candidate'], event_date: event['Date']
+    e = Event.create user: User.find(event['User']), event_name: event['Name'],
+                 candidate: event['Candidate'], event_date: event['Event Date'],
+                 location: event['Location']
+    puts e.errors.full_messages.first
   end
 end
 
@@ -94,11 +96,11 @@ end
 
 When (/^I select "(.*)" as the (.*) "(.*) Time"$/) do |time, model, field|
   model.downcase!
-  field = field.downcase + '_time'
+  field.downcase!
   time = Time.parse(time)
 
-  select time.strftime('%l %p'), from: "#{model}[#{model}_date(4i)]"
-  select time.strftime('%M'), from: "#{model}[#{model}_date(4i)]"
+  select time.strftime('%I %p'), from: "#{model}[#{field}_time(4i)]"
+  select time.strftime('%M'), from: "#{model}[#{field}_time(5i)]"
 end
 
 Given (/^the following volunteer commitments exist:$/) do |table|

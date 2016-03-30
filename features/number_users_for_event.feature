@@ -12,9 +12,9 @@ Feature: Display The Number Of Users That Have Signed Up For An Event
       | main_user@uprise.com | main_user  | test1234 |
     And I log in with username "test_user" and password "test1234"
     And the following events exist:
-      | User    | Date       | Name        | Candidate |
-      | 1       | 03/03/2019 | Go Batman   | Batman    |
-      | 1       | 03/02/2020 | Go Superman | Batman    |
+      | User    | Event Date | Name        | Candidate | Location   |
+      | 1       | 03/03/2019 | Go Batman   | Batman    | Gotham     |
+      | 1       | 03/02/2020 | Go Superman | Batman    | Metropolis |
     And the following shifts exist:
       | Event | Start Time | End Time | Role | Has Limit | Limit |
       | 1     | 12:00 PM   | 1:00 PM  | Chef | true      | 10    |

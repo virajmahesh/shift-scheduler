@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
 
   validates :event_name, presence: true
   validates :event_date, presence: true
+  validates :location, presence: true
+  validates :candidate, presence: true
 
   def ordered_shifts
     self.shifts.order("start_time")

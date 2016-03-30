@@ -1,3 +1,12 @@
+<div id = flash>
+  <% if flash[:error] %>
+      <p><%= flash[:error] %></p></br>
+  <% end %>
+  <% if flash[:notice] %>
+      <p><%= flash[:notice] %></p></br>
+  <% end %>
+</div>
+
 <h1>Create New Shift</h1>
 <%= form_tag event_shifts_path(@event) do %>
 
