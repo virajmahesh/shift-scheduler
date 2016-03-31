@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     resources :shifts
   end
 
-
   devise_for :users, controllers: {
       sessions: 'users/sessions',
       registrations: 'users/registrations'
@@ -16,5 +15,6 @@ Rails.application.routes.draw do
   get '/user/join_shift/:id/' => 'users#join_shift'
   get '/user/leave_shift/:id' => 'users#leave_shift'
   get '/user_activity' => 'user_activities#show'
+  get '/autocomplete/:partial_text' => 'roles#orderRoles'
 
 end
