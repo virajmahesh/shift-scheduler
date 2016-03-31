@@ -24,7 +24,8 @@ Given(/^the following shifts exist:$/) do |table|
   table.hashes.each do |shift|
     Shift.create event: Event.find(shift['Event']), role: shift['Role'],
                  has_limit: shift['Has Limit'], limit: shift['Limit'],
-                 start_time: shift['Start Time'], end_time: shift['End Time']
+                 start_time: shift['Start Time'], end_time: shift['End Time'],
+                 description: shift['Description']
   end
 end
 
