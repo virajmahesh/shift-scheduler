@@ -46,6 +46,7 @@ Feature: User can Create, edit and delete events
     When I fill in "Event Name" with "Batman for President"
     And I fill in "Location" with "Gotham"
     And I press "Create Event"
+    Then an event named "Batman for President" should not exist
     Then I should be on the new event page
     And I should see "Event date can't be blank"
     

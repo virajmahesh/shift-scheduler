@@ -14,7 +14,8 @@ describe ShiftsController do
 
   describe 'POST create' do
     it 'should not allow a shift to be created when no user is logged in' do
-      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling'}
+      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling',
+                has_limit: 'false'}
       post :create, event_id: @event.id, shift: @shift
 
       @event.shifts.length.should == 0
@@ -22,7 +23,8 @@ describe ShiftsController do
 
     it 'should not allow a shift to be created when a user other than the event creator is not logged in' do
       @new_user = FactoryGirl.create :user
-      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling'}
+      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling',
+                has_limit: 'false'}
 
       sign_in @new_user
       post :create, event_id: @event.id, shift: @shift
@@ -32,7 +34,8 @@ describe ShiftsController do
 
     it 'should allow a shift to be created when the event creator is logged in' do
       sign_in @user
-      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling'}
+      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling',
+                has_limit: 'false'}
       post :create, event_id: @event.id, shift: @shift
 
       @event.shifts.length.should == 1
