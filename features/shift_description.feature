@@ -14,32 +14,29 @@ Feature: Users Can See The Description For A Shift
       | User    | Event Date | Name          | Candidate | Location |
       | 1       | 03/03/2016 | Go Batman     | Batman    | Gotham   |
     And the following shifts exist:
-      | Event    | Role     | Has Limit | Limit | Start Time | End Time | Description
-      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day
+      | Event    | Role     | Has Limit | Limit | Start Time | End Time | Description |
+      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day |
     And I am on the page for the "Go Batman" event
 
   Scenario: View the description for a shift that already exists
-    Given PENDING
     Given I am on the page for the "Go Batman" event
     And I follow "Tabling"
     Then I should see "Sit all day"
 
   Scenario: Add a description for an event
-    Given PENDING
     Given I follow "Add Shift"
-    When I fill in "shift_start_time" with "3 pm"
-    And I fill in "shift_end_time" with "4 pm"
-    And I fill in "shift_role" with "Flyering"
-    And I fill in "description" with "Stand all day"
+    When I fill in "Shift Role" with "Flyering"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "5"
+    And I fill in "Shift Description" with "Stand all day"
     And I press "Add Shift"
     Then I should be on the page for the "Flyering" shift for the "Go Batman" event
     And I should see "Stand all day"
     
   Scenario: Description is optional
-    Given PENDING
     Given I follow "Add Shift"
-    When I fill in "shift_start_time" with "3 pm"
-    And I fill in "shift_end_time" with "4 pm"
-    And I fill in "shift_role" with "Flyering"
+    When I fill in "Shift Role" with "Flyering"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "5"
     And I press "Add Shift"
     Then I should be on the page for the "Flyering" shift for the "Go Batman" event
