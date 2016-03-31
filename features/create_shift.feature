@@ -41,8 +41,8 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
     Then I should be on the new shift page for the "Go Batman" event
-    When I select "1:00 PM" as the shift "Start Time"
-    And I select "3:00 PM" as the shift "End Time"
+    When I select "1:00 PM" as the Shift "Start Time"
+    And I select "3:00 PM" as the Shift "End Time"
     And I check "Shift Has Limit"
     And I fill in "Shift Limit" with "5"
     And I press "Add Shift"
@@ -53,8 +53,8 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
     Then I should be on the new shift page for the "Go Batman" event
-    When I select "1:00 PM" as the shift "Start Time"
-    And I select "3:00 PM" as the shift "End Time"
+    When I select "1:00 PM" as the Shift "Start Time"
+    And I select "3:00 PM" as the Shift "End Time"
     And I fill in "Shift Role" with "Set Up"
     And I press "Add Shift"
     Then a shift with role "Set Up" should exist
@@ -65,8 +65,8 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
     Then I should be on the new shift page for the "Go Batman" event
-    When I select "1:00 PM" as the shift "Start Time"
-    And I select "3:00 PM" as the shift "End Time"
+    When I select "1:00 PM" as the Shift "Start Time"
+    And I select "3:00 PM" as the Shift "End Time"
     And I fill in "Shift Role" with "Set Up"
     And I check "Shift Has Limit"
     And I press "Add Shift"
@@ -125,7 +125,7 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
     And I follow "Edit Shift"
     Then I should be on the edit page for the "Tabling" shift for the "Go Batman" event
-    When I select "3:00 PM" as the shift "End Time"
+    When I select "3:00 PM" as the Shift "End Time"
     And I press "Save Changes"
     Then I should be on the page for the "Tabling" shift for the "Go Batman" event
 

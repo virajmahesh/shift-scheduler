@@ -23,6 +23,8 @@ Limit: <%= @shift.limit %> <br>
       <%= link_to 'Leave', "/user/leave_shift/#{@shift.id}" %> <br>
     <% elsif not @shift.limit.nil? and @shift.volunteer_commitments.length < @shift.limit %>
       <%= link_to 'Join', "/user/join_shift/#{@shift.id}" %> <br>
+     <% elsif not @shift.has_limit %>
+      <%= link_to 'Join', "/user/join_shift/#{@shift.id}" %> <br>
     <% end %>
 <% end %>
 
