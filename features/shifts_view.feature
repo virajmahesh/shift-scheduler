@@ -11,8 +11,8 @@ Feature: Users Can See Different Shifts that Are a Part of an Event
     And I am on the homepage
     And I log in with username "john_doe" and password "hellboy1"
     And the following events exist:
-      | User    | Date       | Name          | Candidate |
-      | 1       | 03/03/2016 | Go Batman     | Batman    |
+      | User    | Event Date | Name          | Candidate | Location |
+      | 1       | 03/03/2016 | Go Batman     | Batman    | Gotham   |
     And the following shifts exist:
       | Event    | Role     | Has Limit | Limit | Start Time | End Time |
       | 1        | Tabling  | true      | 4     | 11:00      | 11:30    |

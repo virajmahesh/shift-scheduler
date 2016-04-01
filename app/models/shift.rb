@@ -4,6 +4,8 @@ class Shift < ActiveRecord::Base
   has_many :users, :through => :volunteer_commitments
   has_one :user, :through => :event
 
+  validates :role, presence: true
+  
   def format time
     time.strftime '%I:%M %p'
   end
