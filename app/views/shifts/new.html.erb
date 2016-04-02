@@ -8,24 +8,27 @@
 </div>
 
 <h1>Create New Shift</h1>
+
 <%= form_tag event_shifts_path(@event) do %>
-
-  <%= label :shift, :start_time, 'Start Time' %>
-  <%= time_select :shift, :start_time, ampm: true %><br>
-
-  <%= label :shift, :end_time, 'End Time' %>
-  <%= time_select :shift, :end_time, ampm: true %><br>
-
-  <%= label :shift, :role, 'Shift Role' %>
-  <%= text_field :shift, :role %><br>
-
-  <%= label :shift, :has_limit, 'Shift Has Limit' %>
-  <%= check_box :shift, :has_limit %><br>
-
-  <%= label :shift, :limit, 'Shift Limit' %>
-  <%= text_field :shift, :limit %><br>
-
-  <%= submit_tag 'Add Shift' %>
+    <%= label :shift, :start_time, 'Start Time' %>
+    <%= time_select :shift, :start_time, ampm: true %><br>
+  
+    <%= label :shift, :end_time, 'End Time' %>
+    <%= time_select :shift, :end_time, ampm: true %><br>
+  
+    <%= label :shift, :role, 'Shift Role' %>
+    <%= text_field :shift, :role %><br>
+  
+    <%= label :shift, :has_limit, 'Shift Has Limit' %>
+    <%= check_box :shift, :has_limit %><br>
+  
+    <%= label :shift, :limit, 'Shift Limit' %>
+    <%= text_field :shift, :limit %><br>
+    
+    <%= label :shift, :description, 'Shift Description' %>
+    <%= text_field :shift, :description %><br>
+  
+    <%= submit_tag 'Add Shift' %>
 
 <% end %>
 <%= link_to 'Back to Event', event_path(@event) %>

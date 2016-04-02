@@ -11,7 +11,7 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:shift).permit(:event_id, :start_time, :end_time, :role, :has_limit, :limit, :created_at, :updated_at)
+    params.require(:shift).permit(:event_id, :start_time, :end_time, :role, :has_limit, :limit, :created_at, :updated_at, :description)
   end
 
   def create
