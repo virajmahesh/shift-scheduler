@@ -1,27 +1,25 @@
 <h1>Edit Existing Shift</h1>
 
 <%= form_tag event_shift_path(@event, @shift), :method => :put do %>
-    <%= label :shift, :role, 'Shift Role' %>
-    <%= text_field :shift, :role %>
-
     <%= label :shift, :start_time, 'Start Time' %>
-    <%= time_select :shift, :start_time, ampm: true %>
+    <%= time_select :shift, :start_time, ampm: true %><br>
 
     <%= label :shift, :end_time, 'End Time' %>
-    <%= time_select :shift, :end_time, ampm: true %>
+    <%= time_select :shift, :end_time, ampm: true %><br>
 
-    <%= label :shift, :has_limit, "Shift Has Limit" %>
-    <%= check_box :shift, :has_limit %>
+    <%= label :shift, :role, 'Shift Role' %>
+    <%= text_field :shift, :role %><br>
 
-    <%= label :shift, :limit, "Shift Limit" %>
-    <%= text_field :shift, :limit %>
-    
+    <%= label :shift, :has_limit, 'Shift Has Limit' %>
+    <%= check_box :shift, :has_limit %><br>
+
+    <%= label :shift, :limit, 'Shift Limit' %>
+    <%= text_field :shift, :limit %><br>
+
     <%= label :shift, :description, 'Shift Description' %>
     <%= text_field :shift, :description %><br>
 
-    <br/>
-    <br/>
-    <%= submit_tag 'Save Changes' %>
-    <%= link_to 'Back to Event', event_path %>
+    <%= submit_tag 'Save Changes' %> <br>
+    <%= link_to 'Back to Event', event_path(@event) %>
 
 <% end %>
