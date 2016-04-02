@@ -26,5 +26,6 @@ FactoryGirl.define do
     start_time '10:00 PM'
     end_time '10:10 PM'
     role 'Tabling'
+    has_limit 'false'
   end
 end
