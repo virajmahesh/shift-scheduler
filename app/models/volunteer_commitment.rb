@@ -10,8 +10,6 @@ class VolunteerCommitment < ActiveRecord::Base
       subject = "#{user.name} has joined shift #{shift.id}"
       body = "#{user.name} (#{user.email}) has joined shift #{shift.id}."
       creator.notify(subject, body, creator)
-
-      UserActivity.create user_id: creator.id, activity_id: UserActivity.join_shift_id, shift_id: shift.id
     end
 
     def delete_notification
@@ -19,8 +17,6 @@ class VolunteerCommitment < ActiveRecord::Base
       subject = "#{user.name} has left shift #{shift.id}"
       body = "#{user.name} (#{user.email}) has left shift #{shift.id}."
       creator.notify(subject, body, creator)
-
-      UserActivity.create user_id: creator.id, activity_id: UserActivity.leave_shift_id, shift_id: shift.id
     end
 
 
