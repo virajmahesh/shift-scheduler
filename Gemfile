@@ -21,6 +21,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'mailboxer'
 
+gem 'sidekiq'
+
 
 gem 'devise', '~> 4.0.0.rc2'
 gem 'cancancan', '~> 1.8'
