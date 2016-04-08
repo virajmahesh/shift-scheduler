@@ -23,6 +23,7 @@ gem 'mailboxer'
 
 gem 'sidekiq'
 
+gem 'rails-angular-material'
 
 gem 'devise', '~> 4.0.0.rc2'
 gem 'cancancan', '~> 1.8'
