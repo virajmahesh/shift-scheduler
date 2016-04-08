@@ -27,6 +27,11 @@
 <p><%= @event.description %></p>
 
 <h3>Shifts</h3>
+  <div id="shifts">
+    <% @event.ordered_shifts.each do |s| %>
+      <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
+    <% end %>
+  </div>
   <% @event.ordered_shifts.each do |s| %>
     <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.skills.pluck(:description), event_shift_path(@event, s) %> <br>
     <% if s.role %>
