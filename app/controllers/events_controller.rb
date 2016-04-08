@@ -18,6 +18,7 @@ class EventsController < ApplicationController
       else
         flash[:notice] = "#{@event.event_name} was successfully created."
         redirect_to event_path @event
+        EventNotifierJob.set(wait_until: @event.event_date.advance(:days => -1)).perform_later @event
       end
     else
       redirect_to 'public/422.html', status: :unauthorized
