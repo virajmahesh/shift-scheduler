@@ -38,6 +38,19 @@ Given(/^the following volunteer commitments exist:$/) do |table|
   end
 end
 
+Given(/^the following activity_types exist:$/) do |table|
+  table.hashes.each do |activity_type|
+    ActivityType.create({activity: activity_type['Activity'] + " "})
+  end
+end
+
+Given(/^the following user_activities exist:$/) do |table|
+  table.hashes.each do |user_activity|
+    UserActivity.create user_id: user_activity['User'], activity_type_id: user_activity['Activity'],
+                  shift_id: user_activity['Shift']
+  end
+end
+
 Given (/^"(.*)" has signed up for the "(.*)" shift for the "(.*)" event$/) do |username, shift_role, event_name|
   user = User.find_by username: username
   event = Event.find_by event_name: event_name
