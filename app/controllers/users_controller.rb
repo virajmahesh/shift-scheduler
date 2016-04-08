@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:email, :username, :password, :password_confirmation,
-                  :city, :state, :zip_code, :phone_number)
+                  :city, :state, :zip_code, :phone_number, :skills)
   end
 
   def join_shift

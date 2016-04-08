@@ -1,17 +1,4 @@
-<div id = flash>
-  <% if flash[:error] %>
-      <p><%= flash[:error] %></p></br>
-  <% end %>
-  <% if flash[:notice] %>
-      <p><%= flash[:notice] %></p></br>
-  <% end %>
-</div>
-
-<% if @shift.role %>
-  Role: <%= @shift.role %>
-<% end %>
-
-<h2><%= @shift.skills.pluck(:description) %></h2>
+<h2><%= @shift.role %></h2>
 
 Description: <%= @shift.description %> <br>
 Start Time: <%= @shift.formatted_start_time %> <br>
@@ -23,7 +10,7 @@ Limit: <%= @shift.limit %> <br>
 <% end %>
 
 
-<% if not current_user.nil? %>
+<% if not @user.nil? %>
     <% if current_user.signed_up_for @shift %>
       <%= link_to 'Leave', "/user/leave_shift/#{@shift.id}" %> <br>
     <% elsif not @shift.has_limit or @shift.volunteer_commitments.length < @shift.limit %>

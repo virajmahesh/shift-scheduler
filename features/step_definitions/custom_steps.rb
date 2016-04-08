@@ -1,5 +1,3 @@
-include BCrypt
-
 Given(/^the following users have registered for accounts:$/) do |table|
   table.hashes.each do |user|
     email = user[:email]
@@ -13,7 +11,7 @@ end
 
 Given(/^the following events exist:$/) do |table|
   table.hashes.each do |event|
-    Event.create user: User.find(event['User']), event_name: event['Name'],
+    Event.create user: User.find_by(username: event['User']), event_name: event['Name'],
                  candidate: event['Candidate'], event_date: event['Event Date'],
                  location: event['Location']
   end
@@ -21,7 +19,7 @@ end
 
 Given(/^the following shifts exist:$/) do |table|
   table.hashes.each do |shift|
-    Shift.create event: Event.find(shift['Event']), role: shift['Role'],
+    Shift.create event: Event.find_by(event_name: shift['Event']), role: shift['Role'],
                  has_limit: shift['Has Limit'], limit: shift['Limit'],
                  start_time: shift['Start Time'], end_time: shift['End Time'],
                  description: shift['Description']
@@ -124,6 +122,10 @@ When (/^I select "(.*)" as the (.*) "(.*) Time"$/) do |time, model, field|
 
   select time.strftime('%I %p'), from: "#{model}[#{field}_time(4i)]"
   select time.strftime('%M'), from: "#{model}[#{field}_time(5i)]"
+end
+
+Then (/^I should see "(.*)" in "(.*)"$/) do |value, field|
+  find_field(field).value.should eq value
 end
 
 Given (/^PENDING$/) do
