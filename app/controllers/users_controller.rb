@@ -10,11 +10,11 @@ class UsersController < ApplicationController
 
     unless @user.nil? or @shift.nil?
       VolunteerCommitment.create user: @user, shift: @shift
-      creator = @shift.event.user
       flash[:notice] = 'You have been signed up for the shift'
-      UserActivity.create user_id: creator.id, activity_id: UserActivity.join_shift_id, shift_id: @shift.id
+      creator_id = @shift.event.user.id
+      UserActivity.create user_id: creator_id, activity_id: UserActivity.join_shift_id, shift_id: @shift.id
       if @shift.has_limit and @shift.volunteer_commitments.length == @shift.limit
-        UserActivity.create user_id: creator.id, activity_id: UserActivity.shift_full_id, shift_id: @shift.id
+        UserActivity.create user_id: creator_id, activity_id: UserActivity.shift_full_id, shift_id: @shift.id
       end
         
     end

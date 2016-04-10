@@ -42,6 +42,9 @@ module NavigationHelpers
       when /^the edit page for the "(.*)" event$/
         edit_event_path Event.find_by event_name: $1
 
+      when /^the user activity page$/
+        user_activity_path
+
       else
         begin
           page_name =~ /^the (.*) page$/
