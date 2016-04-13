@@ -9,6 +9,10 @@
     <%= @event.event_date.strftime("%B %-d, %Y") %>
   </li>
   <li>
+    Event Time:
+    <%= @event.formatted_start_time %> to <%= @event.formatted_end_time %>
+  </li>
+  <li>
     <%= @event.number_signed_up %>  
   </li>
   <li>
@@ -35,3 +39,6 @@
 <% if can? :destroy, @event %>
     <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
 <% end %>
+
+<%= link_to 'Home Page', root_path, method: :get %><br>
+
