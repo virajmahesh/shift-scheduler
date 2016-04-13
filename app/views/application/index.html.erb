@@ -1,26 +1,21 @@
-<div id = flash>
- <% if flash[:error] %>
-  <p><%= flash[:error] %></p></br>
- <% end %>
- <% if flash[:notice] %>
-  <p><%= flash[:notice] %></p></br>
- <% end %>
-</div>
+<md-card>
+  <h2> Find a way to get involved </h2>
+  <p>UpRise helps you find ways to put your skills to work in your community on issues that matter most to you!</p>
+</md-card>
 
-<div>
-  <% unless @user.nil? %>
-      <%= content_tag :a, @user.username %>
-      <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-      <%= link_to('Create Event', new_event_path) %>
-      <%= link_to('Notifications', user_activity_path) %>
-  <% else %>
-      <%= link_to('Sign Up', new_user_registration_path) %>
-      <%= link_to('Login', new_user_session_path) %>
+
+<div class='md-padding' layout='row' layout-wrap>
+  <% Event.future_events.each do |e| %>
+      <div flex-sm='33' flex-gt-sm='25' layout="column">
+
+        <a href="<%= event_path(e) %>" >
+          <md-card class="event-card">
+            <h3 class="event-card-heading"><%= e.event_name %></h3>
+            <h5 class="event-card-subtext"><%= e.formatted_event_date %></h5>
+            <h5 class="event-card-subtext"><%= e.location %></h5>
+            <h5 class="event-card-subtext"> <%= e.number_signed_up %> </h5>
+          </md-card>
+        </a>
+      </div>
   <% end %>
 </div>
-
-<h1> UpRise Shift Scheduler </h1>
-
-<% Event.future_events.each do |e| %>
-  <%= e.formatted_event_date %>, <%= link_to e.event_name, event_path(e) %> <br>
-<% end %>
