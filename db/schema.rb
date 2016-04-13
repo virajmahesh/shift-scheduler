@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160413210221) do
     t.integer  "event_id"
     t.time     "start_time"
     t.time     "end_time"
+    t.string   "role"
     t.boolean  "has_limit"
     t.integer  "limit"
     t.datetime "created_at",  null: false

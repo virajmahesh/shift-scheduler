@@ -16,6 +16,9 @@
     <%= label :shift, :end_time, 'End Time' %>
     <%= time_select :shift, :end_time, ampm: true %><br>
   
+    <%= label :shift, :role, 'Shift Role' %>
+    <%= text_field :shift, :role %><br>
+  
     <%= label :shift, :has_limit, 'Shift Has Limit' %>
     <%= check_box :shift, :has_limit %><br>
   
