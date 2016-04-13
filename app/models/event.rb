@@ -20,6 +20,18 @@ class Event < ActiveRecord::Base
   def formatted_event_date
     self.event_date.strftime '%B %-d %Y'
   end
+  
+  def format time
+    time.strftime '%I:%M %p'
+  end
+
+  def formatted_start_time
+    self.format self.start_time
+  end
+
+  def formatted_end_time
+    self.format self.end_time
+  end
 
   def number_signed_up
     users_signed_up = Set.new
