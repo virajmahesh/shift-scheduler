@@ -17,14 +17,8 @@ class UserActivity < ActiveRecord::Base
     def self.shift_time_id; @@shift_time_id; end
         
     def representation
-<<<<<<< HEAD
         if shift != nil
             activity_type.activity + shift.role
-=======
-        my_activity = ActivityType.find_by id: activity_id
-        if activity_id == @@event_time_id 
-            my_activity.activity
->>>>>>> create shift notification job
         else
             activity_type.activity + event.event_name
         end
