@@ -6,8 +6,6 @@ class Event < ActiveRecord::Base
 
   validates :event_name, presence: true
   validates :event_date, presence: true
-  validates :start_time, presence: true
-  validates :end_time, presence: true
   validates :location, presence: true
   validates :candidate, presence: true
 
