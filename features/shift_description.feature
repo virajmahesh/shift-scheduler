@@ -11,11 +11,11 @@ Feature: Users Can See The Description For A Shift
     And I am on the homepage
     And I log in with username "john_doe" and password "hellboy_new"
     And the following events exist:
-      | User    | Event Date | Name          | Candidate | Location |
-      | 1       | 03/03/2016 | Go Batman     | Batman    | Gotham   |
+      | User     | Event Date | Name          | Candidate | Location |
+      | john_doe | 03/03/2016 | Go Batman     | Batman    | Gotham   |
     And the following shifts exist:
-      | Event    | Role     | Has Limit | Limit | Start Time | End Time | Description |
-      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day |
+      | Event     | Role     | Has Limit | Limit | Start Time | End Time | Description |
+      | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day |
     And I am on the page for the "Go Batman" event
 
   Scenario: View the description for a shift that already exists

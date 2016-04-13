@@ -1,35 +1,20 @@
-<div id = flash>
-  <% if flash[:error] %>
-      <p><%= flash[:error] %></p></br>
-  <% end %>
-  <% if flash[:notice] %>
-      <p><%= flash[:notice] %></p></br>
-  <% end %>
-</div>
-
 <h1>Create New Event</h1>
-<%= form_tag events_path do %>
+<%= form_for(:event, url: events_path) do |f| %>
 
-  <%= label :event, :event_name, 'Event Name' %>
-  <%= text_field :event, :event_name %><br>
+  <%= f.label :event_name, 'Event Name' %>
+  <%= f.text_field :event_name %><br>
 
-  <%= label :event, :event_date, 'Event Date' %>
-  <%= date_select :event, :event_date, order: [:month, :day, :year], include_blank: true %><br>
-  
-  <%= label :event, :start_time, 'Start Time' %>
-  <%= time_select :event, :start_time, ampm: true %><br>
+  <%= f.label :event_date, 'Event Date' %>
+  <%= f.date_select :event_date, order: [:month, :day, :year], include_blank: true %><br>
 
-  <%= label :event, :end_time, 'End Time' %>
-  <%= time_select :event, :end_time, ampm: true %><br>
+  <%= f.label :location, 'Location' %>
+  <%= f.text_field :location %><br>
 
-  <%= label :event, :location, 'Location' %>
-  <%= text_field :event, :location %><br>
+  <%= f.label :candidate, 'Candidate' %>
+  <%= f.text_field :candidate %><br>
 
-  <%= label :event, :candidate, 'Candidate' %>
-  <%= text_field :event, :candidate %><br>
-
-  <%= label :event, :description, 'Event Description' %>
-  <%= text_field :event, :description %><br>
+  <%= f.label :description, 'Event Description' %>
+  <%= f.text_field :description %><br>
 
   <%= submit_tag 'Create Event' %>
 
