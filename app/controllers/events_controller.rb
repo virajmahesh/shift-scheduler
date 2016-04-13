@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:location, :event_name, :event_date, :candidate, :description)
+    params.require(:event).permit(:location, :start_time, :end_time, :event_name, :event_date, :candidate, :description)
   end
 
   def create
@@ -44,5 +44,4 @@ class EventsController < ApplicationController
       redirect_to 'public/422.html', status: :unauthorized
     end
   end
-
 end

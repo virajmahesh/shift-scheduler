@@ -8,6 +8,12 @@
     Event Date:
     <%= @event.event_date.strftime("%B %-d, %Y") %>
   </li>
+    <% if @event.start_time and @event.end_time %>
+      <li>
+        Event Time:
+        <%= @event.formatted_start_time %> to <%= @event.formatted_end_time %>
+      </li>
+    <% end %>
   <li>
     <%= @event.number_signed_up %>  
   </li>
@@ -22,7 +28,10 @@
 
 <h3>Shifts</h3>
   <% @event.ordered_shifts.each do |s| %>
-    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
+    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.skills.pluck(:description), event_shift_path(@event, s) %> <br>
+    <% if s.role %>
+      Role: <%= link_to s.role, event_shift_path(@event, s) %><br>
+    <% end %>
   <% end %>
 
 <% if can? :create_shift, @event %>
@@ -35,3 +44,6 @@
 <% if can? :destroy, @event %>
     <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
 <% end %>
+
+<%= link_to 'Home Page', root_path, method: :get %><br>
+

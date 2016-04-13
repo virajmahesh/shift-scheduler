@@ -10,6 +10,12 @@
 <div>
 
     <%= content_tag :a, @event.event_name %>
+     <% if @event.start_time %>
+        <%= content_tag :a, @event.start_time %>
+     <% end %>
+     <% if @event.end_time %>
+        <%= content_tag :a, @event.end_time %>
+     <% end %>
     <%= link_to('Add Shift', new_shift_path) %>
 
 </div>
