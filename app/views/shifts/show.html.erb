@@ -26,8 +26,9 @@ Limit: <%= @shift.limit %> <br>
       <%= link_to 'Join', "/user/join_shift/#{@shift.id}" %> <br>
     <% end %>
 <% end %>
-
+</br>
 <% if can? :update, @shift %>
+    <%= link_to 'View Volunteers', shift_viewUsers_path(@event, @shift) %> <br>
     <%= link_to 'Edit Shift', edit_event_shift_path(@event, @shift) %> <br>
 <%end%>
 <% if can? :create, @shift %>

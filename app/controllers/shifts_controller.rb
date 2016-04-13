@@ -49,4 +49,24 @@ class ShiftsController < ApplicationController
     end
   end
   
+  def remove_user
+    user_id = params[:user_id]
+    if can? :remove_user, @shift
+      VolunteerCommitment.destroy_all(user_id: user_id, shift_id: @shift)
+      flash[:notice] = "User Removed."
+      redirect_to event_shift_path @event, @shift
+    else
+      render file: 'public/422.html', status: :unauthorized
+    end
+  end
+  
+  def view_users
+    if can? :view_users, @shift
+      shift_userids = VolunteerCommitment.where(shift_id: @shift).pluck(:user_id)
+      @shift_users = User.select(:id, :username).find(shift_userids)
+      render 'shifts/users.html.erb'
+    else
+      render file: 'public/422.html', status: :unauthorized
+    end
+  end
 end

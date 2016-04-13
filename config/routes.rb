@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   }
 
   root 'application#index'
-
+  get 'events/:event_id/shifts/:id/view_users' => 'shifts#view_users', as: 'shift_viewUsers'
+  get 'events/:event_id/shifts/:id/remove/:user_id' => 'shifts#remove_user', as: 'shift_removeUser'
   get '/user/join_shift/:id/' => 'users#join_shift'
   get '/user/leave_shift/:id' => 'users#leave_shift'
   get '/user_activity' => 'user_activities#show'
