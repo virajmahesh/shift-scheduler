@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401010655) do
+ActiveRecord::Schema.define(version: 20160413210221) do
 
   create_table "activity_types", force: :cascade do |t|
     t.string   "activity"
@@ -89,11 +89,15 @@ ActiveRecord::Schema.define(version: 20160401010655) do
     t.string "description"
   end
 
+  create_table "shift_roles", force: :cascade do |t|
+    t.integer "shift_id"
+    t.integer "role_id"
+  end
+
   create_table "shifts", force: :cascade do |t|
     t.integer  "event_id"
     t.time     "start_time"
     t.time     "end_time"
-    t.string   "role"
     t.boolean  "has_limit"
     t.integer  "limit"
     t.datetime "created_at",  null: false
@@ -109,12 +113,16 @@ ActiveRecord::Schema.define(version: 20160401010655) do
     t.integer  "shift_id"
   end
 
+  create_table "user_roles", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "city"
     t.string   "state"
     t.integer  "zip_code"
-    t.string   "skills"
     t.string   "phone_number"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false

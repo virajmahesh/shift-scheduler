@@ -26,7 +26,7 @@
 
 <h3>Shifts</h3>
   <% @event.ordered_shifts.each do |s| %>
-    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
+    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.roles.pluck(:description), event_shift_path(@event, s) %> <br>
   <% end %>
 
 <% if can? :create_shift, @event %>

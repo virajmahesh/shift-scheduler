@@ -4,7 +4,6 @@ class CreateShifts < ActiveRecord::Migration
       t.belongs_to :event
       t.datetime :start_time
       t.datetime :end_time
-      t.string :role
       t.boolean :has_limit
       t.integer :limit
 

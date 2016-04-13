@@ -11,7 +11,7 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:shift).permit(:event_id, :start_time, :end_time, :role, :has_limit, :limit, :created_at, :updated_at, :description)
+    params.require(:shift).permit(:event_id, :start_time, :end_time, :has_limit, :limit, :created_at, :updated_at, :description)
   end
 
   def create
@@ -21,7 +21,7 @@ class ShiftsController < ApplicationController
         flash[:error] = @shift.errors.full_messages.first
         redirect_to new_event_shift_path
       else
-        flash[:notice] = "#{@shift.role} shift was successfully created."
+        flash[:notice] = "shift was successfully created."
         redirect_to event_shift_path @event, @shift
       end
     else
@@ -32,7 +32,7 @@ class ShiftsController < ApplicationController
   def update
     if can? :update, @shift
       @shift.update_attributes shift_params
-      flash[:notice] = "#{@shift.role} shift was successfully updated."
+      flash[:notice] = "shift was successfully updated."
       redirect_to event_shift_path @event, @shift
     else
       render file: 'public/422.html', status: :unauthorized
@@ -42,7 +42,7 @@ class ShiftsController < ApplicationController
   def destroy
     if can? :destroy, @shift
       @shift.destroy
-      flash[:notice] = " '#{@shift.role}' shift deleted."
+      flash[:notice] = "shift deleted."
       redirect_to event_path @event
     else
       render file: 'public/422.html', status: :unauthorized

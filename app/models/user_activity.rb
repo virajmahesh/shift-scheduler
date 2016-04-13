@@ -15,9 +15,6 @@ class UserActivity < ActiveRecord::Base
         
     def representation
         my_activity = ActivityType.find_by id: activity_id
-        my_activity.activity + shift.role
+        my_activity.activity + shift.roles.as_json
     end
-        
-        
-    
 end
