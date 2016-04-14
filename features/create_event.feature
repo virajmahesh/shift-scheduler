@@ -12,15 +12,15 @@ Feature: User can Create, edit and delete events
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
     And the following events exist:
-      | User     | Name       | Location  | Candidate | Event Date       |
-      | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018       |
+      | User     | Name       | Location  | Candidate | Event Date |
+      | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018 |
 
   Scenario: Attempt to create an event
     When I follow "Create"
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
     And I fill in "Location" with "Gotham"
-    And I select "03/03/2016" as the "Event Date"
+    And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Candidate" with "Batman"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
@@ -33,7 +33,7 @@ Feature: User can Create, edit and delete events
     When I follow "Create"
     Then I should be on the new event page
     When I fill in "Location" with "Gotham"
-    And I select "03/03/2016" as the "Event Date"
+    And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Candidate" with "Batman"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
@@ -44,6 +44,7 @@ Feature: User can Create, edit and delete events
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
     And I fill in "Location" with "Gotham"
+    And I fill in "event[event_date]" with " "
     And I press "Create Event"
     Then an event named "Batman for President" should not exist
     And I should see "Event date can't be blank"
@@ -52,7 +53,7 @@ Feature: User can Create, edit and delete events
     When I follow "Create"
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
-    And I select "03/03/2016" as the "Event Date"
+    And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Candidate" with "Batman"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
@@ -63,7 +64,7 @@ Feature: User can Create, edit and delete events
     When I follow "Create"
     Then I should be on the new event page
     When I fill in "Event Name" with "Batman for President"
-    And I select "03/03/2016" as the "Event Date"
+    And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Location" with "Gotham"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
@@ -99,7 +100,7 @@ Feature: User can Create, edit and delete events
     Given I am on the page for the "Go Batman" event
     And I follow "Edit Event"
     Then I should be on the edit page for the "Go Batman" event
-    When I select "03/04/2019" as the "Event Date"
+    When I fill in "event[event_date]" with "03/04/2019"
     And I press "Save Changes"
     Then I should be on the page for the "Go Batman" event
     And I should see "April 3, 2019"
@@ -109,7 +110,7 @@ Feature: User can Create, edit and delete events
     When I follow "Create"
     When I fill in "Event Name" with "Batman for President"
     And I fill in "Candidate" with "Batman"
-    And I select "03/03/2016" as the "Event Date"
+    And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
     And I should see "Batman for President" in "Event Name"
