@@ -14,7 +14,7 @@ class EventsController < ApplicationController
       @event = Event.create event_params.merge user: @user
       if @event.invalid?
         flash[:error] = @event.errors.full_messages.first
-        redirect_to new_event_path
+        render :new
       else
         flash[:notice] = "#{@event.event_name} was successfully created."
         redirect_to event_path @event

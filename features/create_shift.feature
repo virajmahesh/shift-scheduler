@@ -14,13 +14,13 @@ Feature: User can Create, edit and delete shifts
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
     And the following events exist:
-      | User | Name       | Location  | Candidate | Event Date       |
-      | 1    | Go Batman  | Gotham    | Batman    | 03/04/2018       |
-      | 1    | Go Joker   | Gotham    | Joker     | 03/05/2017       |
+      | User     | Name       | Location  | Candidate | Event Date       |
+      | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018       |
+      | john_doe | Go Joker   | Gotham    | Joker     | 03/05/2017       |
     And the following shifts exist:
-      | Event    | Role     | Has Limit | Limit | Start Time | End Time |
-      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    |
-      | 1        | Flyering | true      | 0     | 12:00      | 12:30    |
+      | Event     | Role     | Has Limit | Limit | Start Time | End Time |
+      | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    |
+      | Go Batman | Flyering | true      | 0     | 12:00      | 12:30    |
 
   Scenario: Attempt to create a shift
     Given I am on the page for the "Go Batman" event
@@ -74,12 +74,6 @@ Feature: User can Create, edit and delete shifts
     And I should be on the new shift page
     And I should see "Please enter the number of volunteers needed"
 
-  Scenario: Attempt to fill in the event description box
-    Given PENDING
-    Given I am on the page for the "Go Batman" event
-    When I fill in "Description" with "long description text"
-    Then I should see enough space on the multiline textbox for the event description
-
   Scenario: Attempt to modify a shift when logged out
     Given I am on the homepage
     Then I should see "Go Batman"
@@ -113,13 +107,15 @@ Feature: User can Create, edit and delete shifts
     And I should not see "Join"
 
   Scenario: Attempt to delete a shift
+    Given I am on the page for the "Go Batman" event
+    Then I should see "Tabling"
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
-    And I press "Delete"
+    And I press "Delete Shift"
     Then I should be on the page for the "Go Batman" event
     And a shift with role "Flyering" should exist
     And a shift with role "Tabling" should not exist
     And I should see "Flyering"
-    And I should not see "Tabling "
+    And I should not see "Tabling" within "#shifts"
 
   Scenario: Attempt to edit a shift
     Given I am on the page for the "Tabling" shift for the "Go Batman" event

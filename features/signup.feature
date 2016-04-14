@@ -82,17 +82,15 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I should see "Password confirmation doesn't match Password"
     
   Scenario: If form input is partially invalid, valid input should be preserved
-    Given PENDING
     When I follow "Sign Up"
     When I fill in "Email" with "john_doe@uprise.com"
     And I fill in "Username" with "john_doe"
     And I fill in "Password" with "password"
-    And I fill in "Confirm Password" with "passw0rd"
+    And I fill in "Password confirmation" with "passw0rd"
     And I press "Sign Up"
-    Then I should be on the signup page
-    And I should see "Password confirmation doesn't match Password"
-    And I should see "john_doe@uprise.com"
-    And I should see "john_doe"
+    Then I should see "Password confirmation doesn't match Password"
+    And I should see "john_doe@uprise.com" in "Email"
+    And I should see "john_doe" in "Username"
 
   Scenario: No Log in link on the signup page
     When I follow "Sign Up"
