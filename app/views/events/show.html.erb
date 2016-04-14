@@ -21,9 +21,11 @@
 <p><%= @event.description %></p>
 
 <h3>Shifts</h3>
-  <% @event.ordered_shifts.each do |s| %>
-    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
-  <% end %>
+  <div id="shifts">
+    <% @event.ordered_shifts.each do |s| %>
+      <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
+    <% end %>
+  </div>
 
 <% if can? :create_shift, @event %>
   <%= link_to 'Add Shift', new_event_shift_path(@event) %><br><br>

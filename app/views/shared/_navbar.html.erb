@@ -1,0 +1,21 @@
+<md-toolbar class='md-hue-2'>
+  <div class='md-toolbar-tools md-hue-2'>
+
+    <%= image_tag 'logo.jpg', class: 'logo' %>
+
+    <h3>UpRise</h3>
+    <md-button ng-href='<%= root_path %>'>Find</md-button>
+    <md-button ng-href='<%= new_event_path %>'>Create</md-button>
+
+    <span  flex=''></span>
+
+    <% unless @user.nil? or @user.id.nil? %>
+        <%= content_tag :a, @user.username %>
+        <md-button ng-href='<%= destroy_user_session_path %>' data-method='delete'>Logout</md-button>
+        <md-button ng-href='<%= user_activity_path %>'>Notifications</md-button>
+      <% else %>
+        <md-button ng-href='<%= new_user_registration_path %>'>Sign Up</md-button>
+        <md-button ng-href='<%= new_user_session_path %>'>Login</md-button>
+    <% end %>
+  </div>
+</md-toolbar>
