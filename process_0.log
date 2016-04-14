@@ -1,0 +1,174 @@
+Using the default profile...
+Feature: User can Create, edit and delete events
+  As a User
+  I want to be able to create/edit/delete an event
+  So that I can get potential volunteers interested in my cause/campaign.  Background:                                                              # features/create_event.feature:7    Given the following users have registered for accounts:                # features/step_definitions/custom_steps.rb:1
+      | email               | username | password          |
+      | john_doe@uprise.com | john_doe | john_doe_password |
+      | jane_doe@uprise.com | jane_doe | jane_doe_password |    And I am on the homepage                                               # features/step_definitions/web_steps.rb:44
+    And I log in with username "john_doe" and password "john_doe_password" # features/step_definitions/custom_steps.rb:53
+    And the following events exist:                                        # features/step_definitions/custom_steps.rb:12
+      | User     | Name      | Location | Candidate | Event Date |
+      | john_doe | Go Batman | Gotham   | Batman    | 03/04/2018 |  Scenario: Attempt to create an event                                # features/create_event.feature:18    When I follow "Create"                                            # features/step_definitions/web_steps.rb:60
+    Then I should be on the new event page                            # features/step_definitions/web_steps.rb:234
+    When I fill in "Event Name" with "Batman for President"           # features/step_definitions/web_steps.rb:64
+    And I fill in "Location" with "Gotham"                            # features/step_definitions/web_steps.rb:64
+    And I select "03/03/2016" as the "Event Date"                     # features/step_definitions/custom_steps.rb:97
+    And I fill in "Candidate" with "Batman"                           # features/step_definitions/web_steps.rb:64
+    And I fill in "Description" with "A fund raiser for Batman"       # features/step_definitions/web_steps.rb:64
+    And I press "Create Event"                                        # features/step_definitions/web_steps.rb:56
+    Then I should be on the page for the "Batman for President" event # features/step_definitions/web_steps.rb:234
+    And I should see "Batman for President"                           # features/step_definitions/web_steps.rb:109
+    And I should see "Gotham"                                         # features/step_definitions/web_steps.rb:109
+    And an event named "Batman for President" should exist            # features/step_definitions/custom_steps.rb:71  Scenario: Attempt to create event without a name              # features/create_event.feature:32    When I follow "Create"                                      # features/step_definitions/web_steps.rb:60
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    When I fill in "Location" with "Gotham"                     # features/step_definitions/web_steps.rb:64
+    And I select "03/03/2016" as the "Event Date"               # features/step_definitions/custom_steps.rb:97
+    And I fill in "Candidate" with "Batman"                     # features/step_definitions/web_steps.rb:64
+    And I fill in "Description" with "A fund raiser for Batman" # features/step_definitions/web_steps.rb:64
+    And I press "Create Event"                                  # features/step_definitions/web_steps.rb:56
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    And I should see "Event name can't be blank"                # features/step_definitions/web_steps.rb:109  Scenario: Attempt to create event without an event date       # features/create_event.feature:43    When I follow "Create"                                      # features/step_definitions/web_steps.rb:60
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    When I fill in "Event Name" with "Batman for President"     # features/step_definitions/web_steps.rb:64
+    And I fill in "Location" with "Gotham"                      # features/step_definitions/web_steps.rb:64
+    And I press "Create Event"                                  # features/step_definitions/web_steps.rb:56
+    Then an event named "Batman for President" should not exist # features/step_definitions/custom_steps.rb:76
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    And I should see "Event date can't be blank"                # features/step_definitions/web_steps.rb:109  Scenario: Attempt to create without location                  # features/create_event.feature:53    When I follow "Create"                                      # features/step_definitions/web_steps.rb:60
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    When I fill in "Event Name" with "Batman for President"     # features/step_definitions/web_steps.rb:64
+    And I select "03/03/2016" as the "Event Date"               # features/step_definitions/custom_steps.rb:97
+    And I fill in "Candidate" with "Batman"                     # features/step_definitions/web_steps.rb:64
+    And I fill in "Description" with "A fund raiser for Batman" # features/step_definitions/web_steps.rb:64
+    And I press "Create Event"                                  # features/step_definitions/web_steps.rb:56
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    And I should see "Location can't be blank"                  # features/step_definitions/web_steps.rb:109  Scenario: Attempt to create without candidate                 # features/create_event.feature:64    When I follow "Create"                                      # features/step_definitions/web_steps.rb:60
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    When I fill in "Event Name" with "Batman for President"     # features/step_definitions/web_steps.rb:64
+    And I select "03/03/2016" as the "Event Date"               # features/step_definitions/custom_steps.rb:97
+    And I fill in "Location" with "Gotham"                      # features/step_definitions/web_steps.rb:64
+    And I fill in "Description" with "A fund raiser for Batman" # features/step_definitions/web_steps.rb:64
+    And I press "Create Event"                                  # features/step_definitions/web_steps.rb:56
+    Then I should be on the new event page                      # features/step_definitions/web_steps.rb:234
+    And I should see "Candidate can't be blank"                 # features/step_definitions/web_steps.rb:109  Scenario: Attempt to modify an event when logged out # features/create_event.feature:75    Given PENDING                                      # features/step_definitions/custom_steps.rb:114
+      TODO (Cucumber::Pending)
+      ./features/step_definitions/custom_steps.rb:115:in `/^PENDING$/'
+      features/create_event.feature:76:in `Given PENDING'    When I follow "Logout"                             # features/step_definitions/web_steps.rb:60
+    Then I should be on the homepage                   # features/step_definitions/web_steps.rb:234
+    And I should not see "john_doe"                    # features/step_definitions/web_steps.rb:127
+    When I follow "Go Batman"                          # features/step_definitions/web_steps.rb:60
+    Then I should not see "Edit Event"                 # features/step_definitions/web_steps.rb:127
+    And I should not see "Delete Event"                # features/step_definitions/web_steps.rb:127
+    And I should not see "Add Shift"                   # features/step_definitions/web_steps.rb:127  Scenario: Attempt to modify an event when logged in as a user that did not create the event # features/create_event.feature:85    When I follow "Logout"                                                                    # features/step_definitions/web_steps.rb:60
+    Then I should be on the homepage                                                          # features/step_definitions/web_steps.rb:234
+    And I should not see "john_doe"                                                           # features/step_definitions/web_steps.rb:127
+    And I log in with username "jane_doe" and password "jane_doe_password"                    # features/step_definitions/custom_steps.rb:53
+    Then I should be on the homepage                                                          # features/step_definitions/web_steps.rb:234
+    When I follow "Go Batman"                                                                 # features/step_definitions/web_steps.rb:60
+    Then I should not see "Edit Event"                                                        # features/step_definitions/web_steps.rb:127
+    And I should not see "Delete Event"                                                       # features/step_definitions/web_steps.rb:127  Scenario: Attempt to delete an event               # features/create_event.feature:95    Given I am on the page for the "Go Batman" event # features/step_definitions/web_steps.rb:44
+    And I follow "Delete Event"                      # features/step_definitions/web_steps.rb:60
+    Then I should be on the home page                # features/step_definitions/web_steps.rb:234
+    And an event named "Go Batman" should not exist  # features/step_definitions/custom_steps.rb:76  Scenario: Attempt to edit an event                            # features/create_event.feature:101    Given I am on the page for the "Go Batman" event            # features/step_definitions/web_steps.rb:44
+    And I follow "Edit Event"                                   # features/step_definitions/web_steps.rb:60
+    Then I should be on the edit page for the "Go Batman" event # features/step_definitions/web_steps.rb:234
+    When I select "03/04/2019" as the "Event Date"              # features/step_definitions/custom_steps.rb:97
+    And I press "Save Changes"                                  # features/step_definitions/web_steps.rb:56
+    Then I should be on the page for the "Go Batman" event      # features/step_definitions/web_steps.rb:234
+    And I should see "April 3, 2019"                            # features/step_definitions/web_steps.rb:109
+    And I should not see "April 3, 2016"                        # features/step_definitions/web_steps.rb:127  Scenario: If form input is partially invalid, valid input should be preserved # features/create_event.feature:111    Given PENDING                                                               # features/step_definitions/custom_steps.rb:114
+      TODO (Cucumber::Pending)
+      ./features/step_definitions/custom_steps.rb:115:in `/^PENDING$/'
+      features/create_event.feature:112:in `Given PENDING'    When I follow "Create Event"                                                # features/step_definitions/web_steps.rb:60
+    When I fill in "Event Name" with "Batman for President"                     # features/step_definitions/web_steps.rb:64
+    And I fill in "Location" with "Gotham"                                      # features/step_definitions/web_steps.rb:64
+    And I fill in "Event Date" with "10:40"                                     # features/step_definitions/web_steps.rb:64
+    And I fill in "Candidate" with "Batman"                                     # features/step_definitions/web_steps.rb:64
+    And I fill in "Description" with "A fund raiser for Batman"                 # features/step_definitions/web_steps.rb:64
+    And I press "Create Event"                                                  # features/step_definitions/web_steps.rb:56
+    Then I should be on the new event page                                      # features/step_definitions/web_steps.rb:234
+    And I should see "Batman for President"                                     # features/step_definitions/web_steps.rb:109
+    And I should see "Gotham"                                                   # features/step_definitions/web_steps.rb:109
+    And I should not see "10:40"                                                # features/step_definitions/web_steps.rb:127
+    And I should see "Batman"                                                   # features/step_definitions/web_steps.rb:109
+    And I should see "A fund raise for Batman"                                  # features/step_definitions/web_steps.rb:109Feature: User can Create, edit and delete shifts
+  As a User
+  I want to create/edit/delete one or more shifts for each Event
+  So that I can break and Event down into subtasks and organize volunteers by skill type.
+  I want the text box for the event description to be larger so that I can have craft a better description for my event.  Background:                                                              # features/create_shift.feature:9    Given the following users have registered for accounts:                # features/step_definitions/custom_steps.rb:1
+      | email               | username | password          |
+      | john_doe@uprise.com | john_doe | john_doe_password |
+      | jane_doe@uprise.com | jane_doe | jane_doe_password |
+    And I am on the homepage                                               # features/step_definitions/web_steps.rb:44
+    And I log in with username "john_doe" and password "john_doe_password" # features/step_definitions/custom_steps.rb:53
+    And the following events exist:                                        # features/step_definitions/custom_steps.rb:12
+      | User | Name      | Location | Candidate | Event Date |
+      | 1    | Go Batman | Gotham   | Batman    | 03/04/2018 |
+      | 1    | Go Joker  | Gotham   | Joker     | 03/05/2017 |
+    And the following shifts exist:                                        # features/step_definitions/custom_steps.rb:20
+      | Event | Role     | Has Limit | Limit | Start Time | End Time |
+      | 1     | Tabling  | true      | 4     | 11:00      | 11:30    |
+      | 1     | Flyering | true      | 0     | 12:00      | 12:30    |  Scenario: Attempt to create a shift                                             # features/create_shift.feature:25    Given I am on the page for the "Go Batman" event                              # features/step_definitions/web_steps.rb:44
+    When I follow "Add Shift"                                                     # features/step_definitions/web_steps.rb:60
+      Unable to find link "Add Shift" (Capybara::ElementNotFound)
+      ./features/step_definitions/web_steps.rb:61:in `/^(?:|I )follow "([^"]*)"$/'
+      features/create_shift.feature:27:in `When I follow "Add Shift"'    Then I should be on the new shift page for the "Go Batman" event              # features/step_definitions/web_steps.rb:234
+    When I select "1:00 PM" as the shift "Start Time"                             # features/step_definitions/custom_steps.rb:105
+    And I select "3:00 PM" as the shift "End Time"                                # features/step_definitions/custom_steps.rb:105
+    And I fill in "Shift Role" with "Set Up"                                      # features/step_definitions/web_steps.rb:64
+    And I check "Shift Has Limit"                                                 # features/step_definitions/web_steps.rb:93
+    And I fill in "Shift Limit" with "5"                                          # features/step_definitions/web_steps.rb:64
+    And I press "Add Shift"                                                       # features/step_definitions/web_steps.rb:56
+    Then a shift with role "Set Up" should exist                                  # features/step_definitions/custom_steps.rb:81
+    Then I should be on the page for the "Set Up" shift for the "Go Batman" event # features/step_definitions/web_steps.rb:234
+    And I should see "Set Up"                                                     # features/step_definitions/web_steps.rb:109  Scenario: Attempt to create a shift without a role                 # features/create_shift.feature:40    Given I am on the page for the "Go Batman" event                 # features/step_definitions/web_steps.rb:44
+    When I follow "Add Shift"                                        # features/step_definitions/web_steps.rb:60
+      Unable to find link "Add Shift" (Capybara::ElementNotFound)
+      ./features/step_definitions/web_steps.rb:61:in `/^(?:|I )follow "([^"]*)"$/'
+      features/create_shift.feature:42:in `When I follow "Add Shift"'    Then I should be on the new shift page for the "Go Batman" event # features/step_definitions/web_steps.rb:234
+    When I select "1:00 PM" as the Shift "Start Time"                # features/step_definitions/custom_steps.rb:105
+    And I select "3:00 PM" as the Shift "End Time"                   # features/step_definitions/custom_steps.rb:105
+    And I check "Shift Has Limit"                                    # features/step_definitions/web_steps.rb:93
+    And I fill in "Shift Limit" with "5"                             # features/step_definitions/web_steps.rb:64
+    And I press "Add Shift"                                          # features/step_definitions/web_steps.rb:56
+    Then a shift with role "Set Up" should not exist                 # features/step_definitions/custom_steps.rb:86
+    And I should see "Role can't be blank"                           # features/step_definitions/web_steps.rb:109  Scenario: Attempt to create a shift without a limit                            # features/create_shift.feature:52    Given I am on the page for the "Go Batman" event                             # features/step_definitions/web_steps.rb:44
+    When I follow "Add Shift"                                                    # features/step_definitions/web_steps.rb:60
+      Unable to find link "Add Shift" (Capybara::ElementNotFound)
+      ./features/step_definitions/web_steps.rb:61:in `/^(?:|I )follow "([^"]*)"$/'
+      features/create_shift.feature:54:in `When I follow "Add Shift"'    Then I should be on the new shift page for the "Go Batman" event             # features/step_definitions/web_steps.rb:234
+    When I select "1:00 PM" as the Shift "Start Time"                            # features/step_definitions/custom_steps.rb:105
+    And I select "3:00 PM" as the Shift "End Time"                               # features/step_definitions/custom_steps.rb:105
+    And I fill in "Shift Role" with "Set Up"                                     # features/step_definitions/web_steps.rb:64
+    And I press "Add Shift"                                                      # features/step_definitions/web_steps.rb:56
+    Then a shift with role "Set Up" should exist                                 # features/step_definitions/custom_steps.rb:81
+    And I should be on the page for the "Set Up" shift for the "Go Batman" event # features/step_definitions/web_steps.rb:234  Scenario: Indicate that shift has a limit but don't enter a limit  # features/create_shift.feature:63    Given PENDING                                                    # features/step_definitions/custom_steps.rb:114
+      TODO (Cucumber::Pending)
+      ./features/step_definitions/custom_steps.rb:115:in `/^PENDING$/'
+      features/create_shift.feature:64:in `Given PENDING'    Given I am on the page for the "Go Batman" event                 # features/step_definitions/web_steps.rb:44
+    When I follow "Add Shift"                                        # features/step_definitions/web_steps.rb:60
+    Then I should be on the new shift page for the "Go Batman" event # features/step_definitions/web_steps.rb:234
+    When I select "1:00 PM" as the Shift "Start Time"                # features/step_definitions/custom_steps.rb:105
+    And I select "3:00 PM" as the Shift "End Time"                   # features/step_definitions/custom_steps.rb:105
+    And I fill in "Shift Role" with "Set Up"                         # features/step_definitions/web_steps.rb:64
+    And I check "Shift Has Limit"                                    # features/step_definitions/web_steps.rb:93
+    And I press "Add Shift"                                          # features/step_definitions/web_steps.rb:56
+    Then a shift with role "Set Up" should not exist                 # features/step_definitions/custom_steps.rb:86
+    And I should be on the new shift page                            # features/step_definitions/web_steps.rb:234
+    And I should see "Please enter the number of volunteers needed"  # features/step_definitions/web_steps.rb:109  Scenario: Attempt to fill in the event description box                              # features/create_shift.feature:77    Given PENDING                                                                     # features/step_definitions/custom_steps.rb:114
+      TODO (Cucumber::Pending)
+      ./features/step_definitions/custom_steps.rb:115:in `/^PENDING$/'
+      features/create_shift.feature:78:in `Given PENDING'    Given I am on the page for the "Go Batman" event                                  # features/step_definitions/web_steps.rb:44
+    When I fill in "Description" with "long description text"                         # features/step_definitions/web_steps.rb:64
+    Then I should see enough space on the multiline textbox for the event description # features/create_shift.feature:81  Scenario: Attempt to modify a shift when logged out # features/create_shift.feature:83    Given I am on the homepage                        # features/step_definitions/web_steps.rb:44
+    Then I should see "Go Batman"                     # features/step_definitions/web_steps.rb:109
+    When I follow "Logout"                            # features/step_definitions/web_steps.rb:60
+    Then I should be on the homepage                  # features/step_definitions/web_steps.rb:234
+    And I should not see "john_doe"                   # features/step_definitions/web_steps.rb:127
+    When I follow "Go Batman"                         # features/step_definitions/web_steps.rb:60
+    And I follow "Tabling"                            # features/step_definitions/web_steps.rb:60
+      Unable to find link "Tabling" (Capybara::ElementNotFound)
+      ./features/step_definitions/web_steps.rb:61:in `/^(?:|I )follow "([^"]*)"$/'
+      features/create_shift.feature:90:in `And I follow "Tabling"'    Then I should not see "Edit Shift"                # features/step_definitions/web_steps.rb:127
+Exiting... Interrupt again to exit immediately.

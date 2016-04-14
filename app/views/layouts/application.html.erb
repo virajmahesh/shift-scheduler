@@ -2,13 +2,21 @@
 <html>
 <head>
   <title>UpRise Shift Scheduler</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body ng-app='icsi-shift-scheduler'>
 
-<%= yield %>
+<%= render 'shared/navbar' %>
+<%= render 'shared/error' %>
+<%= render 'shared/devise_error' %>
+
+<div class="content">
+  <%= yield %>
+</div>
+
+<%= javascript_include_tag 'application' %>
 
 </body>
 </html>

@@ -12,8 +12,6 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'jquery-rails'
 
-gem 'turbolinks'
-
 gem 'jbuilder', '~> 2.0'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
@@ -21,7 +19,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'mailboxer'
 
-gem 'rails-angular-material'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-angular'
+  gem 'rails-assets-angular-material', '~> 1.1.0.rc2'
+end
 
 gem 'devise', '~> 4.0.0.rc2'
 gem 'cancancan', '~> 1.8'
@@ -45,6 +46,8 @@ group :test do
   gem 'simplecov', :require => false
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
+  gem 'capybara'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'autotest-rails'
   gem 'factory_girl_rails'
@@ -53,5 +56,6 @@ group :test do
 end
 
 group :production do
+  gem 'rails_12factor'
   gem 'pg', '0.15.1'
 end

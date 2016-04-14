@@ -27,12 +27,11 @@ class Event < ActiveRecord::Base
         s.users.each do |u|
           users_signed_up.add(u.id)
         end
-        #users_signed_up.add(s.users.ids)
     end
     if users_signed_up.length > 0
       users_signed_up.length.to_s + " Volunteer(s) have already signed up to help out with this event"
     else
-      "Be the first to one to join"
+      "Be the first to one to join!"
     end
   end
 
