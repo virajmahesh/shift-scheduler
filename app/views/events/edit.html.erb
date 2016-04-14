@@ -1,27 +1,40 @@
 <h1>Edit Existing Event</h1>
-
+<div ng-controller="EventsController" ng-init="init()">
 <%= form_tag event_path(@event), :method => :put do %>
+
+  <md-input-container>
   <%= label :event, :event_name, 'Event Name' %>
-  <%= text_field :event, :event_name %><br>
+  <%= text_field :event, :event_name %>
+  </md-input-container>
+  <br>
 
-  <%= label :event, :event_date, 'Event Date' %>
-  <%= date_select :event, :event_date, order: [:month, :day, :year] %><br>
+  <md-datepicker ng-model="event.date">
+  </md-datepicker>
+  <br>
 
-  <%= label :event, :start_time, 'Start Time' %>
-  <%= time_select :event, :start_time, ampm: true %><br>
-
-  <%= label :event, :end_time, 'End Time' %>
-  <%= time_select :event, :end_time, ampm: true %><br>
-
+  <md-input-container><br>
   <%= label :event, :location, 'Location' %>
-  <%= text_field :event, :location %><br>
+  <%= text_field :event, :location %>
+  </md-input-container>
+  <br>
 
+  <md-input-container>
   <%= label :event, :candidate, 'Candidate' %>
-  <%= text_field :event, :candidate %><br>
+  <%= text_field :event, :candidate %>
+  </md-input-container>
+  <br>
 
+  <md-input-container>
   <%= label :event, :description, 'Event Description' %>
-  <%= text_field :event, :description %><br>
+  <%= text_field :event, :description %>
+  </md-input-container>
+  <br>
 
-  <%= submit_tag 'Save Changes' %> <br>
-  <%= link_to 'Back to Event',event_path(@event) %>
+  <md-button>
+  <%= submit_tag 'Save Changes' %>
+  </md-button>
+  <br>
+  
 <% end %>
+<%= link_to 'Back to Event',event_path(@event) %>
+</div>

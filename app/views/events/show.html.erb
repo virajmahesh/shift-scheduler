@@ -1,3 +1,4 @@
+<md-card>
 <h2><%= @event.event_name %></h2>
 <ul>
   <li>
@@ -8,14 +9,8 @@
     Event Date:
     <%= @event.event_date.strftime("%B %-d, %Y") %>
   </li>
-    <% if @event.start_time and @event.end_time %>
-      <li>
-        Event Time:
-        <%= @event.formatted_start_time %> to <%= @event.formatted_end_time %>
-      </li>
-    <% end %>
   <li>
-    <%= @event.number_signed_up %>  
+    <%= @event.number_signed_up %>
   </li>
   <li>
     Candidate:
@@ -26,23 +21,6 @@
 <h3>Description:</h3>
 <p><%= @event.description %></p>
 
-<h3>Shifts</h3>
-  <div id="shifts">
-    <% @event.ordered_shifts.each do |s| %>
-      <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
-    <% end %>
-  </div>
-  <% @event.ordered_shifts.each do |s| %>
-    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.skills.pluck(:description), event_shift_path(@event, s) %> <br>
-    <% if s.role %>
-      Role: <%= link_to s.role, event_shift_path(@event, s) %><br>
-    <% end %>
-  <% end %>
-
-<% if can? :create_shift, @event %>
-  <%= link_to 'Add Shift', new_event_shift_path(@event) %><br><br>
-<% end %>
-
 <% if can? :edit, @event %>
     <%= link_to 'Edit Event', edit_event_path(@event) %><br>
 <% end %>
@@ -50,5 +28,22 @@
     <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
 <% end %>
 
-<%= link_to 'Home Page', root_path, method: :get %><br>
+</md-card>
 
+<h3>Shifts</h3>
+
+<% if can? :create_shift, @event %>
+  <%= link_to 'Add Shift', new_event_shift_path(@event) %><br>
+<% end %>
+
+<div class='md-padding' layout='row' layout-wrap id="shifts">
+  <% @event.ordered_shifts.each do |s| %>
+  <div layout="column">
+    <md-card>
+    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
+    </md-card>
+  <% end %>
+</div>
+</div>
+
+<%= link_to 'Back to Homepage', root_path %>
