@@ -36,6 +36,19 @@ Feature: User can Create, edit and delete shifts
     Then I should be on the page for the "Set Up" shift for the "Go Batman" event
     And I should see "Set Up"
 
+
+  Scenario: Attempt to create a shift without a role
+    Given I am on the page for the "Go Batman" event
+    When I follow "Add Shift"
+    Then I should be on the new shift page for the "Go Batman" event
+    When I select "1:00 PM" as the Shift "Start Time"
+    And I select "3:00 PM" as the Shift "End Time"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "5"
+    And I press "Add Shift"
+    Then a shift with role "Set Up" should not exist
+    And I should see "Role can't be blank"
+
   Scenario: Attempt to create a shift without a limit
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"

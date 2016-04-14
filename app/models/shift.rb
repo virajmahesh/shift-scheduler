@@ -1,13 +1,14 @@
 class Shift < ActiveRecord::Base
   belongs_to :event
   has_many :volunteer_commitments
-  has_many :ShiftRoles
-  has_many :roles, through: :ShiftRoles
+  has_many :ShiftSkills
+  has_many :skills, through: :ShiftSkills
   has_many :users, through: :volunteer_commitments
   has_one :user, through: :event
 
   validates :start_time, presence: true
   validates :end_time, presence: true
+  validates :role, presence: true
   validates :has_limit, inclusion: {in: [true, false]}
 
   def format time

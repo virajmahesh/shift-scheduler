@@ -15,12 +15,12 @@ bernie_event = Event.create user: user, event_name: 'Bake sale for Bernie',
                             candidate: 'Bernie Sanders', description: 'Come out and support Bernie at this bakesale'
 
 hillary_shift = Shift.create event: hillary_event, start_time: '10:00 AM', end_time: '10:40 AM',
-                            has_limit: 'true', limit: '10'
+                            has_limit: 'true', limit: '10',  role: 'Tabling'
 
 bernie_shift = Shift.create event: bernie_event, start_time: '11:20 AM', end_time: '10:00 PM',
-                             has_limit: 'false'
+                             has_limit: 'false',  role: 'Flyering'
                              
-all_roles = Role.create([{ description: 'Accounting, bookkeeping, compliance' }, 
+all_skills = Skill.create([{ description: 'Accounting, bookkeeping, compliance' }, 
                          { description: 'Art and design, by hand' },
                          { description: 'Art and design, computer aided' },
                          { description: 'Attending a convention as a delegate' },
@@ -63,13 +63,13 @@ all_roles = Role.create([{ description: 'Accounting, bookkeeping, compliance' },
                          { description: 'Writing' },
                          { description: 'Youth/teen outreach' }])
 
-test_user_role1 = UserRole.create user_id:1, role_id:3
-test_user_role2 = UserRole.create user_id:1, role_id:5
-hillary_shift_role1 = ShiftRole.create shift_id:1, role_id:8
-hillary_shift_role2 = ShiftRole.create shift_id:1, role_id:5
-hillary_shift_role3 = ShiftRole.create shift_id:1, role_id:3
-bernie_shift_role1 = ShiftRole.create shift_id:2, role_id:3
-bernie_shift_role2 = ShiftRole.create shift_id:2, role_id:5
-bernie_shift_role3 = ShiftRole.create shift_id:2, role_id:6
+test_user_role1 = UserSkill.create user_id:1, skill_id:3
+test_user_role2 = UserSkill.create user_id:1, skill_id:5
+hillary_shift_role1 = ShiftSkill.create shift_id:1, skill_id:8
+hillary_shift_role2 = ShiftSkill.create shift_id:1, skill_id:5
+hillary_shift_role3 = ShiftSkill.create shift_id:1, skill_id:3
+bernie_shift_role1 = ShiftSkill.create shift_id:2, skill_id:3
+bernie_shift_role2 = ShiftSkill.create shift_id:2, skill_id:5
+bernie_shift_role3 = ShiftSkill.create shift_id:2, skill_id:6
 
 

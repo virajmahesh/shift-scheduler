@@ -8,10 +8,10 @@
 </div>
 
 <% if @shift.role %>
-  <%= @shift.role %>
+  Role: <%= @shift.role %>
 <% end %>
 
-<h2><%= @shift.roles.pluck(:description) %></h2>
+<h2><%= @shift.skills.pluck(:description) %></h2>
 
 Description: <%= @shift.description %> <br>
 Start Time: <%= @shift.formatted_start_time %> <br>

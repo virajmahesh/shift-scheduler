@@ -8,7 +8,7 @@
 </div>
 
 <h1><%= @event.event_name%></h1>
-<h3>Volunteers for <%= @shift.roles.pluck(:description)%></h3> 
+<h3>Volunteers for <%= @shift.skills.pluck(:description)%></h3> 
 
 <% @shift_users.each do |e| %>
   <li><%= e.username %>

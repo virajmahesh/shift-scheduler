@@ -85,13 +85,9 @@ ActiveRecord::Schema.define(version: 20160413210221) do
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
-  create_table "roles", force: :cascade do |t|
-    t.string "description"
-  end
-
-  create_table "shift_roles", force: :cascade do |t|
+  create_table "shift_skills", force: :cascade do |t|
     t.integer "shift_id"
-    t.integer "role_id"
+    t.integer "skill_id"
   end
 
   create_table "shifts", force: :cascade do |t|
@@ -106,6 +102,10 @@ ActiveRecord::Schema.define(version: 20160413210221) do
     t.string   "description"
   end
 
+  create_table "skills", force: :cascade do |t|
+    t.string "description"
+  end
+
   create_table "user_activities", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "activity_id"
@@ -114,9 +114,9 @@ ActiveRecord::Schema.define(version: 20160413210221) do
     t.integer  "shift_id"
   end
 
-  create_table "user_roles", force: :cascade do |t|
+  create_table "user_skills", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "role_id"
+    t.integer "skill_id"
   end
 
   create_table "users", force: :cascade do |t|
