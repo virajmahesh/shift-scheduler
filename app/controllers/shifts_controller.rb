@@ -22,6 +22,7 @@ class ShiftsController < ApplicationController
         redirect_to new_event_shift_path
       else
         flash[:notice] = "#{@shift.role} shift was successfully created."
+        EventNotifierJob.set(wait_until: @shift.start_time.advance(:days => -1)).perform_later @event
         redirect_to event_shift_path @event, @shift
       end
     else
