@@ -13,6 +13,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'You have been signed up for the shift'
       creator = @shift.user
       UserActivity.create user_id: creator.id, activity_type_id: UserActivity.join_shift_id, shift_id: @shift.id, event_id: @shift.event.id
+      ShiftNotificationJob.set(wait_until: @shift.start_time.advance(:days => -1)).perform_later @shift, @user
       if @shift.has_limit and @shift.volunteer_commitments.length == @shift.limit
         UserActivity.create user_id: creator.id, activity_type_id: UserActivity.shift_full_id, shift_id: @shift.id, event_id: @shift.event.id
       end
