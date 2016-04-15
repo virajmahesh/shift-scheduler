@@ -20,6 +20,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'mailboxer'
 
 source 'https://rails-assets.org' do
+  gem 'rails-assets-moment'
   gem 'rails-assets-angular'
   gem 'rails-assets-angular-material', '~> 1.1.0.rc2'
 end
