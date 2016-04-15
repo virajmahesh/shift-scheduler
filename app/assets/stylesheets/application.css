@@ -39,11 +39,12 @@ md-card {
 
 div.content {
     padding-left: 25px;
+    padding-right: 25px;
 }
 
 md-input-container {
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .event-card-heading {
@@ -68,6 +69,10 @@ a:visited {
     color: unset !important;
 }
 
+a:hover {
+    color: unset !important;
+}
+
 .flash {
     padding: 10px;
 }
@@ -82,4 +87,30 @@ a:visited {
 
 .field_with_errors {
     display: inline;
+}
+
+.shift-card {
+    color: rgba(255, 255, 255, 0.870588) !important;
+    background-color: #0A2A35 !important;
+    height: 50px !important;
+}
+
+.shift-information {
+    display: inline-block;
+    width: 32% !important;
+    text-align: center !important;
+}
+
+md-icon {
+    margin: 0 !important;
+    color: rgba(0, 0, 0, 0.29);
+}
+
+.event-name {
+    display: inline-block;
+}
+
+.modify-icon {
+    margin-top: 20px !important;
+    float: right !important;
 }

@@ -1,49 +1,67 @@
-<md-card>
-<h2><%= @event.event_name %></h2>
-<ul>
-  <li>
-    Location:
-    <%= @event.location %>
-  </li>
-  <li>
-    Event Date:
-    <%= @event.event_date.strftime("%B %-d, %Y") %>
-  </li>
-  <li>
-    <%= @event.number_signed_up %>
-  </li>
-  <li>
-    Candidate:
-    <%= @event.candidate %>
-  </li>
-</ul>
+<md-card class="event-info-card">
 
-<h3>Description:</h3>
-<p><%= @event.description %></p>
+  <div>
+    <h2 class="event-name"><%= @event.event_name %></h2>
+    <% if can? :destroy, @event %>
+        <a href="<%= event_path(@event) %>" data-method="delete">
+          <md-icon aria-label="Delete" class="modify-icon">delete</md-icon>
+        </a>
+    <% end %>
+    <% if can? :edit, @event %>
+        <a href="<%= edit_event_path(@event) %>">
+          <md-icon aria-label="Edit" class="modify-icon">mode_edit</md-icon>
+        </a>
+    <% end %>
+  </div>
 
-<% if can? :edit, @event %>
-    <%= link_to 'Edit Event', edit_event_path(@event) %><br>
-<% end %>
-<% if can? :destroy, @event %>
-    <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
-<% end %>
+  <span><%= @event.number_signed_up %></span><br><br>
+
+  <div>
+    <md-icon aria-label="Location" class="material-icons">location_on</md-icon>
+    <span><%= @event.location %></span>
+  </div>
+  <br>
+  <div>
+    <md-icon aria-label="Calendar" class="material-icons">perm_contact_calendar</md-icon>
+    <span><%= @event.event_date.strftime("%B %-d, %Y") %></span>
+  </div>
+  <br>
+  <div>
+    <md-icon aria-label="Calendar" class="material-icons">perm_identityr</md-icon>
+    <span><%= @event.candidate %></span>
+  </div>
+
+  <p><%= @event.description %></p>
+
+  <% if can? :edit, @event %>
+      <%= link_to 'Edit Event', edit_event_path(@event) %><br>
+  <% end %>
+  <% if can? :destroy, @event %>
+      <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
+  <% end %>
 
 </md-card>
 
 <h3>Shifts</h3>
 
 <% if can? :create_shift, @event %>
-  <%= link_to 'Add Shift', new_event_shift_path(@event) %><br>
+    <%= link_to 'Add Shift', new_event_shift_path(@event) %><br>
 <% end %>
 
-<div class='md-padding' layout='row' layout-wrap id="shifts">
+<div id="shifts">
   <% @event.ordered_shifts.each do |s| %>
-  <div layout="column">
-    <md-card>
-    <%= s.formatted_start_time %> to <%= s.formatted_end_time %>, <%= link_to s.role, event_shift_path(@event, s) %> <br>
-    </md-card>
+      <md-card class="shift-card">
+        <p>
+          <span class="shift-information"><%= s.formatted_start_time %> to <%= s.formatted_end_time %></span>
+          <span class="shift-information"><%= link_to s.role, event_shift_path(@event, s) %></span>
+
+          <% if s.has_limit %>
+              <span class="shift-information"><%= s.volunteer_commitments.length %>/<%= s.limit %> slots filled</span>
+          <% end %>
+
+        </p>
+      </md-card>
   <% end %>
-</div>
 </div>
 
 <%= link_to 'Back to Homepage', root_path %>
