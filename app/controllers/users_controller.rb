@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     unless @commitment.nil?
       flash[:notice] = 'You have left the shift'
-      UserActivity.create user_id: @shift.user.id, activity_id: UserActivity.leave_shift_id, shift_id: @shift.id, event_id: @shift.event.id
+      UserActivity.create user_id: @shift.user.id, activity_type_id: UserActivity.leave_shift_id, shift_id: @shift.id, event_id: @shift.event.id
       @commitment.destroy
     end
     redirect_to event_shift_path @shift.event, @shift
