@@ -20,5 +20,5 @@ Feature: Users Can See Different Shifts that Are a Part of an Event
 
   Scenario: View all shifts for an event
     Given I am on the page for the "Go Batman" event
-    Then I should see "11:00 AM to 11:30 AM, Tabling"
-    And I should see "12:00 PM to 12:30 PM, Flyering"
+    Then I should see "11:00 AM to 11:30 AM Tabling"
+    And I should see "12:00 PM to 12:30 PM Flyering"
