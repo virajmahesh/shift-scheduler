@@ -18,6 +18,4 @@ class VolunteerCommitment < ActiveRecord::Base
       body = "#{user.name} (#{user.email}) has left shift #{shift.id}."
       creator.notify(subject, body, creator)
     end
-
-
 end

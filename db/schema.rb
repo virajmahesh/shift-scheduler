@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20160413012653) do
 
   create_table "activity_types", force: :cascade do |t|
@@ -22,6 +23,8 @@ ActiveRecord::Schema.define(version: 20160413012653) do
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.string   "location"
     t.date     "event_date"
     t.string   "event_name"
@@ -83,8 +86,9 @@ ActiveRecord::Schema.define(version: 20160413012653) do
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
-  create_table "roles", force: :cascade do |t|
-    t.string "description"
+  create_table "shift_skills", force: :cascade do |t|
+    t.integer "shift_id"
+    t.integer "skill_id"
   end
 
   create_table "shifts", force: :cascade do |t|
@@ -99,6 +103,10 @@ ActiveRecord::Schema.define(version: 20160413012653) do
     t.string   "description"
   end
 
+  create_table "skills", force: :cascade do |t|
+    t.string "description"
+  end
+
   create_table "user_activities", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "activity_type_id"
@@ -108,12 +116,16 @@ ActiveRecord::Schema.define(version: 20160413012653) do
     t.integer  "event_id"
   end
 
+  create_table "user_skills", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "skill_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "city"
     t.string   "state"
     t.integer  "zip_code"
-    t.string   "skills"
     t.string   "phone_number"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false

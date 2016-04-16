@@ -10,7 +10,7 @@ class RolesController < ApplicationController
         end
         
         roles.each { |role|
-            ratings[role] = role.similar(inp)
+            ratings[role] = role.downcase.similar(inp.downcase)
         }
         
         ratings = ratings.sort_by{|_key, value| value}.reverse!.to_h.keys #Sort roles by similarity score.

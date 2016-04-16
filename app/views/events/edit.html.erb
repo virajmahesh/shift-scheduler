@@ -7,6 +7,12 @@
   <%= label :event, :event_date, 'Event Date' %>
   <%= date_select :event, :event_date, order: [:month, :day, :year] %><br>
 
+  <%= label :event, :start_time, 'Start Time' %>
+  <%= time_select :event, :start_time, ampm: true %><br>
+
+  <%= label :event, :end_time, 'End Time' %>
+  <%= time_select :event, :end_time, ampm: true %><br>
+
   <%= label :event, :location, 'Location' %>
   <%= text_field :event, :location %><br>
 

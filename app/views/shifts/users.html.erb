@@ -1,0 +1,22 @@
+<div id = flash>
+ <% if flash[:error] %>
+  <p><%= flash[:error] %></p></br>
+ <% end %>
+ <% if flash[:notice] %>
+  <p><%= flash[:notice] %></p></br>
+ <% end %>
+</div>
+
+<h1><%= @event.event_name%></h1>
+<h3>Volunteers for <%= @shift.skills.pluck(:description)%></h3> 
+
+<% @shift_users.each do |e| %>
+  <li><%= e.username %>
+  <%= link_to('Remove', shift_removeUser_path(@event, @shift, e.id)) %> </li>
+<% end %>
+<br>
+
+<%= link_to('Back to shift page', event_shift_path(@event, @shift)) %> <br>
+<%= link_to('Event Page', event_path(@event)) %> <br>
+<%= link_to('Home', root_path) %> <br>
+

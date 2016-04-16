@@ -38,6 +38,6 @@ class Ability
     can [:update, :destroy, :create_shift], Event, user: {id: user.id}
 
     can :read, Shift
-    can [:create, :update, :destroy], Shift, user: {id: user.id}
+    can [:create, :update, :destroy, :view_users, :remove_user], Shift, user: {id: user.id}
   end
 end

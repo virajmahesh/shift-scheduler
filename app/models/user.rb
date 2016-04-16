@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
          :validatable, :authentication_keys => [:login]
 
   has_many :volunteer_commitments
+  has_many :UserSkills
+  has_many :skills, through: :UserSkills
 
   acts_as_messageable
 

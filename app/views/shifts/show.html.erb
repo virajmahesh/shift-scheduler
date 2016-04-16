@@ -7,7 +7,11 @@
   <% end %>
 </div>
 
-<h2><%= @shift.role %></h2>
+<% if @shift.role %>
+  Role: <%= @shift.role %>
+<% end %>
+
+<h2><%= @shift.skills.pluck(:description) %></h2>
 
 Description: <%= @shift.description %> <br>
 Start Time: <%= @shift.formatted_start_time %> <br>
@@ -26,8 +30,9 @@ Limit: <%= @shift.limit %> <br>
       <%= link_to 'Join', "/user/join_shift/#{@shift.id}" %> <br>
     <% end %>
 <% end %>
-
+</br>
 <% if can? :update, @shift %>
+    <%= link_to 'View Volunteers', shift_viewUsers_path(@event, @shift) %> <br>
     <%= link_to 'Edit Shift', edit_event_shift_path(@event, @shift) %> <br>
 <%end%>
 <% if can? :create, @shift %>
