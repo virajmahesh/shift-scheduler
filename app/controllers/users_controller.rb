@@ -11,12 +11,12 @@ class UsersController < ApplicationController
     unless @user.nil? or @shift.nil?
       VolunteerCommitment.create user: @user, shift: @shift
       flash[:notice] = 'You have been signed up for the shift'
-      creator_id = @shift.event.user.id
-      UserActivity.create user_id: creator_id, activity_id: UserActivity.join_shift_id, shift_id: @shift.id
+      creator = @shift.user
+      UserActivity.create user_id: creator.id, activity_type_id: UserActivity.join_shift_id, shift_id: @shift.id, event_id: @shift.event.id
+      ShiftNotificationJob.set(wait_until: @shift.start_time.advance(:days => -1)).perform_later @shift, @user
       if @shift.has_limit and @shift.volunteer_commitments.length == @shift.limit
-        UserActivity.create user_id: creator_id, activity_id: UserActivity.shift_full_id, shift_id: @shift.id
+        UserActivity.create user_id: creator.id, activity_type_id: UserActivity.shift_full_id, shift_id: @shift.id, event_id: @shift.event.id
       end
-        
     end
 
     redirect_to event_shift_path @shift.event, @shift
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     unless @commitment.nil?
       flash[:notice] = 'You have left the shift'
-      UserActivity.create user_id: @shift.event.user.id, activity_id: UserActivity.leave_shift_id, shift_id: @shift.id
+      UserActivity.create user_id: @shift.user.id, activity_type_id: UserActivity.leave_shift_id, shift_id: @shift.id, event_id: @shift.event.id
       @commitment.destroy
     end
     redirect_to event_shift_path @shift.event, @shift

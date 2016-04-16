@@ -46,7 +46,7 @@ end
 
 Given(/^the following user_activities exist:$/) do |table|
   table.hashes.each do |user_activity|
-    UserActivity.create user_id: user_activity['User'], activity_id: user_activity['Activity'],
+    UserActivity.create user_id: user_activity['User'], activity_type_id: user_activity['Activity'],
                   shift_id: user_activity['Shift']
   end
 end
