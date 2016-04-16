@@ -8,8 +8,8 @@
       </md-input-container>
       <br>
 
-      <md-datepicker ng-model="event.date">
-      </md-datepicker>
+      <%= f.label :event_date, 'Event Date', hidden: true %>
+      <md-datepicker ng-model="event.date"></md-datepicker>
       <br>
 
       <md-input-container>
