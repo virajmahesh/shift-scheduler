@@ -5,17 +5,18 @@ class VolunteerCommitment < ActiveRecord::Base
     after_commit :create_notification, on: :create
     after_destroy :delete_notification, on: :destroy
 
-    def create_notification
+    def notify action
       creator = shift.event.user
-      subject = "#{user.name} has joined shift #{shift.id}"
-      body = "#{user.name} (#{user.email}) has joined shift #{shift.id}."
+      subject = "#{user.name} has #{action} shift #{shift.id}"
+      body = "#{user.name} (#{user.email}) has #{action} shift #{shift.id}."
       creator.notify(subject, body, creator)
     end
 
+    def create_notification
+      notify :joined
+    end
+
     def delete_notification
-      creator = shift.event.user
-      subject = "#{user.name} has left shift #{shift.id}"
-      body = "#{user.name} (#{user.email}) has left shift #{shift.id}."
-      creator.notify(subject, body, creator)
+      notify :left
     end
 end

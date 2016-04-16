@@ -9,8 +9,9 @@ class Event < ActiveRecord::Base
   validates :location, presence: true
   validates :candidate, presence: true
 
+  # Orders shifts by start time
   def ordered_shifts
-    self.shifts.order("start_time")
+    self.shifts.order('start_time')
   end
 
   def self.future_events
@@ -41,9 +42,9 @@ class Event < ActiveRecord::Base
         end
     end
     if users_signed_up.length > 0
-      users_signed_up.length.to_s + " Volunteer(s) have already signed up to help out with this event"
+      users_signed_up.length.to_s + ' Volunteer(s) have already signed up to help out with this event'
     else
-      "Be the first to one to join!"
+      'Be the first to one to join!'
     end
   end
 
