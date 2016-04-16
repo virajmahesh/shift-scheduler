@@ -6,20 +6,20 @@ Feature: Event creator can remove users from shift
 
   Background: User and Event in Database
     Given the following users have registered for accounts:
-      | email               | username | password          |
-      | creator@uprise.com  | creator  | creator_pass      |
-      | volunteer@uprise.com| volunteer| volunteer_pass    |
+      | email                | username | password       |
+      | creator@uprise.com   | creator  | creator_pass   |
+      | volunteer@uprise.com | volunteer| volunteer_pass |
     And I am on the homepage
     And I log in with username "creator" and password "creator_pass"
     And the following events exist:
-      | User    | Event Date | Name          | Candidate | Location |
-      | 1       | 03/03/2016 | Go Batman     | Batman    | Gotham   |
+      | User    | Event Date | Name      | Candidate | Location |
+      | creator | 03/03/2016 | Go Batman | Batman    | Gotham   |
     And the following shifts exist:
-      | Event    | Role     | Has Limit | Limit | Start Time | End Time | Description |
-      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day |
+      | Event     | Role     | Has Limit | Limit | Start Time | End Time | Description |
+      | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day |
     And the following volunteer commitments exist:
-      | User      | Event     | Shift  |
-      | volunteer | Go Batman | Tabling|
+      | User      | Event     | Shift   |
+      | volunteer | Go Batman | Tabling |
     And I am on the page for the "Go Batman" event
     
   Scenario: View all the volunteers signed up for a shift
