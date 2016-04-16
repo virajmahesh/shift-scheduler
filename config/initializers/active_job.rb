@@ -1,5 +1,5 @@
 if Rails.env.test?
-  ActiveJob::Base.queue_adapter = :inline
+  ActiveJob::Base.queue_adapter = :sidekiq
 else
   ActiveJob::Base.queue_adapter = :sidekiq
 end

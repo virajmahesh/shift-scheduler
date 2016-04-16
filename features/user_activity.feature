@@ -18,10 +18,12 @@ Feature: Users have a way to view their most recent notifications
       | 1        | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day   |
       | 1        | Flyering | true      | 1     | 10:30      | 11:30    | Stand all day |
     And the following activity_types exist:
-      | Activity               |
-      | User has joined shift: |
-      | User has left shift:   |
-      | Shift is full:         |
+      | Activity                    |
+      | User has joined shift:      |
+      | User has left shift:        |
+      | Shift is full:              |
+      | You have an event tomorrow: |
+      | You have a shift tomorrow:  |
 
   Scenario: View notifications through the home page
     Given the following user_activities exist:
