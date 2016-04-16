@@ -1,37 +1,40 @@
-<div id = flash>
-  <% if flash[:error] %>
-      <p><%= flash[:error] %></p></br>
-  <% end %>
-  <% if flash[:notice] %>
-      <p><%= flash[:notice] %></p></br>
-  <% end %>
-</div>
-
 <h1>Create New Event</h1>
-<%= form_tag events_path do %>
+<div ng-controller="EventsController" ng-init="init()">
+  <%= form_for(:event, url: events_path) do |f| %>
 
-  <%= label :event, :event_name, 'Event Name' %>
-  <%= text_field :event, :event_name %><br>
+      <md-input-container>
+        <%= f.label :event_name, 'Event Name' %>
+        <%= f.text_field :event_name %>
+      </md-input-container>
+      <br>
 
-  <%= label :event, :event_date, 'Event Date' %>
-  <%= date_select :event, :event_date, order: [:month, :day, :year], include_blank: true %><br>
-  
-  <%= label :event, :start_time, 'Start Time' %>
-  <%= time_select :event, :start_time, ampm: true %><br>
+      <%= f.label :event_date, 'Event Date', hidden: true %>
+      <md-datepicker ng-model="event.date"></md-datepicker>
+      <br>
 
-  <%= label :event, :end_time, 'End Time' %>
-  <%= time_select :event, :end_time, ampm: true %><br>
+      <md-input-container>
+        <%= f.label :location, 'Location' %>
+        <%= f.text_field :location %>
+      </md-input-container>
+      <br>
 
-  <%= label :event, :location, 'Location' %>
-  <%= text_field :event, :location %><br>
+      <md-input-container>
+        <%= f.label :candidate, 'Candidate' %>
+        <%= f.text_field :candidate %>
+      </md-input-container>
+      <br>
 
-  <%= label :event, :candidate, 'Candidate' %>
-  <%= text_field :event, :candidate %><br>
+      <md-input-container>
+        <%= f.label :description, 'Event Description' %>
+        <%= f.text_field :description %>
+      </md-input-container>
+      <br>
 
-  <%= label :event, :description, 'Event Description' %>
-  <%= text_field :event, :description %><br>
+      <md-button>
+        <%= submit_tag 'Create Event' %>
+      </md-button>
+      <br>
 
-  <%= submit_tag 'Create Event' %>
-
-<% end %>
-<%= link_to 'Back to Homepage', root_path %>
+  <% end %>
+  <%= link_to 'Back to Homepage', root_path %>
+</div>

@@ -1,47 +1,54 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= devise_error_messages! %>
 
-    <div class="field">
-      <%= f.label :email %><br/>
-      <%= f.email_field :email, autofocus: true %>
-    </div>
+    <md-input-container>
+      <%= f.label :email %>
+      <%= f.email_field :email, autocomplete: "off" %>
+    </md-input-container>
+    <br>
 
-    <div class="field">
-      <%= f.label :username %><br/>
-      <%= f.text_field :username %>
-    </div>
+    <md-input-container>
+      <%= f.label :username %>
+      <%= f.text_field :username, autocomplete: "off"%>
+    </md-input-container>
+    <br>
 
-    <div class="field">
+    <md-input-container>
       <%= f.label :password %>
-      <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br/>
       <%= f.password_field :password, autocomplete: "off" %>
-    </div>
+    </md-input-container>
+    <br>
 
-    <div class="field">
-      <%= f.label :password_confirmation %><br/>
+    <md-input-container>
+      <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    </div>
+    </md-input-container>
+    <br>
 
-    <div class="field">
-      <%= f.label :city %><br/>
-      <%= f.text_field :city %>
-    </div>
+    <md-input-container>
+      <%= f.label :city %>
+      <%= f.text_field :city, autocomplete: "off" %>
+    </md-input-container>
+    <br>
 
-    <div class="field">
-      <%= f.label :state %><br/>
-      <%= f.text_field :state %>
-    </div>
+    <md-input-container>
+      <%= f.label :state %>
+      <%= f.text_field :state, autocomplete: "off" %>
+    </md-input-container>
+    <br>
 
-    <div class="field">
-      <%= f.label :zip_code %><br/>
-      <%= f.text_field :zip_code %>
-    </div>
+    <md-input-container>
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code, autocomplete: "off" %>
+    </md-input-container>
+    <br>
 
-    <div class="actions">
-      <%= f.submit "Sign Up" %>
-    </div>
+    <md-input-container>
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number, autocomplete: "off" %>
+    </md-input-container>
+    <br>
+
+    <md-button type="submit" class="md-raised md-primary">Sign Up</md-button>
 <% end %>

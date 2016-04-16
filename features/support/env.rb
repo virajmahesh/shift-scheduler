@@ -8,6 +8,10 @@ require 'simplecov'
 SimpleCov.start
 
 require 'cucumber/rails'
+require 'capybara/rails'
+require 'capybara/poltergeist'
+
+Capybara.default_driver = :poltergeist
 
 require 'sidekiq/testing'
 Sidekiq::Testing.inline!
@@ -33,6 +37,17 @@ Sidekiq::Testing.inline!
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+
+# Monkey patch active record to use the same connection for every thread
+class ActiveRecord::Base
+  mattr_accessor :shared_connection
+  @@shared_connection = nil
+
+  def self.connection
+    @@shared_connection || retrieve_connection
+  end
+end
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
@@ -61,4 +76,5 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
 World(FactoryGirl::Syntax::Methods)

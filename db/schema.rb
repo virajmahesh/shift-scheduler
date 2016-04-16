@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20160413012653) do
+ActiveRecord::Schema.define(version: 20160413210221) do
 
   create_table "activity_types", force: :cascade do |t|
     t.string   "activity"

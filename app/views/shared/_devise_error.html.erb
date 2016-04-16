@@ -1,0 +1,7 @@
+<% if defined? resource %>
+  <% if !resource.nil? and !resource.errors.empty? %>
+    <% resource.errors.full_messages.each do |m| %>
+        <%= content_tag :div, m, class: "flash error" %>
+    <% end %>
+  <% end %>
+<% end %>

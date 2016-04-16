@@ -15,22 +15,24 @@ describe EventsController do
 
   describe 'POST create' do
     it 'should not allow an event to be created when no user is logged in' do
+      @init_num_events = Event.all.length
       @event = {event_date: '10/03/2017', event_name: 'Support Hillary',
                 location: 'Berkeley', candidate: 'Hillary'}
       post :create, event: @event
 
-      Event.all.length.should == 0
+      Event.all.length.should == @init_num_events
     end
 
 
     it 'should allow a shift to be created when a user is logged in' do
       sign_in @user
+      @init_num_events = Event.all.length
       @event = {event_date: '10/03/2017', event_name: 'Support Hillary',
                 location: 'Berkeley', candidate: 'Hillary'}
       post :create, event: @event
 
-      Event.all.length.should == 1
-      Event.all.first.event_name.should == 'Support Hillary'
+      Event.all.length.should == @init_num_events + 1
+      (Event.find_by event_name: 'Support Hillary').nil?.should == false
     end
   end
 
@@ -67,9 +69,11 @@ describe EventsController do
   describe 'DELETE destroy' do
     it 'should not allow an event to be deleted when no user is logged in' do
       @event = FactoryGirl.create :event, user: @user
+
+      @init_num_events = Event.all.length
       delete :destroy, id: @event.id
 
-      Event.all.length.should == 1
+      Event.all.length.should == @init_num_events
     end
 
     it 'should not allow an event to be deleted when the event creator is not logged in' do
@@ -77,18 +81,22 @@ describe EventsController do
       @new_user = FactoryGirl.create :user
 
       sign_in @new_user
+
+      @init_num_events = Event.all.length
       delete :destroy, id: @event.id
 
-      Event.all.length.should == 1
+      Event.all.length.should == @init_num_events
     end
 
     it 'should allow an event to be deleted when the event creator is not logged in' do
       @event = FactoryGirl.create :event, user: @user
 
       sign_in @user
+
+      @init_num_events = Event.all.length
       delete :destroy, id: @event.id
 
-      Event.all.length.should == 0
+      Event.all.length.should == @init_num_events - 1
     end
   end
 end
