@@ -251,6 +251,7 @@ GEM
       rails-assets-angular-messages (>= 1.4.8, < 2)
     rails-assets-angular-messages (1.5.3)
       rails-assets-angular (= 1.5.3)
+    rails-assets-moment (2.12.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -397,6 +398,7 @@ DEPENDENCIES
   rails (= 4.2.5)
   rails-assets-angular!
   rails-assets-angular-material (~> 1.1.0.rc2)!
+  rails-assets-moment!
   rails_12factor
   rerun
   rspec-rails (= 2.14)
