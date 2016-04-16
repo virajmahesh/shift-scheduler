@@ -6,17 +6,17 @@ Feature: Users have a way to view their most recent notifications
 
   Background: User, Event, Shift, UserActivities, and ActivityTypes in Database
     Given the following users have registered for accounts:
-      | email               | username | password     |
-      | john_doe@uprise.com | john_doe | hellboy_new  |
+      | email               | username | password    |
+      | john_doe@uprise.com | john_doe | hellboy_new |
     And I am on the homepage
     And I log in with username "john_doe" and password "hellboy_new"
     And the following events exist:
-      | User    | Event Date | Name          | Candidate | Location |
-      | 1       | 03/03/2016 | Go Batman     | Batman    | Gotham   |
+      | User     | Event Date | Name      | Candidate | Location |
+      | john_doe | 03/03/2016 | Go Batman | Batman    | Gotham   |
     And the following shifts exist:
-      | Event    | Role     | Has Limit | Limit | Start Time | End Time | Description   |
-      | 1        | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day   |
-      | 1        | Flyering | true      | 1     | 10:30      | 11:30    | Stand all day |
+      | Event     | Role     | Has Limit | Limit | Start Time | End Time | Description   |
+      | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day   |
+      | Go Batman | Flyering | true      | 1     | 10:30      | 11:30    | Stand all day |
     And the following activity_types exist:
       | Activity                    |
       | User has joined shift:      |
