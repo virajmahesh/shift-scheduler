@@ -19,8 +19,8 @@ class SkillsController < ApplicationController
     render :json => ratings
   end
 
-  def roles
-    render :json => Role.all
+  def all_skills
+    render :json => Skill.all
   end
 
 end

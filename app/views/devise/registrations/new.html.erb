@@ -1,54 +1,67 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<div ng-controller="RegistrationController">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-    <md-input-container>
-      <%= f.label :email %>
-      <%= f.email_field :email, autocomplete: "off" %>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :email %>
+        <%= f.email_field :email, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-input-container>
-      <%= f.label :username %>
-      <%= f.text_field :username, autocomplete: "off"%>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :username %>
+        <%= f.text_field :username, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-input-container>
-      <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "off" %>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-input-container>
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-input-container>
-      <%= f.label :city %>
-      <%= f.text_field :city, autocomplete: "off" %>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :city %>
+        <%= f.text_field :city, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-input-container>
-      <%= f.label :state %>
-      <%= f.text_field :state, autocomplete: "off" %>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :state %>
+        <%= f.text_field :state, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-input-container>
-      <%= f.label :zip_code %>
-      <%= f.text_field :zip_code, autocomplete: "off" %>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :zip_code %>
+        <%= f.text_field :zip_code, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-input-container>
-      <%= f.label :phone_number %>
-      <%= f.text_field :phone_number, autocomplete: "off" %>
-    </md-input-container>
-    <br>
+      <md-input-container>
+        <%= f.label :phone_number %>
+        <%= f.text_field :phone_number, autocomplete: "off" %>
+      </md-input-container>
+      <br>
 
-    <md-button type="submit" class="md-raised md-primary">Sign Up</md-button>
-<% end %>
+      <input type="hidden" id="skills", name="skills">
+
+      <md-contact-chips
+          ng-model="skills"
+          md-contacts="findSkills($query)"
+          md-contact-name="description"
+          md-require-match="true"
+          md-highlight-flags="i"
+          placeholder="Skills">
+      </md-contact-chips>
+
+      <md-button type="submit" class="md-raised md-primary">Sign Up</md-button>
+  <% end %>
+</div>
