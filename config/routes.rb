@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/user/join_shift/:id/' => 'users#join_shift'
   get '/user/leave_shift/:id' => 'users#leave_shift'
   get '/user_activity' => 'user_activities#show'
-  get '/autocomplete/:partial_text' => 'roles#orderRoles'
 
+  get '/autocomplete/:partial_text' => 'skills#order_roles'
+  get '/skills' => 'skills#all_skills'
 end
