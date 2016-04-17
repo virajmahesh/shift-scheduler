@@ -103,3 +103,11 @@ md-icon {
     margin-top: 20px !important;
     float: right !important;
 }
+
+.md-autocomplete-suggestions-container, span.md-contact-name {
+    width: 400px !important;
+}
+
+md-chips-wrap {
+    max-width: 500px !important;
+}

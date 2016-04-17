@@ -1,5 +1,5 @@
 <h1>Create New Event</h1>
-<div ng-controller="EventsController" ng-init="init()">
+<div ng-controller="EventController" ng-init="init()">
   <%= form_for(:event, url: events_path) do |f| %>
 
       <md-input-container>
@@ -30,9 +30,7 @@
       </md-input-container>
       <br>
 
-      <md-button>
-        <%= submit_tag 'Create Event' %>
-      </md-button>
+      <md-button type="submit" class="md-raised md-primary">Create Event</md-button>
       <br>
 
   <% end %>
