@@ -19,17 +19,25 @@
   <div>
     <md-icon aria-label="Location" class="material-icons">location_on</md-icon>
     <span><%= @event.location %></span>
-  </div>
-  <br>
+  </div><br>
+
   <div>
     <md-icon aria-label="Calendar" class="material-icons">perm_contact_calendar</md-icon>
     <span><%= @event.event_date.strftime("%B %-d, %Y") %></span>
-  </div>
-  <br>
+  </div><br>
+
   <div>
     <md-icon aria-label="Calendar" class="material-icons">perm_identityr</md-icon>
-    <span><%= @event.candidate %></span>
-  </div>
+    <span><%= @event.user.username %></span>
+  </div><br>
+
+
+  <% if not @event.start_time.nil? and not @event.end_time.nil? %>
+      <div>
+        <md-icon aria-label="Time" class="material-icons">access_time</md-icon>
+        <span><%= @event.formatted_start_time %> - <%= @event.formatted_end_time %></span>
+      </div>
+  <% end %>
 
   <p><%= @event.description %></p>
 
