@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
   end
   
   def format time
-    time.strftime '%I:%M %p'
+    time.strftime '%l:%M %p'
   end
 
   def formatted_start_time

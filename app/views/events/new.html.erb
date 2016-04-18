@@ -24,6 +24,14 @@
       </md-input-container>
       <br>
 
+      <%= label :event, :start_time, 'Start Time' %>
+      <%= time_select :event, :start_time, ampm: true %>
+      <br>
+
+      <%= label :event, :end_time, 'End Time' %>
+      <%= time_select :event, :end_time, ampm: true %>
+      <br>
+
       <md-input-container>
         <%= f.label :description, 'Event Description' %>
         <%= f.text_field :description %>
