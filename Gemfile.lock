@@ -211,6 +211,7 @@ GEM
     multi_json (1.11.2)
     multi_test (0.1.2)
     netrc (0.11.0)
+    newrelic_rpm (3.15.1.316)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
@@ -354,6 +355,9 @@ GEM
     tilt (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -399,6 +403,7 @@ DEPENDENCIES
   jquery-rails
   mailboxer
   metric_fu
+  newrelic_rpm
   pg (= 0.15.1)
   poltergeist
   rails (= 4.2.5)
@@ -416,6 +421,7 @@ DEPENDENCIES
   spring
   sqlite3
   test-unit
+  uglifier
   web-console (~> 2.0)
 
 BUNDLED WITH
