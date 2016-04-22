@@ -32,7 +32,7 @@ Feature: Users Can See The Description For A Shift
     And I press "Add Shift"
     Then I should be on the page for the "Flyering" shift for the "Go Batman" event
     And I should see "Stand all day"
-    
+
   Scenario: Description is optional
     Given I follow "Add Shift"
     When I fill in "Shift Role" with "Flyering"
