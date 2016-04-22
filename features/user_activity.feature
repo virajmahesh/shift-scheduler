@@ -59,3 +59,14 @@ Feature: Users have a way to view their most recent notifications
     When I follow "Join"
     And I am on the user activity page
     Then I should see "Shift is full: Flyering"
+    
+  Scenario: Users can dismiss/delete their notifications
+    Given PENDING
+    Given the following user_activities exist:
+      | User | Activity | Shift |
+      | 1    | 1        | 1     |
+      | 1    | 2        | 1     |
+    And I am on the user activity page
+    When I press "Delete" within "user_activity_1"
+    Then I should not see "User has joined shift: Tabling"
+    And I should see "User has left shift: Tabling"
