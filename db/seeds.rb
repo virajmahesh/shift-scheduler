@@ -64,14 +64,50 @@ all_skills = Skill.create([{ description: 'Accounting, bookkeeping, compliance' 
                          { description: 'Website development' },
                          { description: 'Writing' },
                          { description: 'Youth/teen outreach' }])
+                        
+all_issues = Issue.create([ { description: 'Advocacy & Human Rights' },
+                            { description: 'Animal' },
+                            { description: 'Arts & Culture' },
+                            { description: 'Board Development' },
+                            { description: 'Children & Youth' },
+                            { description: 'Community' },
+                            { description: 'Computers & Technology' },
+                            { description: 'Criminal Justice' },
+                            { description: 'Crisis Support' },
+                            { description: 'Disaster Relief' },
+                            { description: 'Economic Justice' },
+                            { description: 'Education & Literacy' },
+                            { description: 'Emergency & Safety' },
+                            { description: 'Employment' },
+                            { description: 'Environment' },
+                            { description: 'Faith-Based' },
+                            { description: 'Health & Medicine' },
+                            { description: 'Homeless & Housing' },
+                            { description: 'Human Trafficking' },
+                            { description: 'Hunger' },
+                            { description: 'Immigrants & Refugees' },
+                            { description: 'International' },
+                            { description: 'Justice & Legal' },
+                            { description: 'LGBT' },
+                            { description: 'Media & Broadcasting' },
+                            { description: 'People With Disabilities' },
+                            { description: 'Politics' },
+                            { description: 'Race & Ethnicity' },
+                            { description: 'Seniors' },
+                            { description: 'Sports & Recreation' },
+                            { description: 'Sustainable Food' },
+                            { description: 'Veterans & Military Families' },
+                            { description: 'Women’s Rights' }])
 
-test_user_role1 = UserSkill.create user_id:1, skill_id:3
-test_user_role2 = UserSkill.create user_id:1, skill_id:5
-hillary_shift_role1 = ShiftSkill.create shift_id:1, skill_id:8
-hillary_shift_role2 = ShiftSkill.create shift_id:1, skill_id:5
-hillary_shift_role3 = ShiftSkill.create shift_id:1, skill_id:3
-bernie_shift_role1 = ShiftSkill.create shift_id:2, skill_id:3
-bernie_shift_role2 = ShiftSkill.create shift_id:2, skill_id:5
-bernie_shift_role3 = ShiftSkill.create shift_id:2, skill_id:6
+UserSkill.create user_id:1, skill_id:3
+UserSkill.create user_id:1, skill_id:5
+ShiftSkill.create shift_id:1, skill_id:8
+ShiftSkill.create shift_id:1, skill_id:5
+ShiftSkill.create shift_id:1, skill_id:3
+ShiftSkill.create shift_id:2, skill_id:3
+ShiftSkill.create shift_id:2, skill_id:5
+ShiftSkill.create shift_id:2, skill_id:6
+EventIssue.create event_id:1, issue_id:33
+
 
 
