@@ -69,7 +69,7 @@ Feature: User can Create, edit and delete shifts
     And I check "Shift Has Limit"
     And I press "Add Shift"
     Then a shift with role "Set Up" should not exist
-    And I should see "Shift limit can't be blank"
+    And I should see "Role can't be blank"
 
 
   Scenario: Indicate that shift has a limit but don't enter a limit
