@@ -11,12 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413210221) do
+ActiveRecord::Schema.define(version: 20160427005433) do
 
   create_table "activity_types", force: :cascade do |t|
     t.string   "activity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_issues", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "issue_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -30,6 +35,10 @@ ActiveRecord::Schema.define(version: 20160413210221) do
     t.string   "candidate"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.string "description"
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
@@ -85,10 +94,6 @@ ActiveRecord::Schema.define(version: 20160413210221) do
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
-  create_table "roles", force: :cascade do |t|
-    t.string "description"
-  end
-
   create_table "shift_skills", force: :cascade do |t|
     t.integer "shift_id"
     t.integer "skill_id"
@@ -106,6 +111,10 @@ ActiveRecord::Schema.define(version: 20160413210221) do
     t.string   "description"
   end
 
+  create_table "skills", force: :cascade do |t|
+    t.string "description"
+  end
+
   create_table "user_activities", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "activity_type_id"
@@ -113,6 +122,11 @@ ActiveRecord::Schema.define(version: 20160413210221) do
     t.datetime "updated_at",       null: false
     t.integer  "shift_id"
     t.integer  "event_id"
+  end
+
+  create_table "user_issues", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "issue_id"
   end
 
   create_table "user_skills", force: :cascade do |t|
@@ -125,7 +139,6 @@ ActiveRecord::Schema.define(version: 20160413210221) do
     t.string   "city"
     t.string   "state"
     t.integer  "zip_code"
-    t.string   "skills"
     t.string   "phone_number"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
