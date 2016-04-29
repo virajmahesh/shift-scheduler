@@ -16,22 +16,21 @@ Feature: Users Can Add Skills To A Shift
     And the following shifts exist:
       | Event     | Role     | Has Limit | Limit | Start Time | End Time | Description |
       | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day |
+    And the following skills exist:
+      | Description |
+      | Blogging    |
     And the following shift skills exist:
-      | Shift | Skills  |
-      | 1     | Sing    |
+      | Event     | Shift   | Skill    |
+      | Go Batman | Tabling | Blogging |
     And I am on the page for the "Go Batman" event
 
     Scenario: View the skills for a shift that already exists
       Given I am on the page for the "Go Batman" event
       And I follow "Tabling"
-      Then I should see "Sing"
+      Then I should see "Blogging"
 
-    Scenario: Add a description for an event
-      Given I follow "Add Shift"
-      When I fill in "Shift Role" with "Flyering"
-      And I check "Shift Has Limit"
-      And I fill in "Shift Limit" with "5"
-      And I fill in "Shift Skills" with "Drawing"
-      And I press "Add Shift"
-      Then I should be on the page for the "Flyering" shift for the "Go Batman" event
-      And I should see "Drawing"
+    Scenario: View the skills for a shift that already exists
+      Given I am on the page for the "Go Batman" event
+      And I follow "Tabling"
+      And I follow "View Volunteers"
+      Then I should not see "Blogging"

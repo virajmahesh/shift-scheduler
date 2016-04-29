@@ -7,8 +7,9 @@ Limit: <%= @shift.limit %> <br>
 
 <% if @shift.has_limit %>
     <%= @shift.volunteer_commitments.length %>/<%= @shift.limit %> slots filled
-<% end %>
+<% end %><br>
 
+Skills: <%= @shift.skills.pluck(:description)%><br>
 
 <% if not @user.nil? %>
     <% if current_user.signed_up_for @shift %>
