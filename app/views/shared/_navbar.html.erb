@@ -10,7 +10,7 @@
     <span  flex=''></span>
 
     <% unless @user.nil? or @user.id.nil? %>
-        <%= content_tag :a, @user.username %>
+        <span><%= @user.username %></span>
         <md-button ng-href='<%= destroy_user_session_path %>' data-method='delete'>Logout</md-button>
         <md-button ng-href='<%= user_activity_path %>'>Notifications</md-button>
       <% else %>

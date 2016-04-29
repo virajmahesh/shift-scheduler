@@ -9,7 +9,7 @@
       <br>
 
       <%= f.label :event_date, 'Event Date', hidden: true %>
-      <md-datepicker ng-model="event.date"></md-datepicker>
+        <md-datepicker ng-model="event.date"></md-datepicker>
       <br>
 
       <md-input-container>
@@ -37,6 +37,18 @@
         <%= f.text_field :description %>
       </md-input-container>
       <br>
+
+      <input type="hidden" id="issue_ids" name="issue_ids">
+
+      <md-contact-chips
+          id="issues"
+          ng-model="issues"
+          md-contacts="findIssues($query)"
+          md-contact-name="description"
+          md-require-match="true"
+          md-highlight-flags="i"
+          placeholder="Issues">
+      </md-contact-chips><br><br>
 
       <md-button type="submit" class="md-raised md-primary">Create Event</md-button>
       <br>

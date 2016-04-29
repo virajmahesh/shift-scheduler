@@ -2,22 +2,23 @@
 <html>
 <head>
   <title>UpRise Shift Scheduler</title>
+
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <%= csrf_meta_tags %>
+
+  <%= javascript_include_tag 'application' %>
 </head>
 <body ng-app='icsi-shift-scheduler'>
 
-<%= render 'shared/navbar' %>
-<%= render 'shared/error' %>
-<%= render 'shared/devise_error' %>
+  <%= render 'shared/navbar' %>
+  <%= render 'shared/error' %>
+  <%= render 'shared/devise_error' %>
 
-<div class="content">
-  <%= yield %>
-</div>
-
-<%= javascript_include_tag 'application' %>
+  <div class="content">
+    <%= yield %>
+  </div>
 
 </body>
 </html>

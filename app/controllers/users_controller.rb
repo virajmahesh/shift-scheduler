@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   # Adds the current user to the shift
   def join_shift
-    @shift = Shift.find params[:id]
+    @shift = Shift.find_by_id params[:id]
 
     unless @user.nil? or @shift.nil?
       VolunteerCommitment.create user: @user, shift: @shift
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   # Removes the current user from the shift
   def leave_shift
-    @shift = Shift.find params[:id]
+    @shift = Shift.find_by_id params[:id]
     @commitment = VolunteerCommitment.find_by user: @user, shift: @shift
 
     unless @commitment.nil?

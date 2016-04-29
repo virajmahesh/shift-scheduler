@@ -1,4 +1,4 @@
-Given(/^the following users have registered for accounts:$/) do |table|
+Given (/^the following users have registered for accounts:$/) do |table|
   table.hashes.each do |user|
     email = user[:email]
     username = user[:username]
@@ -9,15 +9,15 @@ Given(/^the following users have registered for accounts:$/) do |table|
   end
 end
 
-Given(/^the following events exist:$/) do |table|
+Given (/^the following events exist:$/) do |table|
   table.hashes.each do |event|
     Event.create user: User.find_by(username: event['User']), event_name: event['Name'],
-                 candidate: event['Candidate'], event_date: event['Event Date'],
-                 location: event['Location']
+                                    candidate: event['Candidate'], event_date: event['Event Date'],
+                                    location: event['Location']
   end
 end
 
-Given(/^the following shifts exist:$/) do |table|
+Given (/^the following shifts exist:$/) do |table|
   table.hashes.each do |shift|
     Shift.create event: Event.find_by(event_name: shift['Event']), role: shift['Role'],
                  has_limit: shift['Has Limit'], limit: shift['Limit'],
@@ -51,16 +51,22 @@ Given(/^the following volunteer commitments exist:$/) do |table|
   end
 end
 
-Given(/^the following activity_types exist:$/) do |table|
+Given (/^the following activity_types exist:$/) do |table|
   table.hashes.each do |activity_type|
     ActivityType.create({activity: activity_type['Activity'] + " "})
   end
 end
 
-Given(/^the following user_activities exist:$/) do |table|
+Given (/^the following user_activities exist:$/) do |table|
   table.hashes.each do |user_activity|
     UserActivity.create user_id: user_activity['User'], activity_type_id: user_activity['Activity'],
                   shift_id: user_activity['Shift']
+  end
+end
+
+Given (/^the following issues exist:$/) do |table|
+  table.hashes.each do |issue|
+    Issue.create description: issue['Description']
   end
 end
 
@@ -133,6 +139,36 @@ end
 
 Then (/^I should see "(.*)" in "(.*)"$/) do |value, field|
   find_field(field).value.should eq value
+end
+
+When (/^I select the following issues: "(.*)"$/) do |issues|
+  issues = issues.split(', ')
+  issues.each do |issue|
+    input = page.find('#issues').find('input')
+
+    # Click the input and type in the issue
+    input.click
+    input.set(issue)
+    page.find('span.highlight', text: issue, visible: false).trigger('click')
+  end
+end
+
+When (/^I select the following skills: "(.*)"$/) do |skills|
+  pending
+end
+
+Then (/^the "(.*)" event should have "(.*)" as an issue$/) do |event_name, issue_desc|
+  event = Event.find_by_event_name event_name
+  issue = Issue.find_by_description issue_desc
+
+  event.has_issue?(issue).should == true
+end
+
+Then (/^user "(.*)" should have "(.*)" as an issue$/) do |username, issue_desc|
+  user = User.find_by_username username
+  issue = Issue.find_by_description issue_desc
+
+  user.has_issue?(issue).should == true
 end
 
 Given (/^PENDING$/) do

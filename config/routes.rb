@@ -10,13 +10,17 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
   }
 
+  resources :issues
+  resources :skills
+
   root 'application#index'
+
   get 'events/:event_id/shifts/:id/view_users' => 'shifts#view_users', as: 'shift_viewUsers'
   get 'events/:event_id/shifts/:id/remove/:user_id' => 'shifts#remove_user', as: 'shift_removeUser'
+
   get '/user/join_shift/:id/' => 'users#join_shift'
   get '/user/leave_shift/:id' => 'users#leave_shift'
+
   get '/user_activity' => 'user_activities#show'
 
-  get '/autocomplete/:partial_text' => 'skills#order_roles'
-  get '/skills' => 'skills#all_skills'
 end
