@@ -51,6 +51,7 @@ group :test do
   gem 'cucumber-rails-training-wheels'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'autotest-rails'
   gem 'factory_girl_rails'

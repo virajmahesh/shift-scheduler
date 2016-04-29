@@ -66,7 +66,7 @@ all_skills = Skill.create([{ description: 'Accounting, bookkeeping, compliance' 
                          { description: 'Youth/teen outreach' }])
                         
 all_issues = Issue.create([ { description: 'Advocacy & Human Rights' },
-                            { description: 'Animal' },
+                            { description: 'Animal Rights' },
                             { description: 'Arts & Culture' },
                             { description: 'Board Development' },
                             { description: 'Children & Youth' },

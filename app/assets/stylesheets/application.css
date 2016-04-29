@@ -18,6 +18,14 @@ h3 {
     margin-right: 17px;
 }
 
+a {
+    text-decoration: none !important;
+}
+
+a.md-button {
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
 md-card {
     color: black !important;
     border: rgba(0, 0, 0, 0.1) 1px solid !important;
@@ -48,18 +56,6 @@ md-input-container {
 
 .event-card {
     height: 215px !important;
-}
-
-a {
-    text-decoration: none !important;
-}
-
-a:visited {
-    color: unset !important;
-}
-
-a:hover {
-    color: unset !important;
 }
 
 .flash {
@@ -105,9 +101,10 @@ md-icon {
 }
 
 .md-autocomplete-suggestions-container, span.md-contact-name {
-    width: 400px !important;
+    width: 350px !important;
 }
 
 md-chips-wrap {
-    max-width: 500px !important;
+    max-width: 350px !important;
+    display: inline-block !important;
 }

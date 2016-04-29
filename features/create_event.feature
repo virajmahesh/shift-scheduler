@@ -9,11 +9,16 @@ Feature: User can Create, edit and delete events
       | email               | username | password          |
       | john_doe@uprise.com | john_doe | john_doe_password |
       | jane_doe@uprise.com | jane_doe | jane_doe_password |
-    And I am on the homepage
-    And I log in with username "john_doe" and password "john_doe_password"
     And the following events exist:
       | User     | Name       | Location  | Candidate | Event Date |
       | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018 |
+    And the following issues exist:
+      | Description       |
+      | Human Trafficking |
+      | Community         |
+      | Animal Rights     |
+    And I am on the homepage
+    And I log in with username "john_doe" and password "john_doe_password"
 
   Scenario: Attempt to create an event
     When I follow "Create"
@@ -113,6 +118,22 @@ Feature: User can Create, edit and delete events
     And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Description" with "A fund raiser for Batman"
     And I press "Create Event"
-    And I should see "Batman for President" in "Event Name"
+    Then I should see "Batman for President" in "Event Name"
     And I should see "Batman" in "Candidate"
     And I should see "A fund raiser for Batman" in "Description"
+
+  Scenario: Add a single issue to an event
+    When I follow "Create"
+    When I fill in "Event Name" with "Batman for President"
+    And I fill in "Candidate" with "Batman"
+    And I fill in "Location" with "Gotham"
+    And I fill in "event[event_date]" with "03/03/2016"
+    And I fill in "Description" with "A fund raiser for Batman"
+    And I select the following issues: "Human Trafficking, Community"
+    And I press "Create Event"
+    Then the "Batman for President" event should have "Human Trafficking" as an issue
+    And the "Batman for President" event should have "Community" as an issue
+    And I should be on the page for the "Batman for President" event
+    And I should see "Human Trafficking"
+    And I should see "Community"
+    And I should not see "Animal Rights"
