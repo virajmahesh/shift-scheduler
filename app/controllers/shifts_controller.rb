@@ -16,7 +16,7 @@ class ShiftsController < ApplicationController
   def shift_params
     params.require(:shift).permit(:event_id, :role, :start_time, :end_time,
                                   :has_limit, :limit, :created_at,
-                                  :updated_at, :description)
+                                  :updated_at, :description, :skills)
   end
 
   # Create a new shift. Checks that the user attempting to create the shift
@@ -24,6 +24,9 @@ class ShiftsController < ApplicationController
   def create
     if can? :create_shift, @event
       @shift = Shift.create shift_params.merge(event: @event)
+      params[:skills].split(',').each do |skill_id|
+        ShiftSkill.create shift: @shift, skill_id: skill_id
+      end
       if @shift.invalid?
         flash[:error] = @shift.errors.full_messages.first
         redirect_to new_event_shift_path
@@ -70,7 +73,7 @@ class ShiftsController < ApplicationController
       render file: 'public/422.html', status: :unauthorized
     end
   end
-  
+
   def view_users
     if can? :view_volunteers, @shift
       shift_userids = VolunteerCommitment.where(shift_id: @shift).pluck(:user_id)

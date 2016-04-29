@@ -1,5 +1,6 @@
 <h1>Create New Shift</h1>
 
+<div ng-controller="RegistrationController">
 <%= form_tag event_shifts_path(@event) do %>
 
     <%= label :shift, :start_time, 'Start Time' %>
@@ -32,7 +33,19 @@
     </md-input-container>
     <br>
 
+    <input type="hidden" id="skills", name="skills">
+
+    <md-contact-chips
+        ng-model="skills"
+        md-contacts="findSkills($query)"
+        md-contact-name="description"
+        md-require-match="true"
+        md-highlight-flags="i"
+        placeholder="Shift Skills">
+    </md-contact-chips>
+
     <%= submit_tag 'Add Shift' %>
 
 <% end %>
 <%= link_to 'Back to Event', event_path(@event) %>
+</div>
