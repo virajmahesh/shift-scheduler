@@ -28,6 +28,7 @@ class ShiftsController < ApplicationController
         flash[:error] = @shift.errors.full_messages.first
         redirect_to new_event_shift_path
       else
+        populate_skills
         flash[:notice] = "shift was successfully created."
         redirect_to event_shift_path @event, @shift
       end
@@ -70,7 +71,7 @@ class ShiftsController < ApplicationController
       render file: 'public/422.html', status: :unauthorized
     end
   end
-  
+
   def view_users
     if can? :view_volunteers, @shift
       shift_userids = VolunteerCommitment.where(shift_id: @shift).pluck(:user_id)
@@ -78,6 +79,14 @@ class ShiftsController < ApplicationController
       render 'shifts/users.html.erb'
     else
       render file: 'public/422.html', status: :unauthorized
+    end
+  end
+
+  def populate_skills
+    if not @shift.nil? and params.has_key? :skills
+      params[:skills].split(',').each do |skill_id|
+        ShiftSkill.create shift: @shift, skill_id: skill_id
+      end
     end
   end
 end
