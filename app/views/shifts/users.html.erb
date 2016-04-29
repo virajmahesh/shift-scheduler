@@ -8,7 +8,6 @@
 </div>
 
 <h1><%= @event.event_name%></h1>
-<h3>Volunteers for <%= @shift.skills.pluck(:description)%></h3> 
 
 <% @shift_users.each do |e| %>
   <li><%= e.username %>
@@ -19,4 +18,3 @@
 <%= link_to('Back to shift page', event_shift_path(@event, @shift)) %> <br>
 <%= link_to('Event Page', event_path(@event)) %> <br>
 <%= link_to('Home', root_path) %> <br>
-
