@@ -3,6 +3,8 @@ require 'set'
 class Event < ActiveRecord::Base
   belongs_to :user
   has_many :shifts
+  has_many :event_issues
+  has_many :issues, through: :event_issues
 
   validates :event_name, presence: true
   validates :event_date, presence: true
@@ -46,6 +48,11 @@ class Event < ActiveRecord::Base
     else
       'Be the first to one to join!'
     end
+  end
+
+  # Return true if the issue is associated with the event
+  def has_issue? issue
+    EventIssue.exists? issue: issue, event: self
   end
 
 end

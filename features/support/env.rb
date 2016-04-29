@@ -10,8 +10,10 @@ SimpleCov.start
 require 'cucumber/rails'
 require 'capybara/rails'
 require 'capybara/poltergeist'
+require 'selenium-webdriver'
 
 Capybara.default_driver = :poltergeist
+
 
 require 'sidekiq/testing'
 Sidekiq::Testing.inline!

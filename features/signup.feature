@@ -9,8 +9,17 @@ Feature: Users Can Signup for an Account and Use it to Login
     Given the following users have registered for accounts:
       | email               | username | password          |
       | jane_doe@uprise.com | jane_doe | jane_doe_password |
-
-    Given I am on the homepage
+    And the following issues exist:
+      | Description       |
+      | Human Trafficking |
+      | Community         |
+      | Animal Rights     |
+    And the following skills exist:
+      | Description |
+      | Organizing  |
+      | Outreach    |
+      | Fundraising |
+    And I am on the homepage
 
   Scenario: Attempt to signup with valid information
     When I follow "Sign Up"
@@ -96,3 +105,16 @@ Feature: Users Can Signup for an Account and Use it to Login
     When I follow "Sign Up"
     Then I should be on the signup page
     And I should not see "Log in"
+
+  Scenario: Add issues while signing up
+    When I follow "Sign Up"
+    Then I should be on the signup page
+    When I fill in "Email" with "john_doe@uprise.com"
+    And I fill in "Username" with "john_doe"
+    And I fill in "Password" with "password"
+    And I fill in "Password confirmation" with "password"
+    And I select the following issues: "Human Trafficking, Community"
+    And I press "Sign Up"
+    Then a user with the username "john_doe" and password "password" should exist in the database
+    And I should be on the homepage
+    And user "john_doe" should have "Human Trafficking" as an issue
