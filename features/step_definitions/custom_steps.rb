@@ -51,16 +51,10 @@ Given(/^the following volunteer commitments exist:$/) do |table|
   end
 end
 
-Given (/^the following activity_types exist:$/) do |table|
-  table.hashes.each do |activity_type|
-    ActivityType.create({activity: activity_type['Activity'] + " "})
-  end
-end
-
-Given (/^the following user_activities exist:$/) do |table|
+Given(/^the following user_activities exist:$/) do |table|
   table.hashes.each do |user_activity|
-    UserActivity.create user_id: user_activity['User'], activity_type_id: user_activity['Activity'],
-                  shift_id: user_activity['Shift']
+    UserActivity.create owner_id: user_activity['Owner'], user_id: user_activity['User'], type: user_activity['Type'],
+                  shift_id: user_activity['Shift'], event_id: user_activity['Event']
   end
 end
 

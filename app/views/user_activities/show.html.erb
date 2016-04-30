@@ -1,7 +1,13 @@
 <h2>Notifications</h2>
 
 <% @activities.each do |a| %>
-    <%= a.representation %> <br>
+    <a href=<%=a.href %>>
+        <md-card>
+            <p><%= a.representation %> </p>
+            <p style="font-size:10px"><%= a.created_at.strftime '%-m/%e/%Y %I:%M %p' %></p>
+        </md-card>
+    </a>
+
 <% end %>
 
 <%= link_to('Back to home page', root_path) %>

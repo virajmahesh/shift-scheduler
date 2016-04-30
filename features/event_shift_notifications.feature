@@ -12,43 +12,27 @@ Feature: Users will receive timely notifications for events and shifts
     And I log in with username "john_doe" and password "hellboy_new"
     And the following events exist:
       | User     | Event Date | Name      | Candidate   | Location |
-      | john_doe | 04/8/2017  | Go Batman | Batman      | Gotham   |
-      | john_doe | 05/8/2017  | Go Harvey | Harvey Dent | Gotham   |
+      | john_doe | 04/8/2100  | Go Batman | Batman      | Gotham   |
+      | john_doe | 05/8/2100  | Go Harvey | Harvey Dent | Gotham   |
     And the following shifts exist:
       | Event     | Role     | Has Limit | Limit | Start Time | End Time | Description   |
       | Go Batman | Tabling  | true      | 4     | 11:00 am   | 11:30 am | Sit all day   |
       | Go Batman | Flyering | true      | 1     | 10:30 pm   | 11:30 pm | Stand all day |
-    And the following activity_types exist:
-      | Activity                    |
-      | User has joined shift:      |
-      | User has left shift:        |
-      | Shift is full:              |
-      | You have an event tomorrow: |
-      | You have a shift tomorrow:  |
     
   Scenario: Receive event notification 24 hours before a shift
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
     When I follow "Join"
     Given I am on the user activity page
-    Then I should see "You have a shift tomorrow: Tabling"
+    Then I should see "Your 'Tabling' shift for the 'Go Batman' event is tomorrow."
 
   Scenario: Receive shift notification 24 hours before an event
     Given I am on the home page
     When I follow "Create"
-    When I fill in "Event Name" with "Go Harvey"
+    When I fill in "Event Name" with "Harvey Dent Day"
     And I fill in "Location" with "Gotham"
-    And I fill in "event[event_date]" with "03/03/2020"
     And I fill in "Candidate" with "Harvey Dent"
-    And I fill in "Description" with "A fundraiser for Harvey"
+    And I fill in "Description" with "Honor Harvey Dent"
     And I press "Create Event"
     When I am on the user activity page
-    Then I should see "You have an event tomorrow: Go Harvey"
-
-  Scenario: No notification for shifts more than 24 hours away
-    Given I am on the user activity page
-    And I should not see "You have a shift tomorrow: Stand all day"
-    
-  Scenario: No notification for events more than 24 hours away
-    Given I am on the user activity page
-    And I should not see "You have an event tomorrow: Go Harvey"
+    Then I should see "Your 'Harvey Dent Day' event is tomorrow."
     
