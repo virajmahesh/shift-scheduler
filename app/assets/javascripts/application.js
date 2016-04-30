@@ -27,8 +27,8 @@ function filterListByQuery(list, used, query) {
     used = used.map(function (x) { return x.id });
 
     // Filter out the used objects and then match by query.
-    return list.filter(function(x) { return used.indexOf(x.id) == -1 })
-               .filter(function (x) { return lowercase(x.description).indexOf(query) != -1 });
+    return list.filter(function(x) { return used.indexOf(x.id) === -1 })
+               .filter(function (x) { return lowercase(x.description).indexOf(query) !== -1 });
 }
 
 
@@ -62,20 +62,11 @@ function handleIssues($scope) {
     });
 }
 
-app.controller('EventController', function ($scope) {
-    $scope.issues = []; // Issues are initially unselected.
-
-    $scope.init = function () {
-        $('.md-datepicker-input').attr('name', 'event[event_date]');
-    };
-
-    handleIssues($scope);
-});
-
-app.controller('RegistrationController', function($scope) {
-    $scope.skills = [];
-    $scope.issues = [];
-
+/**
+ * Allows the scope to handle skill selection.
+ * @param $scope
+ */
+function handleSkills($scope) {
     // Populate the list of all skills from the API
     $.get('/skills', function(data) {
         $scope.allSkills = data;
@@ -91,6 +82,22 @@ app.controller('RegistrationController', function($scope) {
     $scope.$watch('skills.length', function() {
         $('#skill_ids').val($scope.skills.map(function(x) { return x.id }));
     });
+}
+
+app.controller('EventController', function ($scope) {
+    $scope.issues = []; // Issues are initially unselected.
+
+    $scope.init = function () {
+        $('.md-datepicker-input').attr('name', 'event[event_date]');
+    };
 
     handleIssues($scope);
+});
+
+app.controller('RegistrationController', function($scope) {
+    $scope.skills = [];
+    $scope.issues = [];
+
+    handleIssues($scope);
+    handleSkills($scope);
 });
