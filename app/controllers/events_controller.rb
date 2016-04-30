@@ -12,18 +12,29 @@ class EventsController < ApplicationController
                                   :event_date, :candidate, :description)
   end
 
+  # Link the event with the issues passed in
+  def populate_issues
+    if !@event.nil? and @event.valid? and params.has_key? :issue_ids
+      params[:issue_ids].split(',').each do |issue_id|
+        EventIssue.create event: @event, issue_id: issue_id
+      end
+    end
+  end
+
   # Create a new event. Checks that the user attempting to create the event is
   # authorized to do so
   def create
     if can? :create, Event
       @event = Event.create event_params.merge user: @user
-
       if @event.invalid?
         flash[:error] = @event.errors.full_messages.first
         render :new
       else
+        populate_issues
         flash[:notice] = "#{@event.event_name} was successfully created."
         redirect_to event_path @event
+
+        # TODO: Clean this up by refactoring
         EventNotificationJob.set(wait_until: @event.event_date.to_time.advance(:days => -1)).perform_later @event
       end
     else

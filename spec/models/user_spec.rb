@@ -1,7 +1,4 @@
 require 'spec_helper'
-require 'bcrypt'
-
-include BCrypt
 
 describe User do
 
@@ -10,21 +7,26 @@ describe User do
                         password: 'password', password_confirmation: 'password'
   end
 
-  describe 'user user' do
+  describe 'password hashing' do
     it 'should hash user passwords before storing them' do
       @user.encrypted_password.should_not ==  'password'
     end
   end
 
-  describe 'Signed Up For Shift' do
-    it 'should return true when the user is signed up for the shift' do
-      @shift = Shift.create
+  describe 'has_issues?' do
+    before :each do
+      @issue = FactoryGirl.create :issue
     end
-  end
 
-  describe 'Email Notifications' do
-    it 'should return email when mailboxer calls email' do
-      @user.mailboxer_email(@user) == 'email@email.com'
+    it 'should return true when the user is linked with the issue' do
+      @user.issues << @issue
+      @user.save
+
+      @user.has_issue?(@issue).should == true
+    end
+
+    it 'should return false when the user is not linked with the issue' do
+      @user.has_issue?(@issue).should == false
     end
   end
 

@@ -61,7 +61,7 @@ describe EventsController do
       @event = FactoryGirl.create :event, user: @user, event_name: 'Support Hillary'
       put :update, id: @event.id, event: {event_name: 'Support Hillary Today'}
 
-      @updated_event = Event.find @event.id
+      @updated_event = Event.find_by_id @event.id
       @updated_event.event_name.should == 'Support Hillary Today'
     end
   end

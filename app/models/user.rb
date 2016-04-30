@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_many :user_skills
   has_many :skills, through: :user_skills
 
+  has_many :user_issues
+  has_many :issues, through: :user_issues
+
   acts_as_messageable
 
   validates :username, presence: true
@@ -31,5 +34,10 @@ class User < ActiveRecord::Base
 
   def self.find_first_by_auth_conditions conditions, opts = {}
     (User.find_by username: conditions[:login]) || (User.find_by email: conditions[:login])
+  end
+
+  # Return true is this user is linked with the given issue
+  def has_issue? issue
+    UserIssue.exists? user: self, issue: issue
   end
 end
