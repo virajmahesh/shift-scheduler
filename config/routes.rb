@@ -22,5 +22,5 @@ Rails.application.routes.draw do
   get '/user/leave_shift/:id' => 'users#leave_shift'
 
   get '/user_activity' => 'user_activities#show'
-
+  delete '/user_activity/:id' => 'user_activities#delete', as: 'delete_notification'
 end
