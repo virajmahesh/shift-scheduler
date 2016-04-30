@@ -17,55 +17,49 @@ Feature: Users have a way to view their most recent notifications
       | Event     | Role     | Has Limit | Limit | Start Time | End Time | Description   |
       | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    | Sit all day   |
       | Go Batman | Flyering | true      | 1     | 10:30      | 11:30    | Stand all day |
-    And the following activity_types exist:
-      | Activity                    |
-      | User has joined shift:      |
-      | User has left shift:        |
-      | Shift is full:              |
-      | You have an event tomorrow: |
-      | You have a shift tomorrow:  |
 
   Scenario: View notifications through the home page
     Given the following user_activities exist:
-      | User | Activity | Shift |
-      | 1    | 1        | 1     |
-      | 1    | 2        | 1     |
+      | Owner |User | Type          | Shift | Event |
+      | 1     | 1   | JoinActivity  | 1     | 1     |
+      | 1     | 1   | LeaveActivity | 1     | 1     |
     And I am on the home page
     When I follow "Notifications"
-    Then I should see "User has joined shift: Tabling"
-    And I should see "User has left shift: Tabling"
+    Then I should see "User 'john_doe' has joined the 'Tabling' shift for the 'Go Batman' event."
+    And I should see "User 'john_doe' has left the 'Tabling' shift for the 'Go Batman' event."
     
   Scenario: Should see no notifications if nothing happened
     Given I am on the user activity page
-    Then I should not see "User has joined shift:"
-    And I should not see "User has left shift:"
-    And I should not see "Shift is full:"
+    Then I should not see "User 'john_doe' has joined the 'Tabling' shift for the 'Go Batman' event."
+    And I should not see "User 'john_doe' has joined the 'Flyering' shift for the 'Go Batman' event."
+    And I should not see "The 'Tabling' shift for the 'Go Batman' event is full."
 
   Scenario: Joining a shift should generate a notification
     Given I am on the page for the "Flyering" shift for the "Go Batman" event
     When I follow "Join"
     And I am on the user activity page
-    Then I should see "User has joined shift: Flyering"
+    Then I should see "User 'john_doe' has joined the 'Flyering' shift for the 'Go Batman' event."
     
   Scenario: Leaving a shift should generate a notification
     Given "john_doe" has signed up for the "Flyering" shift for the "Go Batman" event
     And I am on the page for the "Flyering" shift for the "Go Batman" event
     When I follow "Leave"
     And I am on the user activity page
-    Then I should see "User has left shift: Flyering"
+    Then I should see "User 'john_doe' has left the 'Flyering' shift for the 'Go Batman' event."
     
   Scenario: A shift filling up should generate a notification
     Given I am on the page for the "Flyering" shift for the "Go Batman" event
     When I follow "Join"
     And I am on the user activity page
-    Then I should see "Shift is full: Flyering"
+    Then I should see "The 'Flyering' shift for the 'Go Batman' event is full."
     
   Scenario: Users can dismiss/delete their notifications
     Given PENDING
     Given the following user_activities exist:
-      | User | Activity | Shift |
-      | 1    | 1        | 1     |
-      | 1    | 2        | 1     |
+    Given the following user_activities exist:
+      | Owner |User | Type          | Shift | Event |
+      | 1     | 1   | JoinActivity  | 1     | 1     |
+      | 1     | 1   | LeaveActivity | 1     | 1     |
     And I am on the user activity page
     When I press "Delete" within "user_activity_1"
     Then I should not see "User has joined shift: Tabling"

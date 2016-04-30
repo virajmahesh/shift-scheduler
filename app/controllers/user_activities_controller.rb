@@ -6,7 +6,7 @@ class UserActivitiesController < ApplicationController
   end
 
   def parse_activities
-      @activities = UserActivity.where(user_id: @user)
+      @activities = UserActivity.where(owner_id: @user).order(created_at: :desc)
   end
  
 
