@@ -51,7 +51,8 @@
       </md-input-container>
       <br>
 
-      <input type="hidden" id="skills", name="skills">
+      <input type="hidden" id="skill_ids" name="skill_ids">
+      <input type="hidden" id="issue_ids" name="issue_ids">
 
       <md-contact-chips
           ng-model="skills"
@@ -60,8 +61,18 @@
           md-require-match="true"
           md-highlight-flags="i"
           placeholder="Skills">
-      </md-contact-chips>
+      </md-contact-chips> <br> <br>
 
-      <md-button type="submit" class="md-raised md-primary">Sign Up</md-button>
+      <md-contact-chips
+          id="issues"
+          ng-model="issues"
+          md-contacts="findIssues($query)"
+          md-contact-name="description"
+          md-require-match="true"
+          md-highlight-flags="i"
+          placeholder="Issues">
+      </md-contact-chips> <br> <br>
+
+      <md-button type="submit" class="md-raised md-primary">Sign Up</md-button> <br>
   <% end %>
 </div>

@@ -7,6 +7,10 @@ FactoryGirl.define do
     "test#{n}@example.com"
   end
 
+  sequence :issue do |n|
+    "test issue #{n}"
+  end
+
   factory :user do
     email {generate :email}
     username {generate :username}
@@ -28,4 +32,9 @@ FactoryGirl.define do
     role 'Tabling'
     has_limit 'false'
   end
+
+  factory :issue do
+    description {generate :issue}
+  end
+
 end

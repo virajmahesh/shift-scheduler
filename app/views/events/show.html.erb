@@ -26,18 +26,23 @@
     <span><%= @event.event_date.strftime("%B %-d, %Y") %></span>
   </div><br>
 
-  <div>
-    <md-icon aria-label="Calendar" class="material-icons">perm_identityr</md-icon>
-    <span><%= @event.user.username %></span>
-  </div><br>
-
-
   <% if not @event.start_time.nil? and not @event.end_time.nil? %>
       <div>
         <md-icon aria-label="Time" class="material-icons">access_time</md-icon>
         <span><%= @event.formatted_start_time %> - <%= @event.formatted_end_time %></span>
-      </div>
+      </div><br>
   <% end %>
+
+  <div>
+    Created By:
+    <span><%= @event.user.username %></span>
+  </div><br>
+
+  <div>
+    Issues:
+    <span><%= @event.issues.map {|i| i.description}.join(', ') %></span>
+  </div><br>
+
 
   <p><%= @event.description %></p>
 
