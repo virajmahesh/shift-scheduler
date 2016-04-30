@@ -54,13 +54,11 @@ Feature: Users have a way to view their most recent notifications
     Then I should see "The 'Flyering' shift for the 'Go Batman' event is full."
     
   Scenario: Users can dismiss/delete their notifications
-    Given PENDING
-    Given the following user_activities exist:
     Given the following user_activities exist:
       | Owner |User | Type          | Shift | Event |
       | 1     | 1   | JoinActivity  | 1     | 1     |
       | 1     | 1   | LeaveActivity | 1     | 1     |
     And I am on the user activity page
-    When I press "Delete" within "user_activity_1"
-    Then I should not see "User has joined shift: Tabling"
-    And I should see "User has left shift: Tabling"
+    When I follow "delete_activity_1"
+    Then I should not see "User 'john_doe' has joined the 'Tabling' shift for the 'Go Batman' event."
+    And I should see "User 'john_doe' has left the 'Tabling' shift for the 'Go Batman' event."

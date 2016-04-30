@@ -1,12 +1,14 @@
 <h2>Notifications</h2>
 
 <% @activities.each do |a| %>
-    <a href=<%=a.href %>>
-        <md-card>
-            <p><%= a.representation %> </p>
-            <p style="font-size:10px"><%= a.created_at.strftime '%-m/%e/%Y %I:%M %p' %></p>
-        </md-card>
-    </a>
+    <md-card>
+        <p>
+            <%= link_to a.representation, a.href %>
+        </p>
+        <p style="font-size:10px">
+            <%= a.created_at.strftime '%-m/%e/%Y %I:%M %p' %> &nbsp &nbsp <%= link_to("Delete", delete_notification_path(a), :method => :delete, :id => "delete_activity_#{a.id}") %>
+        </p>
+    </md-card>
 
 <% end %>
 
