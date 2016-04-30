@@ -1,9 +1,3 @@
-ActivityType.create activity: 'User %s has joined shift'
-ActivityType.create activity: 'User %s has left shift'
-ActivityType.create activity: 'Shift %s for Event %s is full'
-ActivityType.create activity: 'You have an event tomorrow: %'
-ActivityType.create activity: 'You have a shift tomorrow: %'
-
 user = User.create email: 'test_user@gmail.com', username: 'test_user',
                    password: 'test_password', password_confirmation: 'test_password',
                    city: 'Berkeley', state: 'CA', zip_code: '94704', phone_number: '510-646-5945'
