@@ -64,6 +64,14 @@ Given (/^the following issues exist:$/) do |table|
   end
 end
 
+Given (/^the following event issues exist:$/) do |table|
+  table.hashes.each do |event_issue|
+    event = Event.find_by_event_name event_issue['Event']
+    issue = Issue.find_by_description event_issue['Issue']
+    EventIssue.create event: event, issue: issue
+  end
+end
+
 Given (/^"(.*)" has signed up for the "(.*)" shift for the "(.*)" event$/) do |username, shift_role, event_name|
   user = User.find_by username: username
   event = Event.find_by event_name: event_name
