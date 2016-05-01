@@ -11,7 +11,6 @@ Feature: Display The Number Of Users That Have Signed Up For An Event
       | other_user@uprise.com| other_user | test1234 |
       | main_user@uprise.com | main_user  | test1234 |
     And I log in with username "other_user" and password "test1234"
-
     And the following events exist:
       | User    | Event Date | Name        | Candidate | Location   |
       | other_user       | 03/03/2019 | Go Batman   | Batman    | Gotham     |
