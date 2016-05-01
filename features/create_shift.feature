@@ -21,6 +21,9 @@ Feature: User can Create, edit and delete shifts
       | Event     | Role     | Has Limit | Limit | Start Time | End Time |
       | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    |
       | Go Batman | Flyering | true      | 0     | 12:00      | 12:30    |
+    And the following shift skills exist:
+      | shift_id     | skill_id     | 
+      |    |
 
   Scenario: Attempt to create a shift
     Given I am on the page for the "Go Batman" event

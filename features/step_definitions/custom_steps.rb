@@ -13,7 +13,7 @@ Given(/^the following events exist:$/) do |table|
   table.hashes.each do |event|
     Event.create user: User.find_by(username: event['User']), event_name: event['Name'],
                  candidate: event['Candidate'], event_date: event['Event Date'],
-                 location: event['Location']
+                 location: event['Location'], created_at: event['Created At']
   end
 end
 
@@ -118,6 +118,16 @@ end
 
 Then (/^I should see "(.*)" in "(.*)"$/) do |value, field|
   find_field(field).value.should eq value
+end
+
+Then (/^I should see "(.*)" event before "(.*)" event$/) do |e1, e2|
+  #  ensure that that e1 occurs before e2.
+  #  page.body is the entire content of the page as a string.
+  body = page.body
+  index1 = body.index(e1)
+  index2 = body.index(e2)
+  return true if index1 < index2 
+  return false
 end
 
 Given (/^PENDING$/) do

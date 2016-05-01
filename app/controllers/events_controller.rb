@@ -11,6 +11,20 @@ class EventsController < ApplicationController
     params.require(:event).permit(:location, :start_time, :end_time, :event_name,
                                   :event_date, :candidate, :description)
   end
+  
+  def index
+    sort = params[:sort] || session[:sort]
+    case sort
+    when 'newest'
+      Event.order('created_at')
+    #when 'most members'
+    #   Event.all.to_a.sort_by(&:num_mems)
+    #when 'best match'
+    #  Event.all.to_a.sort_by(&:match_score)
+    end
+    
+    #@events = Event.order(ordering)
+  end
 
   # Create a new event. Checks that the user attempting to create the event is
   # authorized to do so
@@ -55,4 +69,5 @@ class EventsController < ApplicationController
       redirect_to 'public/422.html', status: :unauthorized
     end
   end
+  
 end

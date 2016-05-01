@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   }
 
   root 'application#index'
+
   get 'events/:event_id/shifts/:id/view_users' => 'shifts#view_users', as: 'shift_viewUsers'
   get 'events/:event_id/shifts/:id/remove/:user_id' => 'shifts#remove_user', as: 'shift_removeUser'
   get '/user/join_shift/:id/' => 'users#join_shift'
@@ -19,4 +20,6 @@ Rails.application.routes.draw do
 
   get '/autocomplete/:partial_text' => 'skills#order_roles'
   get '/skills' => 'skills#all_skills'
+  
+  post '/' => 'application#index'
 end

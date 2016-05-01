@@ -5,6 +5,12 @@
 
 
 <div class='md-padding' layout='row' layout-wrap>
+  
+  <%= link_to 'Newest', :sort => 'newest' %> <br>
+  <%= link_to 'Most Members', :sort => 'most members' %> <br>
+  <%= link_to 'Best Match',:sort => 'best match' %> <br>
+  
+  
   <% Event.future_events.each do |e| %>
       <div flex-sm='33' flex-gt-sm='25' layout="column">
 

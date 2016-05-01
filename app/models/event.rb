@@ -47,5 +47,18 @@ class Event < ActiveRecord::Base
       'Be the first to one to join!'
     end
   end
+  
+  def num_mems
+    users_signed_up = 0
+    self.shifts.each do |s|
+        s.users.each do |u|
+          users_signed_up.add(u.id)
+        end
+    end
+  end
+  
+  def match_score 
+    
+  end
 
 end

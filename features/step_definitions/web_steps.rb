@@ -49,6 +49,11 @@ Given /^(.*) is on (.+)$/ do |user, page_name|
   visit path_to(page_name)
 end
 
+Given /^(?:|I )choose to sort events by "([^"]*)"$/ do |link|
+  click_link(link)
+end
+
+
 When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
