@@ -77,4 +77,9 @@
   <% end %>
 </div>
 
+
+<% if can? :create, Event %>
+    <md-button class="md-raised md-primary" href='<%= @event.duplicate_path %>'>Copy Event</md-button><br>
+<% end %>
+
 <%= link_to 'Back to Homepage', root_path %>
