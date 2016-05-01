@@ -17,6 +17,10 @@ Feature: User can Create, edit and delete events
       | Human Trafficking |
       | Community         |
       | Animal Rights     |
+    And the following event issues exist:
+    | Event     | Issue             |
+    | Go Batman | Human Trafficking |
+    | Go Batman | Community         |
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
 
@@ -122,7 +126,7 @@ Feature: User can Create, edit and delete events
     And I should see "Batman" in "Candidate"
     And I should see "A fund raiser for Batman" in "Description"
 
-  Scenario: Add a single issue to an event
+  Scenario: Add issues to an event
     When I follow "Create"
     When I fill in "Event Name" with "Batman for President"
     And I fill in "Candidate" with "Batman"
@@ -137,3 +141,26 @@ Feature: User can Create, edit and delete events
     And I should see "Human Trafficking"
     And I should see "Community"
     And I should not see "Animal Rights"
+
+  Scenario: Copy an event when logged in as event creator
+    Given I am on the page for the "Go Batman" event
+    When I follow "Copy Event"
+    Then I should be on the page for the "Go Batman(Copy)" event
+    And I should see "Event successfully copied"
+    And I should see "Created By: john_doe"
+    And I should see "Human Trafficking, Community"
+
+  Scenario: Copy an event when logged in as a user other than event creator
+    Given I follow "Logout"
+    And I log in with username "jane_doe" and password "jane_doe_password"
+    And I am on the page for the "Go Batman" event
+    When I follow "Copy Event"
+    Then I should be on the page for the "Go Batman(Copy)" event
+    And I should see "Event successfully copied"
+    And I should see "Created By: jane_doe"
+    And I should see "Human Trafficking, Community"
+
+  Scenario: Copy an event when logged out
+    Given I follow "Logout"
+    And I am on the page for the "Go Batman" event
+    Then I should not see "Copy Event"
