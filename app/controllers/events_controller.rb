@@ -66,4 +66,16 @@ class EventsController < ApplicationController
       redirect_to 'public/422.html', status: :unauthorized
     end
   end
+
+  # Create a copy of the event
+  def duplicate
+    if can? :create, Event and not @event.nil?
+      @new_event = @event.duplicate @user
+
+      flash[:notice] = 'Event successfully copied'
+      redirect_to event_path @new_event
+    else
+      redirect_to new_user_session_path
+    end
+  end
 end

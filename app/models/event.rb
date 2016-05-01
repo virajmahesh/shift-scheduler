@@ -55,4 +55,22 @@ class Event < ActiveRecord::Base
     EventIssue.exists? issue: issue, event: self
   end
 
+  # Return the route that duplicates the event
+  def duplicate_path
+    "/events/#{self.id}/duplicate/"
+  end
+
+  def duplicate creator
+    new_event = self.dup
+
+    new_event.user = creator
+    new_event.event_name += '(Copy)'
+    new_event.save
+
+    new_event.issues << self.issues
+    new_event.save
+
+    new_event
+  end
+
 end
