@@ -21,5 +21,4 @@ Rails.application.routes.draw do
   get '/autocomplete/:partial_text' => 'skills#order_roles'
   get '/skills' => 'skills#all_skills'
   
-  post '/' => 'application#index'
 end

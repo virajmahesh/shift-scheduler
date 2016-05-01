@@ -126,8 +126,7 @@ Then (/^I should see "(.*)" event before "(.*)" event$/) do |e1, e2|
   body = page.body
   index1 = body.index(e1)
   index2 = body.index(e2)
-  return true if index1 < index2 
-  return false
+  index1.should < index2
 end
 
 Given (/^PENDING$/) do

@@ -52,12 +52,19 @@ class Event < ActiveRecord::Base
     users_signed_up = 0
     self.shifts.each do |s|
         s.users.each do |u|
-          users_signed_up.add(u.id)
+          users_signed_up+=1
         end
     end
+    users_signed_up
   end
   
-  def match_score 
+  def match_score(u)
+    u_skills = UserSkill.find_by(u.id)
+    e_skills = Set.new
+    self.shifts.each do |s|
+      e_skills += ShiftSkill.find_by(s.id)
+    end
+    (u_skills & e_skills).length
     
   end
 

@@ -38,7 +38,6 @@ Feature: User can sort events based on Date, Most Members, Best Match
     And I should see "Go Batman" event before "Go Joker" event 
 
   Scenario: Attempt to sort events by most members
-    Given PENDING
     Given I choose to sort events by "Most Members"
     Then I should be on the homepage
     And I should see "Go Joker" event before "Go Robin" event
