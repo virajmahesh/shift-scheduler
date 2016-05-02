@@ -11,10 +11,10 @@ bernie_event = Event.create user: user, event_name: 'Bake sale for Bernie',
                             candidate: 'Bernie Sanders', description: 'Come out and support Bernie at this bakesale'
 
 hillary_shift = Shift.create event: hillary_event, start_time: '10:00 AM', end_time: '10:40 AM',
-                            has_limit: 'true', limit: '10',  role: 'Tabling'
+                            has_limit: 'true', limit: '10',  role: 'Canvassing'
 
 bernie_shift = Shift.create event: bernie_event, start_time: '11:20 AM', end_time: '10:00 PM',
-                             has_limit: 'false',  role: 'Flyering'
+                             has_limit: 'false',  role: 'Phone Banking'
                              
 all_skills = Skill.create([{ description: 'Accounting, bookkeeping, compliance' }, 
                          { description: 'Art and design, by hand' },
