@@ -1,4 +1,3 @@
-require 'similar_text'
 class SkillsController < ApplicationController
 
   def index

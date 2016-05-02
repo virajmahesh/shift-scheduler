@@ -11,12 +11,22 @@ require 'cucumber/rails'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'selenium-webdriver'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
+
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
 
 Capybara.default_driver = :poltergeist
 
 
-require 'sidekiq/testing'
-Sidekiq::Testing.inline!
+Capybara.server_port = 3001 + ENV['TEST_ENV_NUMBER'].to_i
+Capybara.app_host = "http://localhost:#{Capybara.server_port}"
+
+# ActionController::Base.asset_host = Capybara.app_host
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any

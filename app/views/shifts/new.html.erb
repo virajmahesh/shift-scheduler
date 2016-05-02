@@ -1,51 +1,6 @@
 <h1>Create New Shift</h1>
 
-<div ng-controller="RegistrationController">
-<%= form_tag event_shifts_path(@event) do %>
-
-    <%= label :shift, :start_time, 'Start Time' %>
-    <%= time_select :shift, :start_time, ampm: true %>
-    <br>
-
-    <%= label :shift, :end_time, 'End Time' %>
-    <%= time_select :shift, :end_time, ampm: true %>
-    <br>
-
-    <md-input-container>
-    <%= label :shift, :role, 'Shift Role' %>
-    <%= text_field :shift, :role %>
-    </md-input-container>
-    <br>
-
-    <%= label :shift, :has_limit, 'Shift Has Limit' %>
-    <%= check_box :shift, :has_limit %>
-    <br>
-
-    <md-input-container>
-    <%= label :shift, :limit, 'Shift Limit' %>
-    <%= text_field :shift, :limit %>
-    </md-input-container>
-    <br>
-
-    <md-input-container>
-    <%= label :shift, :description, 'Shift Description' %>
-    <%= text_field :shift, :description %>
-    </md-input-container>
-    <br>
-
-    <input type="hidden" id="skills", name="skills">
-
-    <md-contact-chips
-        ng-model="skills"
-        md-contacts="findSkills($query)"
-        md-contact-name="description"
-        md-require-match="true"
-        md-highlight-flags="i"
-        placeholder="Shift Skills">
-    </md-contact-chips>
-
-    <%= submit_tag 'Add Shift' %>
-
-<% end %>
-<%= link_to 'Back to Event', event_path(@event) %>
+<div ng-controller="ShiftController">
+    <%= render 'shifts/shared/create_edit_form' %>
+    <%= link_to 'Back to Event', event_path(@event) %>
 </div>

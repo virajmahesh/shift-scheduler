@@ -22,4 +22,15 @@ class Shift < ActiveRecord::Base
   def formatted_end_time
     self.format self.end_time
   end
+
+  def populate_skills skills
+    if skills.length != 0
+      self.skills = Skill.where id: skills
+      self.save
+    end
+  end
+
+  def has_skill? skill
+    ShiftSkill.exists? shift: self, skill: skill
+  end
 end
