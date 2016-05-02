@@ -10,10 +10,10 @@ Feature: Users Can Signup for an Account and Use it to Login
       | email               | username | password          |
       | jane_doe@uprise.com | jane_doe | jane_doe_password |
     And the following issues exist:
-      | Description       |
-      | Human Trafficking |
-      | Community         |
-      | Animal Rights     |
+      | Description |
+      | Issue 1     |
+      | Issue 2     |
+      | Issue 3     |
     And the following skills exist:
       | Description |
       | Organizing  |
@@ -113,8 +113,9 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I fill in "Username" with "john_doe"
     And I fill in "Password" with "password"
     And I fill in "Password confirmation" with "password"
-    And I select the following issues: "Human Trafficking, Community"
+    And I select the following issues: "Issue 1, Issue 2"
     And I press "Sign Up"
     Then a user with the username "john_doe" and password "password" should exist in the database
     And I should be on the homepage
-    And user "john_doe" should have "Human Trafficking" as an issue
+    And user "john_doe" should have "Issue 1" as an issue
+    And user "john_doe" should have "Issue 2" as an issue

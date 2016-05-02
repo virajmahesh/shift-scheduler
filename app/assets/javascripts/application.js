@@ -28,7 +28,7 @@ function filterListByQuery(list, used, query) {
 
     // Filter out the used objects and then match by query.
     return list.filter(function(x) { return used.indexOf(x.id) === -1 })
-               .filter(function (x) { return lowercase(x.description).indexOf(query) !== -1 });
+                .filter(function (x) { return lowercase(x.description).indexOf(query) !== -1 });
 }
 
 
@@ -45,6 +45,8 @@ app.config(function ($mdDateLocaleProvider) {
  * @param $scope
  */
 function handleIssues($scope) {
+    $scope.issues = [];
+
     // Populate the list of all issues from the API
     $.get('/issues', function(data) {
         $scope.allIssues = data;
@@ -67,6 +69,8 @@ function handleIssues($scope) {
  * @param $scope
  */
 function handleSkills($scope) {
+    $scope.skills = gon.skills || [];
+
     // Populate the list of all skills from the API
     $.get('/skills', function(data) {
         $scope.allSkills = data;
@@ -85,8 +89,6 @@ function handleSkills($scope) {
 }
 
 app.controller('EventController', function ($scope) {
-    $scope.issues = []; // Issues are initially unselected.
-
     $scope.init = function () {
         $('.md-datepicker-input').attr('name', 'event[event_date]');
     };
@@ -95,9 +97,10 @@ app.controller('EventController', function ($scope) {
 });
 
 app.controller('RegistrationController', function($scope) {
-    $scope.skills = [];
-    $scope.issues = [];
-
     handleIssues($scope);
+    handleSkills($scope);
+});
+
+app.controller('ShiftController', function($scope) {
     handleSkills($scope);
 });

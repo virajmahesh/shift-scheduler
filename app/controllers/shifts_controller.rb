@@ -4,7 +4,7 @@ class ShiftsController < ApplicationController
 
   # Parses the current event and stores it in a controller variable
   def parse_event
-    @event = Event.find params[:event_id]
+    @event = Event.find_by_id params[:event_id]
   end
 
   # Parses the current shift and stores it in a controller variable
@@ -15,8 +15,28 @@ class ShiftsController < ApplicationController
   # Return the parameters needed to create or update a shift
   def shift_params
     params.require(:shift).permit(:event_id, :role, :start_time, :end_time,
-                                  :has_limit, :limit, :created_at,
-                                  :updated_at, :description)
+                                  :has_limit, :limit, :created_at, :description)
+  end
+
+  # Return the skills that the shift creator wants to use
+  def skills
+    params[:skill_ids].split(',')
+  end
+
+  def new
+    @form_method = :post
+    @form_path = event_shifts_path @event
+    @submit_button_text = 'Add Shift'
+
+    gon.skills = Array.new
+  end
+
+  def edit
+    @form_method = :put
+    @form_path = event_shift_path @event, @shift
+    @submit_button_text = 'Save Changes'
+
+    gon.skills = @shift.skills
   end
 
   # Create a new shift. Checks that the user attempting to create the shift
@@ -29,7 +49,7 @@ class ShiftsController < ApplicationController
         redirect_to new_event_shift_path
       else
         populate_skills
-        flash[:notice] = "shift was successfully created."
+        flash[:notice] = 'Shift was successfully created'
         redirect_to event_shift_path @event, @shift
       end
     else
@@ -42,8 +62,11 @@ class ShiftsController < ApplicationController
   def update
     if can? :update, @shift
       @shift.update_attributes shift_params
-      flash[:notice] = "shift was successfully updated."
-      redirect_to event_shift_path @event, @shift
+      if @shift.valid?
+        populate_skills
+        flash[:notice] = 'Shift was successfully updated'
+        redirect_to event_shift_path @event, @shift
+      end
     else
       render file: 'public/422.html', status: :unauthorized
     end
@@ -54,7 +77,7 @@ class ShiftsController < ApplicationController
   def destroy
     if can? :destroy, @shift
       @shift.destroy
-      flash[:notice] = "shift deleted."
+      flash[:notice] = 'Shift deleted'
       redirect_to event_path @event
     else
       render file: 'public/422.html', status: :unauthorized
@@ -65,7 +88,7 @@ class ShiftsController < ApplicationController
     user_id = params[:user_id]
     if can? :update, @shift
       VolunteerCommitment.destroy_all(user_id: user_id, shift_id: @shift)
-      flash[:notice] = "User Removed."
+      flash[:notice] = 'User Removed'
       redirect_to event_shift_path @event, @shift
     else
       render file: 'public/422.html', status: :unauthorized
@@ -83,10 +106,9 @@ class ShiftsController < ApplicationController
   end
 
   def populate_skills
-    if not @shift.nil? and params.has_key? :skills
-      params[:skills].split(',').each do |skill_id|
-        ShiftSkill.create shift: @shift, skill_id: skill_id
-      end
+    if not @shift.nil? and params.has_key? :skill_ids
+      @shift.populate_skills skills.map {|id| id.to_i}
     end
   end
+
 end
