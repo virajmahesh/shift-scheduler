@@ -420,7 +420,7 @@ DEPENDENCIES
   rails-assets-angular-material (~> 1.1.0.rc2)!
   rails-assets-moment!
   rails_12factor
-  rspec-rails (= 2.14)
+  rspec-rails (~> 2.14)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
