@@ -11,6 +11,10 @@ FactoryGirl.define do
     "test issue #{n}"
   end
 
+  sequence :skill do |n|
+    "test skill #{n}"
+  end
+
   factory :user do
     email {generate :email}
     username {generate :username}
@@ -35,6 +39,10 @@ FactoryGirl.define do
 
   factory :issue do
     description {generate :issue}
+  end
+
+  factory :skill do
+    description {generate :skill}
   end
 
 end

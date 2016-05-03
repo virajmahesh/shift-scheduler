@@ -110,7 +110,7 @@ Then (/^an event named "(.*)" should exist$/) do |event_name|
 end
 
 Then (/^an event named "(.*)" should not exist$/) do |event_name|
-  event = Event.find_by event_name: event_name
+  event = Event.find_by_event_name event_name
   event.nil?.should == true
 end
 
@@ -120,7 +120,7 @@ Then (/^a shift with role "(.*)" should exist$/) do |shift_role|
 end
 
 Then (/^a shift with role "(.*)" should not exist$/) do |shift_role|
-  shift = Shift.find_by role: shift_role
+  shift = Shift.find_by_role shift_role
   shift.nil?.should == true
 end
 
@@ -156,7 +156,15 @@ When (/^I select the following issues: "(.*)"$/) do |issues|
 end
 
 When (/^I select the following skills: "(.*)"$/) do |skills|
-  pending
+  skills = skills.split(', ')
+  skills.each do |skill|
+    input = page.find('#skills').find('input')
+
+    # Click the input and type in the skill
+    input.click
+    input.set skill
+    page.find('span.highlight', text: skill, visible: false).trigger('click')
+  end
 end
 
 Then (/^the "(.*)" event should have "(.*)" as an issue$/) do |event_name, issue_desc|
@@ -171,6 +179,19 @@ Then (/^user "(.*)" should have "(.*)" as an issue$/) do |username, issue_desc|
   issue = Issue.find_by_description issue_desc
 
   user.has_issue?(issue).should == true
+end
+
+Then (/^the "(.*)" shift of the "(.*)" event should have "(.*)" as a skill/) do |role, event_name, skill_desc|
+  event = Event.find_by_event_name event_name
+  shift = Shift.find_by event: event, role: role
+
+  skill = Skill.find_by_description skill_desc
+  shift.has_skill?(skill).should == true
+end
+
+
+Then (/^the page should contain a multiline textbox$/) do
+  page.body.include?('textarea').should == true
 end
 
 Given (/^PENDING$/) do

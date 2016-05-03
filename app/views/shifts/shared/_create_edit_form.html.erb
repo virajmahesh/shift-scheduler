@@ -1,0 +1,49 @@
+<%= form_tag @form_path, method: @form_method do %>
+
+    <%= label :shift, :start_time, 'Start Time' %>
+    <%= time_select :shift, :start_time, ampm: true %>
+    <br>
+
+    <%= label :shift, :end_time, 'End Time' %>
+    <%= time_select :shift, :end_time, ampm: true %>
+    <br>
+
+    <md-input-container>
+        <%= label :shift, :role, 'Shift Role' %>
+        <%= text_field :shift, :role %>
+    </md-input-container>
+    <br>
+
+    <%= label :shift, :has_limit, 'Shift Has Limit' %>
+    <%= check_box :shift, :has_limit %>
+    <br>
+
+    <md-input-container>
+        <%= label :shift, :limit, 'Shift Limit' %>
+        <%= text_field :shift, :limit %>
+    </md-input-container>
+    <br>
+
+    <md-input-container>
+        <%= label :shift, :description, 'Shift Description' %>
+        <%= text_area :shift, :description %>
+    </md-input-container>
+    <br>
+
+    <input type="hidden" id="skill_ids" name="skill_ids">
+
+    <md-contact-chips
+        id="skills"
+        ng-model="skills"
+        md-contacts="findSkills($query)"
+        md-contact-name="description"
+        md-require-match="true"
+        md-highlight-flags="i"
+        placeholder="Shift Skills">
+    </md-contact-chips><br><br>
+
+    <md-button type="submit" class="md-raised md-primary">
+        <%= @submit_button_text %>
+    </md-button>
+
+<% end %>
