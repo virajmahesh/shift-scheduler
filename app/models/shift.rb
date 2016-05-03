@@ -30,6 +30,18 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  def duplicate event
+    new_shift = self.dup
+
+    new_shift.event = event
+    new_shift.save
+
+    new_shift.skills << self.skills
+    new_shift.save
+
+    new_shift
+  end
+
   def has_skill? skill
     ShiftSkill.exists? shift: self, skill: skill
   end

@@ -67,6 +67,10 @@ class Event < ActiveRecord::Base
     new_event.event_name += '(Copy)'
     new_event.save
 
+    self.shifts.each do |shift|
+      shift.duplicate new_event
+    end
+
     new_event.issues << self.issues
     new_event.save
 
