@@ -164,3 +164,9 @@ Feature: User can Create, edit and delete events
     Given I follow "Logout"
     And I am on the page for the "Go Batman" event
     Then I should not see "Copy Event"
+
+  Scenario: Attempt to create an event when logged out
+    Given I follow "Logout"
+    And I am on the homepage
+    When I follow "Create"
+    Then I should be on the login page
