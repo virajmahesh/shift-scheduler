@@ -21,6 +21,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def new
+    unless can? :create, Event
+      redirect_to new_user_session_path
+    end
+  end
+
   # Create a new event. Checks that the user attempting to create the event is
   # authorized to do so
   def create
