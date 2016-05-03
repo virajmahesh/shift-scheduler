@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'sidekiq/testing'
+
 Sidekiq::Testing.inline!
 
 describe EventsController do
@@ -13,6 +14,13 @@ describe EventsController do
     subject.current_user
   end
 
+  describe 'GET new' do
+    it 'should redirect to the login page when no user is logged in' do
+      get :new
+      response.should redirect_to new_user_session_path
+    end
+  end
+
   describe 'POST create' do
     it 'should not allow an event to be created when no user is logged in' do
       @init_num_events = Event.all.length
@@ -22,7 +30,6 @@ describe EventsController do
 
       Event.all.length.should == @init_num_events
     end
-
 
     it 'should allow a shift to be created when a user is logged in' do
       sign_in @user
@@ -41,7 +48,7 @@ describe EventsController do
       @event = FactoryGirl.create :event, user: @user, event_name: 'Support Hillary'
       put :update, id: @event.id, event: {event_name: 'Support Hillary Today'}
 
-      @updated_event = Event.find @event.id
+      @updated_event = Event.find_by_id @event.id
       @updated_event.event_name.should == 'Support Hillary'
     end
 
