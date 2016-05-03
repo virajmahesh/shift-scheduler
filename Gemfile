@@ -38,7 +38,7 @@ end
 
 group :test do
   gem 'test-unit'
-  gem 'rspec-rails', '2.14'
+  gem 'rspec-rails', '~> 2.14'
   gem 'simplecov', :require => false
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
