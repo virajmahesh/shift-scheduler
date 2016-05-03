@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
+
   after_action :populate_skills, only: [:create]
   after_action :populate_issues, only: [:create]
 

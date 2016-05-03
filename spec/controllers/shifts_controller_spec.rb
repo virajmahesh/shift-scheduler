@@ -69,7 +69,7 @@ describe ShiftsController do
       @shift = FactoryGirl.create :shift, event: @event
       put :update, event_id: @event.id, id: @shift.id, shift: {role: 'Updated Tabling'}
 
-      shift = Shift.find @shift.id
+      shift = Shift.find_by_id @shift.id
       shift.role.should == 'Updated Tabling'
     end
   end

@@ -14,18 +14,23 @@ Feature: User can Create, edit and delete shifts
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
     And the following events exist:
-      | User     | Name       | Location  | Candidate | Event Date       |
-      | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018       |
-      | john_doe | Go Joker   | Gotham    | Joker     | 03/05/2017       |
+      | User     | Name       | Location  | Candidate | Event Date |
+      | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018 |
+      | john_doe | Go Joker   | Gotham    | Joker     | 03/05/2017 |
     And the following shifts exist:
       | Event     | Role     | Has Limit | Limit | Start Time | End Time |
       | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    |
       | Go Batman | Flyering | true      | 0     | 12:00      | 12:30    |
+    And the following skills exist:
+      | Description |
+      | Walking     |
+      | Spanish     |
 
   Scenario: Attempt to create a shift
     Given I am on the page for the "Go Batman" event
     When I follow "Add Shift"
     Then I should be on the new shift page for the "Go Batman" event
+    And the page should contain a multiline textbox
     When I select "1:00 PM" as the shift "Start Time"
     And I select "3:00 PM" as the shift "End Time"
     And I fill in "Shift Role" with "Set Up"
@@ -112,6 +117,7 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
     And I press "Delete Shift"
     Then I should be on the page for the "Go Batman" event
+    And I should see "Shift deleted"
     And a shift with role "Flyering" should exist
     And a shift with role "Tabling" should not exist
     And I should see "Flyering"
@@ -121,9 +127,45 @@ Feature: User can Create, edit and delete shifts
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
     And I follow "Edit Shift"
     Then I should be on the edit page for the "Tabling" shift for the "Go Batman" event
+    And the page should contain a multiline textbox
+    And I should see "Shift Description"
     When I select "3:00 PM" as the Shift "End Time"
     And I press "Save Changes"
     Then I should be on the page for the "Tabling" shift for the "Go Batman" event
+    And I should see "3:00 PM"
+    And I should not see "11:30 AM"
+    
+  Scenario: Add issues to a shift while creating it
+    Given I am on the page for the "Go Batman" event
+    When I follow "Add Shift"
+    Then I should be on the new shift page for the "Go Batman" event
+    And the page should contain a multiline textbox
+    When I select "1:00 PM" as the shift "Start Time"
+    And I select "3:00 PM" as the shift "End Time"
+    And I fill in "Shift Role" with "Set Up"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "5"
+    And I select the following skills: "Walking, Spanish"
+    And I press "Add Shift"
+    Then a shift with role "Set Up" should exist
+    Then I should be on the page for the "Set Up" shift for the "Go Batman" event
+    And I should see "Set Up"
+    And the "Set Up" shift of the "Go Batman" event should have "Walking" as a skill
+    And the "Set Up" shift of the "Go Batman" event should have "Spanish" as a skill
+
+  Scenario: Add issues to a shift while editing it
+    Given I am on the page for the "Tabling" shift for the "Go Batman" event
+    And I follow "Edit Shift"
+    Then I should be on the edit page for the "Tabling" shift for the "Go Batman" event
+    And I select the following skills: "Walking, Spanish"
+    And I press "Save Changes"
+    Then a shift with role "Tabling" should exist
+    Then I should be on the page for the "Tabling" shift for the "Go Batman" event
+    And I should see "Tabling"
+    And the "Tabling" shift of the "Go Batman" event should have "Walking" as a skill
+    And the "Tabling" shift of the "Go Batman" event should have "Spanish" as a skill
+    And I should see "Walking"
+    And I should see "Spanish"
 
   Scenario: If start time after end time, valid input should be preserved
     Given PENDING

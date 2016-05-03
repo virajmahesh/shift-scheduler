@@ -34,7 +34,7 @@ Feature: Event creator can remove users from shift
     And I follow "Tabling"
     When I follow "View Volunteers"
     When I follow "Remove"
-    Then I should see "User Removed."
+    Then I should see "User Removed"
     And I should see "0/4"
 
   Scenario: Attempt to view all volunteers as non shift creator

@@ -13,14 +13,14 @@ Feature: User can Create, edit and delete events
       | User     | Name       | Location  | Candidate | Event Date |
       | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018 |
     And the following issues exist:
-      | Description       |
-      | Human Trafficking |
-      | Community         |
-      | Animal Rights     |
+      | Description |
+      | Issue 1     |
+      | Issue 2     |
+      | Issue 3     |
     And the following event issues exist:
-    | Event     | Issue             |
-    | Go Batman | Human Trafficking |
-    | Go Batman | Community         |
+    | Event     | Issue   |
+    | Go Batman | Issue 1 |
+    | Go Batman | Issue 2 |
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
 
@@ -133,14 +133,14 @@ Feature: User can Create, edit and delete events
     And I fill in "Location" with "Gotham"
     And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Description" with "A fund raiser for Batman"
-    And I select the following issues: "Human Trafficking, Community"
+    And I select the following issues: "Issue 1, Issue 2"
     And I press "Create Event"
-    Then the "Batman for President" event should have "Human Trafficking" as an issue
-    And the "Batman for President" event should have "Community" as an issue
+    Then the "Batman for President" event should have "Issue 1" as an issue
+    And the "Batman for President" event should have "Issue 2" as an issue
     And I should be on the page for the "Batman for President" event
-    And I should see "Human Trafficking"
-    And I should see "Community"
-    And I should not see "Animal Rights"
+    And I should see "Issue 1"
+    And I should see "Issue 2"
+    And I should not see "Issue 3"
 
   Scenario: Copy an event when logged in as event creator
     Given I am on the page for the "Go Batman" event
@@ -148,7 +148,7 @@ Feature: User can Create, edit and delete events
     Then I should be on the page for the "Go Batman(Copy)" event
     And I should see "Event successfully copied"
     And I should see "Created By: john_doe"
-    And I should see "Human Trafficking, Community"
+    And I should see "Issue 1, Issue 2"
 
   Scenario: Copy an event when logged in as a user other than event creator
     Given I follow "Logout"
@@ -158,7 +158,7 @@ Feature: User can Create, edit and delete events
     Then I should be on the page for the "Go Batman(Copy)" event
     And I should see "Event successfully copied"
     And I should see "Created By: jane_doe"
-    And I should see "Human Trafficking, Community"
+    And I should see "Issue 1, Issue 2"
 
   Scenario: Copy an event when logged out
     Given I follow "Logout"
