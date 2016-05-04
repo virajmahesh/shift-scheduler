@@ -88,6 +88,7 @@ class ShiftsController < ApplicationController
     user_id = params[:user_id]
     if can? :update, @shift
       VolunteerCommitment.destroy_all(user_id: user_id, shift_id: @shift)
+      RemoveUserActivity.create :owner_id => user_id, :user_id => nil, :shift_id => @shift.id, :event_id => @shift.event.id
       flash[:notice] = 'User Removed'
       redirect_to event_shift_path @event, @shift
     else
