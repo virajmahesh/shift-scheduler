@@ -10,6 +10,9 @@ class Shift < ActiveRecord::Base
   validates :end_time, presence: true
   validates :role, presence: true
   validates :has_limit, inclusion: {in: [true, false]}
+  after_destroy do
+    UserActivity.destroy_all(shift_id: self.id)
+  end
 
   def format time
     time.strftime '%I:%M %p'
