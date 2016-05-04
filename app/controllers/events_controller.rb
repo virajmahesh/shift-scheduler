@@ -25,6 +25,10 @@ class EventsController < ApplicationController
     unless can? :create, Event
       redirect_to new_user_session_path
     end
+
+    @method = :post
+    @form_path = events_path
+    @submit_button_text = 'Create Event'
   end
 
   # Create a new event. Checks that the user attempting to create the event is
@@ -46,6 +50,19 @@ class EventsController < ApplicationController
     else
       redirect_to 'public/422.html', status: :unauthorized
     end
+  end
+
+  def edit
+    unless can? :update, @event
+      redirect_to new_user_session_path
+    end
+
+    @method = :put
+    @form_path = event_path @event
+    @submit_button_text = 'Save Changes'
+
+    gon.issues = @event.issues
+    gon.event_date = @event.formatted_event_date
   end
 
   # Update an existing event. Checks that the user attempting to update the event
