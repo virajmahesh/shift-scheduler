@@ -45,7 +45,7 @@ app.config(function ($mdDateLocaleProvider) {
  * @param $scope
  */
 function handleIssues($scope) {
-    $scope.issues = [];
+    $scope.issues = gon.issues || [];
 
     // Populate the list of all issues from the API
     $.get('/issues', function(data) {
@@ -92,8 +92,12 @@ app.controller('EventController', function ($scope) {
     $scope.init = function () {
         $('.md-datepicker-input').attr('name', 'event[event_date]');
     };
-
     handleIssues($scope);
+
+    // If an event date was passed in, use it in the date picker
+    if (gon.event_date) {
+        $scope.event_date = new Date(gon.event_date);
+    }
 });
 
 app.controller('RegistrationController', function($scope) {

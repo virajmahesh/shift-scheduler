@@ -1,40 +1,6 @@
-<h1>Edit Existing Event</h1>
+<h1>Edit Event</h1>
+
 <div ng-controller="EventController" ng-init="init()">
-<%= form_tag event_path(@event), :method => :put do %>
-
-  <md-input-container>
-  <%= label :event, :event_name, 'Event Name' %>
-  <%= text_field :event, :event_name %>
-  </md-input-container>
-  <br>
-
-  <md-datepicker ng-model="event.date">
-  </md-datepicker>
-  <br>
-
-  <md-input-container><br>
-  <%= label :event, :location, 'Location' %>
-  <%= text_field :event, :location %>
-  </md-input-container>
-  <br>
-
-  <md-input-container>
-  <%= label :event, :candidate, 'Candidate' %>
-  <%= text_field :event, :candidate %>
-  </md-input-container>
-  <br>
-
-  <md-input-container>
-  <%= label :event, :description, 'Event Description' %>
-  <%= text_field :event, :description %>
-  </md-input-container>
-  <br>
-
-  <md-button>
-  <%= submit_tag 'Save Changes' %>
-  </md-button>
-  <br>
-  
-<% end %>
-<%= link_to 'Back to Event',event_path(@event) %>
+  <%= render 'events/shared/create_edit_event' %>
+  <%= link_to 'Back to Event',event_path(@event) %>
 </div>

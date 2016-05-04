@@ -1,0 +1,56 @@
+<%= form_for(:event, url: @form_path, method: @method) do |f| %>
+
+    <md-input-container>
+      <%= f.label :event_name, 'Event Name' %>
+      <%= f.text_field :event_name %>
+    </md-input-container>
+    <br>
+
+    <%= f.label :event_date, 'Event Date', hidden: true %>
+    <md-datepicker ng-model="event_date"></md-datepicker>
+    <br>
+
+    <md-input-container>
+      <%= f.label :location, 'Location' %>
+      <%= f.text_field :location %>
+    </md-input-container>
+    <br>
+
+    <md-input-container>
+      <%= f.label :candidate, 'Candidate' %>
+      <%= f.text_field :candidate %>
+    </md-input-container>
+    <br>
+
+    <%= label :event, :start_time, 'Start Time' %>
+    <%= time_select :event, :start_time, ampm: true %>
+    <br>
+
+    <%= label :event, :end_time, 'End Time' %>
+    <%= time_select :event, :end_time, ampm: true %>
+    <br>
+
+    <md-input-container>
+      <%= f.label :description, 'Event Description' %>
+      <%= f.text_area :description %>
+    </md-input-container>
+    <br>
+
+    <input type="hidden" id="issue_ids" name="issue_ids">
+
+    <md-contact-chips
+        id="issues"
+        ng-model="issues"
+       md-contacts="findIssues($query)"
+        md-contact-name="description"
+        md-require-match="true"
+        md-highlight-flags="i"
+        placeholder="Issues">
+    </md-contact-chips><br><br>
+
+    <md-button type="submit" class="md-raised md-primary">
+        <%= @submit_button_text %>
+    </md-button>
+    <br>
+
+<% end %>

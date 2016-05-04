@@ -219,3 +219,10 @@ Feature: User can Create, edit and delete events
     And I am on the homepage
     When I follow "Create"
     Then I should be on the login page
+
+  Scenario: Edit attemp shows all information
+    Given I am on the page for the "Go Batman" event
+    When I follow "Edit Event"
+    Then I should see "SAVE CHANGES"
+    And I should see "Issue 1"
+    And I should see "Issue 2"
