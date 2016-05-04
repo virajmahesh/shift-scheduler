@@ -143,15 +143,54 @@ Feature: User can Create, edit and delete events
     And I should not see "Issue 3"
 
   Scenario: Copy an event when logged in as event creator
-    Given I am on the page for the "Go Batman" event
+    Given the following shifts exist:
+      | Event     | Role     | Has Limit | Limit | Start Time | End Time |
+      | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    |
+      | Go Batman | Flyering | true      | 0     | 12:00      | 12:30    |
+    And the following skills exist:
+      | Description |
+      | Skill 1     |
+      | Skill 2     |
+      | Skill 3     |
+    And the following shift skills exist:
+      | Event     | Shift    | Skill   |
+      | Go Batman | Tabling  | Skill 1 |
+      | Go Batman | Tabling  | Skill 2 |
+      | Go Batman | Flyering | Skill 3 |
+    And I am on the page for the "Go Batman" event
     When I follow "Copy Event"
     Then I should be on the page for the "Go Batman(Copy)" event
     And I should see "Event successfully copied"
     And I should see "Created By: john_doe"
     And I should see "Issue 1, Issue 2"
+    And I should see "Tabling"
+    And I should see "Flyering"
+    When I follow "Tabling"
+    Then I should see "Skill 1"
+    And I should see "Skill 2"
+    And I should not see "Skill 3"
+    When I follow "Back to Event"
+    And I follow "Flyering"
+    Then I should see "Skill 3"
+    And I should not see "Skill 1"
+    And I should not see "Skill 2"
 
   Scenario: Copy an event when logged in as a user other than event creator
-    Given I follow "Logout"
+    Given the following shifts exist:
+      | Event     | Role     | Has Limit | Limit | Start Time | End Time |
+      | Go Batman | Tabling  | true      | 4     | 11:00      | 11:30    |
+      | Go Batman | Flyering | true      | 0     | 12:00      | 12:30    |
+    And the following skills exist:
+      | Description |
+      | Skill 1     |
+      | Skill 2     |
+      | Skill 3     |
+    And the following shift skills exist:
+      | Event     | Shift    | Skill   |
+      | Go Batman | Tabling  | Skill 1 |
+      | Go Batman | Tabling  | Skill 2 |
+      | Go Batman | Flyering | Skill 3 |
+    And I follow "Logout"
     And I log in with username "jane_doe" and password "jane_doe_password"
     And I am on the page for the "Go Batman" event
     When I follow "Copy Event"
@@ -159,6 +198,16 @@ Feature: User can Create, edit and delete events
     And I should see "Event successfully copied"
     And I should see "Created By: jane_doe"
     And I should see "Issue 1, Issue 2"
+    And I should see "Tabling"
+    And I should see "Flyering"
+    When I follow "Tabling"
+    Then I should see "Skill 1"
+    And I should see "Skill 2"
+    When I follow "Back to Event"
+    And I follow "Flyering"
+    Then I should see "Skill 3"
+    And I should not see "Skill 1"
+    And I should not see "Skill 2"
 
   Scenario: Copy an event when logged out
     Given I follow "Logout"
