@@ -20,13 +20,19 @@ Feature: Users have a way to view their most recent notifications
 
   Scenario: View notifications through the home page
     Given the following user_activities exist:
-      | Owner |User | Type          | Shift | Event |
-      | 1     | 1   | JoinActivity  | 1     | 1     |
-      | 1     | 1   | LeaveActivity | 1     | 1     |
+      | Owner |User | Type                | Shift | Event |
+      | 1     | 1   | UserJoinActivity    | 1     | 1     |
+      | 1     | 1   | UserLeaveActivity   | 1     | 1     |
+      | 1     | 1   | JoinActivity        | 1     | 1     |
+      | 1     | 1   | LeaveActivity       | 1     | 1     |
+      | 1     | 1   | EventCreateActivity | 1     | 1     |
     And I am on the home page
     When I follow "Notifications"
-    Then I should see "User 'john_doe' has joined the 'Tabling' shift for the 'Go Batman' event."
+    Then I should see "You have joined the 'Tabling' shift for the 'Go Batman' event."
+    And I should see "You have left the 'Tabling' shift for the 'Go Batman' event."
+    And I should see "User 'john_doe' has joined the 'Tabling' shift for the 'Go Batman' event."
     And I should see "User 'john_doe' has left the 'Tabling' shift for the 'Go Batman' event."
+    And I should see "You have successfully created the 'Go Batman' event."
     
   Scenario: Should see no notifications if nothing happened
     Given I am on the user activity page
@@ -39,6 +45,7 @@ Feature: Users have a way to view their most recent notifications
     When I follow "Join"
     And I am on the user activity page
     Then I should see "User 'john_doe' has joined the 'Flyering' shift for the 'Go Batman' event."
+    And I should see "You have joined the 'Flyering' shift for the 'Go Batman' event."
     
   Scenario: Leaving a shift should generate a notification
     Given "john_doe" has signed up for the "Flyering" shift for the "Go Batman" event
@@ -46,6 +53,7 @@ Feature: Users have a way to view their most recent notifications
     When I follow "Leave"
     And I am on the user activity page
     Then I should see "User 'john_doe' has left the 'Flyering' shift for the 'Go Batman' event."
+    And I should see "You have left the 'Flyering' shift for the 'Go Batman' event."
     
   Scenario: A shift filling up should generate a notification
     Given I am on the page for the "Flyering" shift for the "Go Batman" event

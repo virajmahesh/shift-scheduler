@@ -42,14 +42,17 @@ class EventsController < ApplicationController
       else
         populate_issues
         flash[:notice] = "#{@event.event_name} was successfully created."
+        event_create_activity @event
         redirect_to event_path @event
-
-        # TODO: Clean this up by refactoring
-        EventNotificationJob.set(wait_until: @event.event_date.to_time.advance(:days => -1)).perform_later @event
       end
     else
       redirect_to 'public/422.html', status: :unauthorized
     end
+  end
+  
+  def event_create_activity event
+    EventNotificationJob.set(wait_until: event.event_date.to_time.advance(:days => -1)).perform_later event
+    EventCreateActivity.create :owner_id => event.user.id, :user_id => nil, :shift_id => nil, :event_id => event.id
   end
 
   def edit

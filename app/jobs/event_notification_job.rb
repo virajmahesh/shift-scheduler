@@ -3,6 +3,6 @@ class EventNotificationJob < ActiveJob::Base
 
   def perform(event)
     creator_id = event.user.id
-    EventTimeActivity.create :owner_id => creator_id, :user_id => creator_id, :shift_id => nil, :event_id => event.id
+    EventTimeActivity.create :owner_id => creator_id, :user_id => nil, :shift_id => nil, :event_id => event.id
   end
 end
