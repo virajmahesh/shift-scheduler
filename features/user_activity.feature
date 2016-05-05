@@ -61,6 +61,12 @@ Feature: Users have a way to view their most recent notifications
     And I am on the user activity page
     Then I should see "The 'Flyering' shift for the 'Go Batman' event is full."
     
+  Scenario: I should get events for copied events
+    Given I am on the page for the "Go Batman" event
+    When I follow "Copy Event"
+    And I am on the user activity page
+    Then I should see "You have successfully created the 'Go Batman(Copy)' event."
+    
   Scenario: Users can dismiss/delete their notifications
     Given the following user_activities exist:
       | Owner |User | Type          | Shift | Event |

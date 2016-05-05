@@ -36,3 +36,9 @@ Feature: Users will receive timely notifications for events and shifts
     When I am on the user activity page
     Then I should see "Your 'Harvey Dent Day' event is tomorrow."
     
+  Scenario: Receive timely event notification for copied events
+    Given I am on the page for the "Go Batman" event
+    When I follow "Copy Event"
+    And I am on the user activity page
+    Then I should see "Your 'Go Batman(Copy)' event is tomorrow."
+    
