@@ -85,12 +85,17 @@ class ShiftsController < ApplicationController
   end
 
   def remove_user
-    user_id = params[:user_id]
+    @volunteer = User.find_by_id params[:user_id]
+
     if can? :update, @shift
-      VolunteerCommitment.destroy_all(user_id: user_id, shift_id: @shift)
-      RemoveUserActivity.create :owner_id => user_id, :user_id => nil, :shift_id => @shift.id, :event_id => @shift.event.id
       flash[:notice] = 'User Removed'
       redirect_to event_shift_path @event, @shift
+
+      VolunteerCommitment.destroy_all user: @volunteer, shift: @shift
+      RemoveUserActivity.create owner_id: @user.id, user: nil, :shift_id => @shift.id, :event_id => @shift.event.id
+
+      RemoveUserMailer.notify_user(@user, @shift).deliver_now
+      RemoveUserMailer.notify_creator(@user, @shift).deliver_now
     else
       render file: 'public/422.html', status: :unauthorized
     end
