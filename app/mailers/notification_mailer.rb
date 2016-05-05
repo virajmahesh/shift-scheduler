@@ -10,7 +10,7 @@ class NotificationMailer < ActionMailer::Base
     if @shift.skills.length == 0
       @skills = 'None'
     else
-      @skills = ', '.join @shift.skills
+      @skills = @shift.skills.map {|s| s.description}.join ', '
     end
   end
 end

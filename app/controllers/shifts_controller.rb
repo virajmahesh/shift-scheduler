@@ -94,8 +94,8 @@ class ShiftsController < ApplicationController
       VolunteerCommitment.destroy_all user: @volunteer, shift: @shift
       RemoveUserActivity.create owner_id: @user.id, user: nil, :shift_id => @shift.id, :event_id => @shift.event.id
 
-      RemoveUserMailer.notify_user(@user, @shift).deliver_now
-      RemoveUserMailer.notify_creator(@user, @shift).deliver_now
+      RemoveUserMailer.notify_user(@volunteer, @shift).deliver_now
+      RemoveUserMailer.notify_creator(@volunteer, @shift).deliver_now
     else
       render file: 'public/422.html', status: :unauthorized
     end
