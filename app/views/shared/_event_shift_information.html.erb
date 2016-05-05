@@ -4,3 +4,6 @@
 
 <p><%= @event.event_name %> <%= @event.location %></p>
 <p><%= @event.formatted_event_date %></p>
+<% if @need_creator_information %>
+  <p>Event created by <%= @creator.username %>(<%= @creator.email %>) </p>
+<% end %>
