@@ -12,8 +12,6 @@ class User < ActiveRecord::Base
   has_many :user_issues
   has_many :issues, through: :user_issues
 
-  acts_as_messageable
-
   validates :username, presence: true
   validates_uniqueness_of :username, message: 'An account with that username already exists'
   validates_uniqueness_of :email, message: 'An account with that email address already exists'
@@ -22,14 +20,6 @@ class User < ActiveRecord::Base
 
   def signed_up_for shift
     VolunteerCommitment.exists? user: self, shift: shift
-  end
-
-  def name
-    self.username
-  end
-
-  def mailboxer_email object
-    self.email
   end
 
   def self.find_first_by_auth_conditions conditions, opts = {}

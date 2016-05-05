@@ -13,6 +13,10 @@ class UsersController < ApplicationController
     unless @user.nil? or @shift.nil?
       VolunteerCommitment.create user: @user, shift: @shift
       flash[:notice] = 'You have been signed up for the shift'
+
+      JoinShiftMailer.notify_user(@user, @shift).deliver_now
+      JoinShiftMailer.notify_creator(@user, @shift).deliver_now
+
       shift_activity_join @user, @shift
     end
 
@@ -27,6 +31,10 @@ class UsersController < ApplicationController
     unless @commitment.nil?
       flash[:notice] = 'You have left the shift'
       @commitment.destroy
+
+      LeaveShiftMailer.notify_user(@user, @shift).deliver_now
+      LeaveShiftMailer.notify_creator(@user, @shift).deliver_now
+
       shift_activity_leave @user, @shift
     end
     redirect_to event_shift_path @shift.event, @shift
