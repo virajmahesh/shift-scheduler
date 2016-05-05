@@ -50,10 +50,7 @@ class EventsController < ApplicationController
     end
   end
   
-  def event_create_activity event
-    EventNotificationJob.set(wait_until: event.event_date.to_time.advance(:days => -1)).perform_later event
-    EventCreateActivity.create :owner_id => event.user.id, :user_id => nil, :shift_id => nil, :event_id => event.id
-  end
+
 
   def edit
     unless can? :update, @event
@@ -97,11 +94,17 @@ class EventsController < ApplicationController
   def duplicate
     if can? :create, Event and not @event.nil?
       @new_event = @event.duplicate @user
+      event_create_activity @new_event
 
       flash[:notice] = 'Event successfully copied'
       redirect_to event_path @new_event
     else
       redirect_to new_user_session_path
     end
+  end
+  
+  def event_create_activity event
+    EventNotificationJob.set(wait_until: event.event_date.to_time.advance(:days => -1)).perform_later event
+    EventCreateActivity.create :owner_id => event.user.id, :user_id => nil, :shift_id => nil, :event_id => event.id
   end
 end
