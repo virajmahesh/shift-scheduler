@@ -9,6 +9,9 @@ env:
 services:
   - postgresql
 
+cache:
+  - bundler
+
 install:
   - mkdir travis-phantomjs
   - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
