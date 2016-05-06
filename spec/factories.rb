@@ -26,6 +26,8 @@ FactoryGirl.define do
   factory :event do
     event_name 'Test Event'
     event_date '10/04/2018'
+    start_time '10:00 AM'
+    end_time '11:00 AM'
     location 'Berkeley'
     candidate 'Test Candidate'
   end

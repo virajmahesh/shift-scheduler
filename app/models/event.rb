@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
   end
 
   def formatted_event_date
-    self.event_date.strftime '%B %-d %Y'
+    self.event_date.strftime '%B %-d, %Y'
   end
   
   def format time

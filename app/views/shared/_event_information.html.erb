@@ -1,5 +1,5 @@
 <p><%= @event.event_name %> <%= @event.location %></p>
-<p><%= @event.formatted_event_date %></p>
+<p><%= @event.formatted_event_date %> <%= @event.formatted_start_time %> - <%= @event.formatted_end_time %></p>
 <% if @need_creator_information %>
   <p>Event created by <%= @creator.username %>(<%= @creator.email %>) </p>
 <% end %>
