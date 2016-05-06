@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.future_events
-    self.where('event_date > ?', Time.now.to_date)
+    self.where('event_date >= ?', Time.now.to_date)
   end
 
   def formatted_event_date

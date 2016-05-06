@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
 
+  def index
+    @future_events = Event.future_events
+  end
+
 end
