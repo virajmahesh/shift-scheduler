@@ -21,3 +21,8 @@ Feature: Users Can See All Future Events on the Home Page
     Then I should see "Go Batman"
     And I should see "Superman"
     And I should not see "Go Robin"
+
+  Scenario: Event starting today shows up on the homepage
+    Given the "Go Robin" event is today
+    And I am on the homepage
+    Then I should see "Go Robin"

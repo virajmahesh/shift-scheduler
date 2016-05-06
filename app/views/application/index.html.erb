@@ -5,7 +5,7 @@
 
 
 <div class='md-padding' layout='row' layout-wrap>
-  <% Event.future_events.each do |e| %>
+  <% @future_events.each do |e| %>
       <div flex-sm='33' flex-gt-sm='25' layout="column">
 
         <a href="<%= event_path(e) %>" >
