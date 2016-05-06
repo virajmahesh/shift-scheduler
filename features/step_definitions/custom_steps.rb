@@ -189,9 +189,15 @@ Then (/^the "(.*)" shift of the "(.*)" event should have "(.*)" as a skill/) do 
   shift.has_skill?(skill).should == true
 end
 
-
 Then (/^the page should contain a multiline textbox$/) do
   page.body.include?('textarea').should == true
+end
+
+Given (/^the "(.*)" event is today$/) do |event_name|
+  event = Event.find_by_event_name event_name
+  event.event_date = Time.now.to_date
+
+  event.save
 end
 
 Given (/^PENDING$/) do
