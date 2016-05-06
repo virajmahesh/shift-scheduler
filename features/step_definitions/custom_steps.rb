@@ -13,7 +13,7 @@ Given (/^the following events exist:$/) do |table|
   table.hashes.each do |event|
     Event.create user: User.find_by(username: event['User']), event_name: event['Name'],
                                     candidate: event['Candidate'], event_date: event['Event Date'],
-                                    location: event['Location']
+                                    location: event['Location'], start_time: '10:00 AM', end_time: '11:00 AM'
   end
 end
 

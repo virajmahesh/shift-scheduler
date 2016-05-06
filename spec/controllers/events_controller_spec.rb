@@ -25,7 +25,8 @@ describe EventsController do
     it 'should not allow an event to be created when no user is logged in' do
       @init_num_events = Event.all.length
       @event = {event_date: '10/03/2017', event_name: 'Support Hillary',
-                location: 'Berkeley', candidate: 'Hillary'}
+                location: 'Berkeley', candidate: 'Hillary',
+                start_time: '10:00 AM', end_time: '11:00 AM'}
       post :create, event: @event
 
       Event.all.length.should == @init_num_events
@@ -35,7 +36,9 @@ describe EventsController do
       sign_in @user
       @init_num_events = Event.all.length
       @event = {event_date: '10/03/2017', event_name: 'Support Hillary',
-                location: 'Berkeley', candidate: 'Hillary'}
+                location: 'Berkeley', candidate: 'Hillary',
+                start_time: '10:00 AM', end_time: '11:00 AM'}
+      
       post :create, event: @event
 
       Event.all.length.should == @init_num_events + 1
