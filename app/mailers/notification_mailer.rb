@@ -20,6 +20,7 @@ class NotificationMailer < ActionMailer::Base
     @shift = shift
     @event = shift.event
     @creator = shift.user
+    @type = 'notification'
 
     if @shift.skills.length == 0
       @skills = 'None'

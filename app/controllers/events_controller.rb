@@ -49,8 +49,6 @@ class EventsController < ApplicationController
       redirect_to 'public/422.html', status: :unauthorized
     end
   end
-  
-
 
   def edit
     unless can? :update, @event
