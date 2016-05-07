@@ -21,7 +21,3 @@
 
 en:
   hello: "Hello world"
-
-  mailboxer:
-    notification_mailer:
-      subject: 'Uprise notification: %{subject}'
