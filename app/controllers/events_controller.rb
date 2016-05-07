@@ -103,7 +103,9 @@ class EventsController < ApplicationController
   
   def event_create_activity event
     EventCreateMailer.notify_creator(@event).deliver_now
-    EventNotificationJob.set(wait_until: event.event_date.to_time.advance(:days => -1)).perform_later event
     EventCreateActivity.create :owner_id => event.user.id, :user_id => nil, :shift_id => nil, :event_id => event.id
+    if event.event_date.future?
+      EventNotificationJob.set(wait_until: event.event_date.to_time.advance(:days => -1)).perform_later event
+    end
   end
 end

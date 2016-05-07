@@ -34,7 +34,7 @@ Feature: Users will receive timely notifications for events and shifts
     And I fill in "Description" with "Honor Harvey Dent"
     And I press "Create Event"
     When I am on the user activity page
-    Then I should see "Your 'Harvey Dent Day' event is tomorrow."
+    Then I should not see "Your 'Harvey Dent Day' event is tomorrow."
     
   Scenario: Receive timely event notification for copied events
     Given I am on the page for the "Go Batman" event
