@@ -67,7 +67,12 @@ class EventsController < ApplicationController
   # is authorized to do so
   def update
     if can? :update, @event
+      old_date = @event.event_date
       @event.update_attributes event_params
+      if old_date != @event.event_date && @event.event_date.future?
+        create_event_reminder_job_for @event
+        create_shift_remider_jobs_for @event
+      end
       flash[:notice] = "#{@event.event_name} was successfully updated."
       redirect_to event_path(@event)
     else
@@ -105,7 +110,22 @@ class EventsController < ApplicationController
     EventCreateMailer.notify_creator(@event).deliver_now
     EventCreateActivity.create :owner_id => event.user.id, :user_id => nil, :shift_id => nil, :event_id => event.id
     if event.event_date.future?
-      EventNotificationJob.set(wait_until: event.event_date.to_time.advance(:days => -1)).perform_later event
+      create_event_reminder_job_for event
     end
   end
+  
+  def create_event_reminder_job_for event
+    EventNotificationJob.set(wait_until: event.event_date.to_time - 1.day).perform_later event
+  end
+  
+  def create_shift_remider_jobs_for event
+    one_day_before_event = event.event_date.to_time - 1.day
+    shifts = event.shifts
+    shifts.each do |shift|
+      shift.users.each do |user|
+        ShiftNotificationJob.set(wait_until: one_day_before_event).perform_later user, shift
+      end
+    end
+  end
+  
 end

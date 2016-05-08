@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     JoinActivity.create :owner_id => creator_id, :user_id => user.id, :shift_id => shift.id, :event_id => shift.event.id
     UserJoinActivity.create :owner_id => user.id, :user_id => nil, :shift_id => shift.id, :event_id => shift.event.id
     if shift.event.event_date.future?
-      ShiftNotificationJob.set(wait_until: shift.event.event_date.to_time.advance(:days => -1)).perform_later shift, user
+      ShiftNotificationJob.set(wait_until: shift.event.event_date.to_time - 1.day).perform_later user, shift
     end
     if shift.has_limit and shift.volunteer_commitments.length == shift.limit
       ShiftFullActivity.create :owner_id => creator_id, :user_id => nil, :shift_id => shift.id, :event_id => shift.event.id
