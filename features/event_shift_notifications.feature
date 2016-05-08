@@ -10,10 +10,12 @@ Feature: Users will receive timely notifications for events and shifts
       | john_doe@uprise.com | john_doe | hellboy_new  |
     And I am on the homepage
     And I log in with username "john_doe" and password "hellboy_new"
+    And the following events will be held tomorrow:
+      | User     | Name      | Candidate   | Location |
+      | john_doe | Go Batman | Batman      | Gotham   |
     And the following events exist:
-      | User     | Event Date | Name      | Candidate   | Location |
-      | john_doe | 04/8/2100  | Go Batman | Batman      | Gotham   |
-      | john_doe | 05/8/2100  | Go Harvey | Harvey Dent | Gotham   |
+      | User     | Name      | Event Date | Candidate   | Location |
+      | john_doe | Go Harvey | 03/03/2100 |Harvey Dent | Gotham   |
     And the following shifts exist:
       | Event     | Role     | Has Limit | Limit | Start Time | End Time | Description   |
       | Go Batman | Tabling  | true      | 4     | 11:00 am   | 11:30 am | Sit all day   |
@@ -25,7 +27,7 @@ Feature: Users will receive timely notifications for events and shifts
     Given I am on the user activity page
     Then I should see "Your 'Tabling' shift for the 'Go Batman' event is tomorrow."
 
-  Scenario: Receive shift notification 24 hours before an event
+  Scenario: Don't receive shift notification for events on the same day
     Given I am on the home page
     When I follow "Create"
     When I fill in "Event Name" with "Harvey Dent Day"
@@ -35,6 +37,12 @@ Feature: Users will receive timely notifications for events and shifts
     And I press "Create Event"
     When I am on the user activity page
     Then I should not see "Your 'Harvey Dent Day' event is tomorrow."
+    
+  Scenario: Don't receive notifications for events created more than a day in advance
+    Given I am on the page for the "Go Harvey" event
+    When I follow "Copy Event"
+    And I am on the user activity page
+    Then I should not see "Your 'Go Harvey(Copy)' event is tomorrow."
     
   Scenario: Receive timely event notification for copied events
     Given I am on the page for the "Go Batman" event

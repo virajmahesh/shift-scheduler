@@ -17,6 +17,14 @@ Given (/^the following events exist:$/) do |table|
   end
 end
 
+Given (/^the following events will be held tomorrow:$/) do |table|
+  table.hashes.each do |event|
+    Event.create user: User.find_by(username: event['User']), event_name: event['Name'],
+                                    candidate: event['Candidate'], event_date: Date.tomorrow,
+                                    location: event['Location'], start_time: '10:00 AM', end_time: '11:00 AM'
+  end
+end
+
 Given (/^the following shifts exist:$/) do |table|
   table.hashes.each do |shift|
     Shift.create event: Event.find_by(event_name: shift['Event']), role: shift['Role'],
