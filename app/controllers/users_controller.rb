@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  before_action :parse_shift
+
+  def parse_shift
+    @shift = Shift.find_by_id params[:id]
+  end
 
   # Returns the parameters needed to create or update a user
   def user_params
@@ -8,9 +13,7 @@ class UsersController < ApplicationController
 
   # Adds the current user to the shift
   def join_shift
-    @shift = Shift.find_by_id params[:id]
-
-    unless @user.nil? or @shift.nil?
+    unless @user.nil? or @shift.nil? or @user.signed_up_for @shift
       VolunteerCommitment.create user: @user, shift: @shift
       flash[:notice] = 'You have been signed up for the shift'
 
@@ -25,7 +28,6 @@ class UsersController < ApplicationController
 
   # Removes the current user from the shift
   def leave_shift
-    @shift = Shift.find_by_id params[:id]
     @commitment = VolunteerCommitment.find_by user: @user, shift: @shift
 
     unless @commitment.nil?
