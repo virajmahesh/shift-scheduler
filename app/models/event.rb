@@ -59,6 +59,11 @@ class Event < ActiveRecord::Base
     EventIssue.exists? issue: issue, event: self
   end
 
+  def populate_issues issues
+    self.issues = Issue.where id: issues
+    self.save
+  end
+
   # Return the route that duplicates the event
   def duplicate_path
     "/events/#{self.id}/duplicate/"

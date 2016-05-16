@@ -175,11 +175,40 @@ When (/^I select the following skills: "(.*)"$/) do |skills|
   end
 end
 
+When (/^I remove the following skills: "(.*)"$/) do |skills|
+  skills_to_remove = Skill.where description: skills.split(', ')
+  current_skills = find('#skill_ids', visible: false).value.split(',').map { |i| i.to_i }
+
+  skills_to_remove.each do |skill|
+    current_skills.delete skill.id
+  end
+
+  page.find('#skill_ids', visible: false).set current_skills.join(',')
+end
+
+When (/^I remove the following issues: "(.*)"$/) do |issues|
+  issues_to_remove = Issue.where description: issues.split(', ')
+  current_issues = find('#issue_ids', visible: false).value.split(',').map { |i| i.to_i }
+
+  issues_to_remove.each do |issue|
+    current_issues.delete issue.id
+  end
+
+  page.find('#issue_ids', visible: false).set current_issues.join(',')
+end
+
 Then (/^the "(.*)" event should have "(.*)" as an issue$/) do |event_name, issue_desc|
   event = Event.find_by_event_name event_name
   issue = Issue.find_by_description issue_desc
 
   event.has_issue?(issue).should == true
+end
+
+Then (/^the "(.*)" event should not have "(.*)" as an issue$/) do |event_name, issue_desc|
+  event = Event.find_by_event_name event_name
+  issue = Issue.find_by_description issue_desc
+
+  event.has_issue?(issue).should == false
 end
 
 Then (/^user "(.*)" should have "(.*)" as an issue$/) do |username, issue_desc|
@@ -195,6 +224,14 @@ Then (/^the "(.*)" shift of the "(.*)" event should have "(.*)" as a skill/) do 
 
   skill = Skill.find_by_description skill_desc
   shift.has_skill?(skill).should == true
+end
+
+Then (/^the "(.*)" shift of the "(.*)" event should not have "(.*)" as a skill/) do |role, event_name, skill_desc|
+  event = Event.find_by_event_name event_name
+  shift = Shift.find_by event: event, role: role
+
+  skill = Skill.find_by_description skill_desc
+  shift.has_skill?(skill).should == false
 end
 
 Then (/^the page should contain a multiline textbox$/) do

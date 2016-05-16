@@ -27,10 +27,8 @@ class Shift < ActiveRecord::Base
   end
 
   def populate_skills skills
-    if skills.length != 0
-      self.skills = Skill.where id: skills
-      self.save
-    end
+    self.skills = Skill.where id: skills
+    self.save
   end
 
   def duplicate event
