@@ -13,14 +13,14 @@ Feature: User can Create, edit and delete events
       | User     | Name       | Location  | Candidate | Event Date |
       | john_doe | Go Batman  | Gotham    | Batman    | 03/04/2018 |
     And the following issues exist:
-      | Description |
-      | Issue 1     |
-      | Issue 2     |
-      | Issue 3     |
+      | Description  |
+      | First Issue  | 
+      | Second Issue |
+      | Third Issue  |
     And the following event issues exist:
-    | Event     | Issue   |
-    | Go Batman | Issue 1 |
-    | Go Batman | Issue 2 |
+    | Event     | Issue        |
+    | Go Batman | First Issue  |
+    | Go Batman | Second Issue |
     And I am on the homepage
     And I log in with username "john_doe" and password "john_doe_password"
 
@@ -133,14 +133,56 @@ Feature: User can Create, edit and delete events
     And I fill in "Location" with "Gotham"
     And I fill in "event[event_date]" with "03/03/2016"
     And I fill in "Description" with "A fund raiser for Batman"
-    And I select the following issues: "Issue 1, Issue 2"
+    And I select the following issues: "First Issue, Second Issue"
     And I press "Create Event"
-    Then the "Batman for President" event should have "Issue 1" as an issue
-    And the "Batman for President" event should have "Issue 2" as an issue
+    Then the "Batman for President" event should have "First Issue" as an issue
+    And the "Batman for President" event should have "Second Issue" as an issue
     And I should be on the page for the "Batman for President" event
-    And I should see "Issue 1"
-    And I should see "Issue 2"
-    And I should not see "Issue 3"
+    And I should see "First Issue"
+    And I should see "Second Issue"
+    And I should not see "Third Issue"
+
+  Scenario: Add issues while editing an event
+    Given I am on the page for the "Go Batman" event
+    And I follow "Edit Event"
+    Then I should be on the edit page for the "Go Batman" event
+    And I select the following issues: "Third Issue"
+    And I press "Save Changes"
+    Then the "Go Batman" event should have "First Issue" as an issue
+    And the "Go Batman" event should have "Second Issue" as an issue
+    And the "Go Batman" event should have "Third Issue" as an issue
+    And I should be on the page for the "Go Batman" event
+    And I should see "First Issue"
+    And I should see "Second Issue"
+    And I should see "Third Issue"
+
+  Scenario: Remove issues while editing an event
+    Given I am on the page for the "Go Batman" event
+    And I follow "Edit Event"
+    Then I should be on the edit page for the "Go Batman" event
+    When I remove the following issues: "Second Issue"
+    And I press "Save Changes"
+    Then the "Go Batman" event should have "First Issue" as an issue
+    And the "Go Batman" event should not have "Second Issue" as an issue
+    And the "Go Batman" event should not have "Third Issue" as an issue
+    And I should be on the page for the "Go Batman" event
+    And I should see "First Issue"
+    And I should not see "Second Issue"
+    And I should not see "Third Issue"
+
+  Scenario: Remove all issues while editing an event
+    Given I am on the page for the "Go Batman" event
+    And I follow "Edit Event"
+    Then I should be on the edit page for the "Go Batman" event
+    And I remove the following issues: "First Issue, Second Issue"
+    And I press "Save Changes"
+    Then the "Go Batman" event should not have "First Issue" as an issue
+    And the "Go Batman" event should not have "Second Issue" as an issue
+    And the "Go Batman" event should not have "Third Issue" as an issue
+    And I should be on the page for the "Go Batman" event
+    And I should not see "First Issue"
+    And I should not see "Second Issue"
+    And I should not see "Third Issue"
 
   Scenario: Copy an event when logged in as event creator
     Given the following shifts exist:
@@ -162,7 +204,7 @@ Feature: User can Create, edit and delete events
     Then I should be on the page for the "Go Batman(Copy)" event
     And I should see "Event successfully copied"
     And I should see "Created By: john_doe"
-    And I should see "Issue 1, Issue 2"
+    And I should see "First Issue, Second Issue"
     And I should see "Tabling"
     And I should see "Flyering"
     When I follow "Tabling"
@@ -197,7 +239,7 @@ Feature: User can Create, edit and delete events
     Then I should be on the page for the "Go Batman(Copy)" event
     And I should see "Event successfully copied"
     And I should see "Created By: jane_doe"
-    And I should see "Issue 1, Issue 2"
+    And I should see "First Issue, Second Issue"
     And I should see "Tabling"
     And I should see "Flyering"
     When I follow "Tabling"
@@ -220,9 +262,9 @@ Feature: User can Create, edit and delete events
     When I follow "Create"
     Then I should be on the login page
 
-  Scenario: Edit attemp shows all information
+  Scenario: Edit event shows all information
     Given I am on the page for the "Go Batman" event
     When I follow "Edit Event"
     Then I should see "SAVE CHANGES"
-    And I should see "Issue 1"
-    And I should see "Issue 2"
+    And I should see "First Issue"
+    And I should see "Second Issue"

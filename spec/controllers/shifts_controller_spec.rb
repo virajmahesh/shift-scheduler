@@ -72,6 +72,10 @@ describe ShiftsController do
       shift = Shift.find_by_id @shift.id
       shift.role.should == 'Updated Tabling'
     end
+
+    it 'should update the skills associated with an event' do
+
+    end
   end
 
   describe 'DELETE destory' do

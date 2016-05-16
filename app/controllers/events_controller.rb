@@ -12,12 +12,14 @@ class EventsController < ApplicationController
                                   :event_date, :candidate, :description)
   end
 
+  def issues
+    params[:issue_ids].split(',')
+  end
+
   # Link the event with the issues passed in
   def populate_issues
     if !@event.nil? and @event.valid? and params.has_key? :issue_ids
-      params[:issue_ids].split(',').each do |issue_id|
-        EventIssue.create event: @event, issue_id: issue_id
-      end
+      @event.populate_issues issues.map {|id| id.to_i}
     end
   end
 
@@ -69,12 +71,15 @@ class EventsController < ApplicationController
     if can? :update, @event
       old_date = @event.event_date
       @event.update_attributes event_params
+
       if old_date != @event.event_date && @event.event_date.future?
         create_event_reminder_job_for @event
         create_shift_remider_jobs_for @event
       end
+
+      populate_issues
       flash[:notice] = "#{@event.event_name} was successfully updated."
-      redirect_to event_path(@event)
+      redirect_to event_path @event
     else
       redirect_to 'public/422.html', status: :unauthorized
     end

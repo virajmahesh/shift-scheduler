@@ -160,12 +160,30 @@ Feature: User can Create, edit and delete shifts
     And I select the following skills: "Walking, Spanish"
     And I press "Save Changes"
     Then a shift with role "Tabling" should exist
-    Then I should be on the page for the "Tabling" shift for the "Go Batman" event
+    And I should be on the page for the "Tabling" shift for the "Go Batman" event
     And I should see "Tabling"
     And the "Tabling" shift of the "Go Batman" event should have "Walking" as a skill
     And the "Tabling" shift of the "Go Batman" event should have "Spanish" as a skill
     And I should see "Walking"
     And I should see "Spanish"
+
+  Scenario: Delete issues from a shift while editing it
+    Given the following shift skills exist:
+      | Event     | Shift    | Skill   |
+      | Go Batman | Tabling  | Walking |
+      | Go Batman | Tabling  | Spanish |
+    And I am on the page for the "Tabling" shift for the "Go Batman" event
+    And I follow "Edit Shift"
+    Then I should be on the edit page for the "Tabling" shift for the "Go Batman" event
+    And I remove the following skills: "Walking, Spanish"
+    And I press "Save Changes"
+    Then a shift with role "Tabling" should exist
+    And I should be on the page for the "Tabling" shift for the "Go Batman" event
+    And I should see "Tabling"
+    And the "Tabling" shift of the "Go Batman" event should not have "Walking" as a skill
+    And the "Tabling" shift of the "Go Batman" event should not have "Spanish" as a skill
+    And I should not see "Walking"
+    And I should not see "Spanish"
 
   Scenario: If start time after end time, valid input should be preserved
     Given PENDING
