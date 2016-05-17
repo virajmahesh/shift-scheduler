@@ -49,6 +49,15 @@ Given(/^the following shift skills exist:$/) do |table|
   end
 end
 
+Given(/^the following user skills exist:$/) do |table|
+  table.hashes.each do |user_skill|
+    user = User.find_by_username user_skill['User']
+    skill = Skill.find_by_description user_skill['Skill']
+
+    UserSkill.create user: user, skill: skill
+  end
+end
+
 Given(/^the following volunteer commitments exist:$/) do |table|
   table.hashes.each do |commitment|
     user = User.find_by username: commitment['User']
