@@ -36,6 +36,7 @@ Feature: User can Create, edit and delete events
     Then I should be on the page for the "Batman for President" event
     And I should see "Batman for President"
     And I should see "Gotham"
+    And I should see "john_doe@uprise.com"
     And an event named "Batman for President" should exist
  
   Scenario: Attempt to create event without a name
