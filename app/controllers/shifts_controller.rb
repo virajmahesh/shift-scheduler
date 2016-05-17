@@ -2,6 +2,8 @@ class ShiftsController < ApplicationController
   before_action :parse_event  # Parse the event before all controller actions
   before_action :parse_shift  # Parse the shift before all controller actions
 
+  after_action :notify_users, only: [:create]
+
   # Parses the current event and stores it in a controller variable
   def parse_event
     @event = Event.find_by_id params[:event_id]
@@ -114,6 +116,18 @@ class ShiftsController < ApplicationController
   def populate_skills
     if not @shift.nil? and params.has_key? :skill_ids
       @shift.populate_skills skills.map {|id| id.to_i}
+    end
+  end
+
+  def notify_users
+    if @shift.nil?
+      return
+    end
+    
+    users = User.joins(:user_skills).where(user_skills: {skill: @shift.skills}).uniq
+    users.each do |user|
+      MatchingShiftMailer.notify_user(user, @shift).deliver_now
+      MatchingShiftActivity.create owner_id: user.id, event: @shift.event, shift: @shift
     end
   end
 

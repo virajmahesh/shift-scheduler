@@ -1,8 +1,8 @@
 class Shift < ActiveRecord::Base
   belongs_to :event
   has_many :volunteer_commitments
-  has_many :ShiftSkills
-  has_many :skills, through: :ShiftSkills
+  has_many :shift_skills
+  has_many :skills, through: :shift_skills
   has_many :users, through: :volunteer_commitments
   has_one :user, through: :event
 
@@ -10,9 +10,13 @@ class Shift < ActiveRecord::Base
   validates :end_time, presence: true
   validates :role, presence: true
   validates :has_limit, inclusion: {in: [true, false]}
-  after_destroy do
+
+  after_destroy :cleanup
+
+  def cleanup
     UserActivity.destroy_all(shift_id: self.id)
   end
+
 
   def format time
     time.strftime '%I:%M %p'

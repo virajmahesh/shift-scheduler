@@ -11,7 +11,9 @@ class Event < ActiveRecord::Base
   validates :location, presence: true
   validates :candidate, presence: true
 
-  after_destroy do
+  after_destroy :cleanup
+
+  def cleanup
     UserActivity.destroy_all(event_id: self.id)
   end
 

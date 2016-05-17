@@ -185,6 +185,23 @@ Feature: User can Create, edit and delete shifts
     And I should not see "Walking"
     And I should not see "Spanish"
 
+  Scenario: User is notified about shift with matching skills
+    Given the following user skills exist:
+    | User     | Skill   |
+    | john_doe | Walking |
+    And I am on the page for the "Go Batman" event
+    When I follow "Add Shift"
+    Then I should be on the new shift page for the "Go Batman" event
+    When I select "1:00 PM" as the shift "Start Time"
+    And I select "3:00 PM" as the shift "End Time"
+    And I fill in "Shift Role" with "Set Up"
+    And I check "Shift Has Limit"
+    And I fill in "Shift Limit" with "5"
+    And I select the following skills: "Walking, Spanish"
+    And I press "Add Shift"
+    And I follow "Notifications"
+    Then I should see "Your skills are needed for the Set Up shift of the Go Batman event"
+
   Scenario: If start time after end time, valid input should be preserved
     Given PENDING
     Given I am on the page for the "Go Batman" event
