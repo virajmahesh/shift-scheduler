@@ -200,7 +200,7 @@ Feature: User can Create, edit and delete shifts
     And I select the following skills: "Walking, Spanish"
     And I press "Add Shift"
     And I follow "Notifications"
-    Then I should see "Your skills are needed for the Set Up shift of the Go Batman event"
+    Then I should see "Your skills are needed for the 'Set Up' shift of the 'Go Batman' event"
 
   Scenario: If start time after end time, valid input should be preserved
     Given PENDING
