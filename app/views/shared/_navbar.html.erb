@@ -7,13 +7,22 @@
     <md-button ng-href='<%= root_path %>'>Find</md-button>
     <md-button ng-href='<%= new_event_path %>'>Create</md-button>
 
-    <span  flex=''></span>
+    <span flex=''></span>
 
     <% unless @user.nil? or @user.id.nil? %>
         <span><%= @user.username %></span>
         <md-button ng-href='<%= destroy_user_session_path %>' data-method='delete'>Logout</md-button>
-        <md-button ng-href='<%= user_activity_path %>'>Notifications</md-button>
-      <% else %>
+
+        <!-- Notifications link and badge -->
+        <md-button ng-href='<%= user_activity_path %>'>Notifications
+          <% if @unread_notifications %>
+          <span class="notification_count">
+            <%= @notification_count %>
+          </span>
+          <% end %>
+        </md-button>
+
+    <% else %>
         <md-button ng-href='<%= new_user_registration_path %>'>Sign Up</md-button>
         <md-button ng-href='<%= new_user_session_path %>'>Login</md-button>
     <% end %>
