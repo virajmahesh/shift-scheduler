@@ -35,7 +35,11 @@
 
   <div>
     Created By:
-    <span><%= @event.user.username %> (<%= @event.user.email %>)</span>
+    <span><%= @event.user.username %>
+      <% if not @user.nil? %>
+        (<%= mail_to @event.user.email %>)
+      <% end %>
+    </span>
   </div><br>
 
   <div>
