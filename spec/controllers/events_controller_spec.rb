@@ -7,7 +7,7 @@ describe EventsController do
 
   before :each do
     @user = FactoryGirl.create :user
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
   def current_user
