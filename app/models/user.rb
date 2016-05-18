@@ -28,8 +28,6 @@ class User < ActiveRecord::Base
     else
       User.find_by_username(conditions[:login]) || User.find_by_email(conditions[:login])
     end
-
-
   end
 
   # Return true is this user is linked with the given issue

@@ -28,7 +28,7 @@ a {
     text-decoration: none !important;
 }
 
-button {
+.md-raised {
     background-color: #0A2A35 !important;
     padding-left: 15px !important;
     padding-right: 15px !important;
