@@ -28,6 +28,12 @@ a {
     text-decoration: none !important;
 }
 
+button {
+    background-color: #0A2A35 !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
 a.md-button {
     color: rgba(255, 255, 255, 0.65) !important;
 }

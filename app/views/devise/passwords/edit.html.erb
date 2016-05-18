@@ -1,0 +1,17 @@
+<h2>Change your password</h2>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.hidden_field :reset_password_token %>
+
+  <md-input-container>
+    <%= f.label :password, 'New password' %>
+    <%= f.password_field :password, autofocus: true, autocomplete: 'off' %>
+  </md-input-container><br>
+
+  <md-input-container>
+    <%= f.label :password_confirmation, 'Confirm new password' %>
+    <%= f.password_field :password_confirmation, autocomplete: 'off' %>
+  </md-input-container><br>
+
+  <md-button type='submit' class='md-raised md-primary'>Change my password</md-button>
+<% end %>

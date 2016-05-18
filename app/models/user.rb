@@ -23,7 +23,13 @@ class User < ActiveRecord::Base
   end
 
   def self.find_first_by_auth_conditions conditions, opts = {}
-    (User.find_by username: conditions[:login]) || (User.find_by email: conditions[:login])
+    if conditions.has_key? :reset_password_token
+      User.find_by_reset_password_token conditions[:reset_password_token]
+    else
+      User.find_by_username(conditions[:login]) || User.find_by_email(conditions[:login])
+    end
+
+
   end
 
   # Return true is this user is linked with the given issue
