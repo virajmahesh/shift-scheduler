@@ -6,6 +6,8 @@
 
 md-toolbar {
     background-color: #0A2A35 !important;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 textarea {
@@ -111,4 +113,12 @@ md-icon {
 md-chips-wrap {
     max-width: 350px !important;
     display: inline-block !important;
+}
+
+.notification_count {
+    padding: 3px;
+    margin-left: 3px;
+    border-radius: 5px;
+    vertical-align: middle !important;
+    background-color: rgba(255, 33, 38, 0.8);
 }

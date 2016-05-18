@@ -37,14 +37,14 @@
     Created By:
     <span><%= @event.user.username %>
       <% if not @user.nil? %>
-        (<%= mail_to @event.user.email %>)
+          (<%= mail_to @event.user.email %>)
       <% end %>
     </span>
   </div><br>
 
   <div>
-    Issues:
-    <span><%= @event.issues.map {|i| i.description}.join ', ' %></span>
+      Issues:
+      <span><%= @event.issues.map {|i| i.description}.join ', ' %></span>
   </div><br>
 
 

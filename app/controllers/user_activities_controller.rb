@@ -1,18 +1,20 @@
 class UserActivitiesController < ApplicationController
-  before_action :parse_activities
+  before_action :parse_activities, only: [:show]
+  before_action :parse_activity, only: [:delete]
   
   def user_activity_params
     params.permit(:user_id, :activity_id, :shift_id)
   end
+
+  def parse_activity
+    @activity = UserActivity.find_by_id params[:id]
+  end
   
   def delete
-    id = params[:id]
-    to_delete = UserActivity.find(id)
-    if !to_delete.nil? && @user.id == to_delete.owner_id
-      to_delete.destroy
+    if !@activity.nil? and @user.id == @activity.owner_id
+      @activity.destroy
     end
     redirect_to user_activity_path
-    return
   end
   
   def show
@@ -22,7 +24,10 @@ class UserActivitiesController < ApplicationController
   end
     
   def parse_activities
-      @activities = UserActivity.where(owner_id: @user).order(created_at: :desc)
+    @activities = UserActivity.where(owner_id: @user).order(created_at: :desc)
+    @activities.update_all read: true
+
+    count_unread_notifications
   end
 
 

@@ -254,6 +254,13 @@ Given (/^the "(.*)" event is today$/) do |event_name|
   event.save
 end
 
+Then (/^"(.*)" should have (.*) unread notification(?:|s)$/) do |username, count|
+  count = count.to_i
+  user = User.find_by_username username
+
+  UserActivity.where(owner_id: user, read: false).count.should == count
+end
+
 Given (/^PENDING$/) do
   pending
 end

@@ -24,8 +24,10 @@ Feature: Users will receive timely notifications for events and shifts
   Scenario: Receive event notification 24 hours before a shift
     Given I am on the page for the "Tabling" shift for the "Go Batman" event
     When I follow "Join"
-    Given I am on the user activity page
+    Then "john_doe" should have 3 unread notifications
+    When I follow "Notifications"
     Then I should see "Your 'Tabling' shift for the 'Go Batman' event is tomorrow."
+    And "john_doe" should have 0 unread notifications
 
   Scenario: Don't receive shift notification for events on the same day
     Given I am on the home page
