@@ -5,6 +5,6 @@ class MatchingShiftActivity < UserActivity
   end
 
   def representation
-    "Your skills are needed for the '#{self.shift.role}' shift of the '#{self.event.event_name}' event"
+    "Your skills are needed for the '#{self.shift.role}' shift of the '#{self.event.event_name}' event."
   end
 end

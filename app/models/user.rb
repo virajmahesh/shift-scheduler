@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :login
 
-  def signed_up_for shift
+  def signed_up_for? shift
     VolunteerCommitment.exists? user: self, shift: shift
   end
 
@@ -29,5 +29,14 @@ class User < ActiveRecord::Base
   # Return true is this user is linked with the given issue
   def has_issue? issue
     UserIssue.exists? user: self, issue: issue
+  end
+
+  def notified_about? shift
+    MatchingShiftActivity.exists? owner_id: self.id, shift: shift
+  end
+
+  # Returns all the users that match one or more of the given skills.
+  def self.users_with_skills skills
+    User.joins(:user_skills).where(user_skills: {skill: skills}).uniq
   end
 end

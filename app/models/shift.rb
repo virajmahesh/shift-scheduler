@@ -50,4 +50,9 @@ class Shift < ActiveRecord::Base
   def has_skill? skill
     ShiftSkill.exists? shift: self, skill: skill
   end
+
+  # Returns all shifts that match one or more of the given skills
+  def self.shifts_with_skills skills
+    Shift.joins(:shift_skills).where(shift_skills: {skill: skills}).uniq
+  end
 end

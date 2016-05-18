@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   # Adds the current user to the shift
   def join_shift
-    unless @user.nil? or @shift.nil? or @user.signed_up_for @shift
+    unless @user.nil? or @shift.nil? or @user.signed_up_for? @shift
       VolunteerCommitment.create user: @user, shift: @shift
       flash[:notice] = 'You have been signed up for the shift'
 
