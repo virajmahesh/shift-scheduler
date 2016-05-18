@@ -40,6 +40,9 @@ Feature: User can Create, edit and delete shifts
     Then a shift with role "Set Up" should exist
     Then I should be on the page for the "Set Up" shift for the "Go Batman" event
     And I should see "Set Up"
+    And I should not see "Limit: 5"
+    And I should not see "Start Time"
+    And I should not see "End Time"
 
 
   Scenario: Attempt to create a shift without a role
@@ -165,6 +168,7 @@ Feature: User can Create, edit and delete shifts
     And the "Tabling" shift of the "Go Batman" event should have "Walking" as a skill
     And the "Tabling" shift of the "Go Batman" event should have "Spanish" as a skill
     And I should see "Walking"
+    And I should not see "["
     And I should see "Spanish"
 
   Scenario: Delete issues from a shift while editing it
