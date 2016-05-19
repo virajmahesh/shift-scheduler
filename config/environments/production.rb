@@ -15,15 +15,16 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => "icsi-shift-scheduler-preview.herokuapp.com" }
+  config.action_mailer.default_url_options = { :host => ENV['APP_URL'] }
   config.action_mailer.smtp_settings = {
-      :address              => "smtp.gmail.com",
-      :port                 => "587",
-      :domain               => "gmail.com",
-      :user_name            => "uprise.shift.scheduler@gmail.com",
-      :password             => "helloworld123",
+      :enable_starttls_auto => true,
+      :port                 => '587',
+      :openssl_verify_mode  => 'none',
       :authentication       => :login,
-      :enable_starttls_auto => true
+      :domain               => ENV['DOMAIN'],
+      :address              => ENV['SMTP_ADDRESS'],
+      :password             => ENV['SENDGRID_PASSWORD'],
+      :user_name            => ENV['SENDGRID_USERNAME'],
   }
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application

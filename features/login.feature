@@ -19,7 +19,7 @@ Feature: Users Can Login With Their Credentials
     And I fill in "Password" with "john_doe_password"
     And I press "Login"
     Then I should be on the homepage
-    And I should see "john_doe"
+    And I should see "Signed in successfully."
 
 
   Scenario: attempt to login with username and password
@@ -29,7 +29,7 @@ Feature: Users Can Login With Their Credentials
     And I fill in "Password" with "jane_doe_password"
     And I press "Login"
     Then I should be on the homepage
-    And I should see "jane_doe"
+    And I should see "Signed in successfully."
 
 
   Scenario: attempt to login with incorrect username

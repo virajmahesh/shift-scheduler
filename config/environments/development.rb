@@ -19,15 +19,16 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => ENV['APP_URL'] }
   config.action_mailer.smtp_settings = {
-        :address              => 'smtp.gmail.com',
-        :port                 => '587',
-        :domain               => 'gmail.com',
-        :user_name            => 'uprise.shift.scheduler@gmail.com',
-        :password             => 'helloworld123',
-        :authentication       => :login,
-        :enable_starttls_auto => true
+      :enable_starttls_auto => true,
+      :port                 => '587',
+      :openssl_verify_mode  => 'none',
+      :authentication       => :login,
+      :domain               => ENV['DOMAIN'],
+      :address              => ENV['SMTP_ADDRESS'],
+      :password             => ENV['SENDGRID_PASSWORD'],
+      :user_name            => ENV['SENDGRID_USERNAME'],
   }
 
   # Print deprecation notices to the Rails logger.

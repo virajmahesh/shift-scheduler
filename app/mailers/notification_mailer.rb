@@ -1,5 +1,5 @@
 class NotificationMailer < ActionMailer::Base
-  default from: 'notifications@uprise.com', template_path: 'notification_mailer'
+  default from: 'notifications@uprisecampaigns.org', template_path: 'notification_mailer'
 
   def notify_user user, shift
     build_email user, shift
