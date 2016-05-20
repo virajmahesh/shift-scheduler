@@ -56,6 +56,20 @@
   <% if can? :destroy, @event %>
       <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
   <% end %>
+  <% if not @user.nil? and @user.is_super_user? %>
+      <a id='transfer_ownership_link' href="#">Transfer Ownership</a> <br>
+
+      <!-- Form to transfer event ownership -->
+      <%= form_tag @event.transfer_owner_path, id: :transfer_ownership_form do %>
+        <md-input-container>
+          <p>Enter new event creator's username/email:</p>
+          <%= text_field_tag :login %>
+        </md-input-container><br>
+
+        <md-button type="submit">Transfer Ownership</md-button>
+      <% end %>
+
+  <% end %>
 
 </md-card>
 

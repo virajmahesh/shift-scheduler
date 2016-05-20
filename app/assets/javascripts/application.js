@@ -108,3 +108,14 @@ app.controller('RegistrationController', function($scope) {
 app.controller('ShiftController', function($scope) {
     handleSkills($scope);
 });
+
+// jQuery effects
+$(document).ready(function() {
+    // Hide the ownership transfer form by default.
+    $('#transfer_ownership_form').hide();
+
+    // Display the transfer ownership form when someone clicks the transfer ownership link.
+    $('#transfer_ownership_link').click(function() {
+        $('#transfer_ownership_form').toggle();
+    });
+});

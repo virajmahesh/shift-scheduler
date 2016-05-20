@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   get 'events/:event_id/shifts/:id/view_users' => 'shifts#view_users', as: 'shift_viewUsers'
   get 'events/:event_id/shifts/:id/remove/:user_id' => 'shifts#remove_user', as: 'shift_removeUser'
 
-  get 'events/:id/duplicate' => 'events#duplicate'
+  get 'event/:id/duplicate' => 'events#duplicate'
+  post 'event/:id/transfer' => 'events#transfer'
 
   get '/user/join_shift/:id/' => 'users#join_shift'
   get '/user/leave_shift/:id' => 'users#leave_shift'

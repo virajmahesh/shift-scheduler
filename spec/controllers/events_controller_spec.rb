@@ -163,4 +163,37 @@ describe EventsController do
       Issue.exists?(id: @issue.id).should == true
     end
   end
+
+  describe 'POST transfer'do
+
+    before :each do
+      @new_user = FactoryGirl.create :user
+      @event = FactoryGirl.create :event, user: @user
+    end
+
+    it 'should allow superusers to transfer events to a valid user by username' do
+      sign_in @super_user
+      post :transfer, id: @event.id, login: @new_user.username
+
+      @event.reload
+      @event.user.should == @new_user
+    end
+
+    it 'should allow superusers to transfer events to a valid user by email' do
+      sign_in @super_user
+      post :transfer, id: @event.id, login: @new_user.email
+
+      @event.reload
+      @event.user.should == @new_user
+    end
+
+    it 'should not allow superusers to transfer events to users with invalid credentials' do
+      sign_in @super_user
+      post :transfer, id: @event.id, login: @user.email + 'fail'
+
+      @event.reload
+      @event.user.should == @user
+    end
+
+  end
 end

@@ -132,5 +132,21 @@ class EventsController < ApplicationController
       end
     end
   end
+
+  # Transfers ownership of an event to another user.
+  def transfer
+    if params[:login].nil? or params[:login].empty?
+      flash.alert = "Please specify the new event creator's email/username"
+    else
+      @user = User.find_first_by_auth_conditions params
+      if @user.nil?
+        flash.alert = "Invalid email/username for new event owner."
+      else
+        @event.user = @user
+        @event.save
+      end
+    end
+    redirect_to event_path @event
+  end
   
 end
