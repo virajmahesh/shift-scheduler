@@ -13,6 +13,12 @@ describe User do
     end
   end
 
+  describe 'type' do
+    it 'should return the correct type' do
+      @user.type.should == 'User'
+    end
+  end
+
   describe 'has_issues?' do
     before :each do
       @issue = FactoryGirl.create :issue

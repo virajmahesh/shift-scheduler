@@ -68,7 +68,12 @@ class Event < ActiveRecord::Base
 
   # Return the route that duplicates the event
   def duplicate_path
-    "/events/#{self.id}/duplicate/"
+    "/event/#{self.id}/duplicate"
+  end
+
+  # Return the route that transfers ownership of the event
+  def transfer_owner_path
+    "/event/#{self.id}/transfer"
   end
 
   def duplicate creator
@@ -78,6 +83,7 @@ class Event < ActiveRecord::Base
     new_event.event_name += '(Copy)'
     new_event.save
 
+    # Duplicate each shift associated with the event.
     self.shifts.each do |shift|
       shift.duplicate new_event
     end

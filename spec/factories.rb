@@ -47,4 +47,12 @@ FactoryGirl.define do
     description {generate :skill}
   end
 
+  factory :super_user do
+    email {generate :email}
+    username {generate :username}
+    password 'password'
+    password_confirmation 'password'
+    city 'Berkeley'
+  end
+
 end
