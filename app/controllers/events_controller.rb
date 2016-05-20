@@ -13,13 +13,13 @@ class EventsController < ApplicationController
   end
 
   def issues
-    params[:issue_ids].split(',')
+    params[:issue_ids].split(',').map {|id| id.to_i}
   end
 
   # Link the event with the issues passed in
   def populate_issues
     if !@event.nil? and @event.valid? and params.has_key? :issue_ids
-      @event.populate_issues issues.map {|id| id.to_i}
+      @event.populate_issues issues
     end
   end
 
