@@ -108,5 +108,22 @@ describe EventsController do
 
       Event.all.length.should == @init_num_events - 1
     end
+
+    it 'should destroy all shifts and event issues associated with an event' do
+      sign_in @user
+      @issue = FactoryGirl.create :issue
+      @event = FactoryGirl.create :event, user: @user
+      @shift = FactoryGirl.create :shift, event: @event
+
+      @event_issue = EventIssue.create event: @event, issue: @issue
+
+      delete :destroy, id: @event.id
+
+      Shift.exists?(id: @shift.id).should == false
+      EventIssue.exists?(id: @event_issue.id).should == false
+
+      # Should not delete issue
+      Issue.exists?(id: @issue.id).should == true
+    end
   end
 end
