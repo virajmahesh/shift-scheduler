@@ -53,4 +53,8 @@ class User < ActiveRecord::Base
     self.issues = Issue.where id: issues
     self.save
   end
+
+  def is_super_user?
+    self.type == 'SuperUser'
+  end
 end

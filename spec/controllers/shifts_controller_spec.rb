@@ -4,6 +4,7 @@ describe ShiftsController do
 
   before :each do
     @user = FactoryGirl.create :user
+    @super_user = FactoryGirl.create :super_user
     @event = FactoryGirl.create :event, user: @user
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
@@ -41,6 +42,15 @@ describe ShiftsController do
       @event.shifts.length.should == 1
     end
 
+    it 'should allow a shift to be created when super user is logged in' do
+      sign_in @super_user
+      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling',
+                has_limit: 'false'}
+      post :create, event_id: @event.id, shift: @shift
+
+      @event.shifts.length.should == 1
+    end
+
     it 'should notify a user when a shift with matching skills is created' do
       sign_in @user
       @new_user = FactoryGirl.create :user
@@ -70,9 +80,9 @@ describe ShiftsController do
       @shift = FactoryGirl.create :shift, event: @event
       put :update, event_id: @event.id, id: @shift.id, shift: {role: 'Updated Tabling'}
 
-      shift = Shift.find @shift.id
-      shift.role.should_not == 'Updated Tabling'
-      shift.role.should == @shift.role
+      @shift.reload
+      @shift.role.should_not == 'Updated Tabling'
+      @shift.role.should == @shift.role
     end
 
     it 'should not allow a shift to be updated when a user other than the event creator is logged in' do
@@ -82,9 +92,9 @@ describe ShiftsController do
       @shift = FactoryGirl.create :shift, event: @event
       put :update, event_id: @event.id, id: @shift.id, shift: {role: 'Updated Tabling'}
 
-      shift = Shift.find @shift.id
-      shift.role.should_not == 'Updated Tabling'
-      shift.role.should == @shift.role
+      @shift.reload
+      @shift.role.should_not == 'Updated Tabling'
+      @shift.role.should == @shift.role
     end
 
     it 'should allow a shift to be updated when the event creator is logged in' do
@@ -92,8 +102,17 @@ describe ShiftsController do
       @shift = FactoryGirl.create :shift, event: @event
       put :update, event_id: @event.id, id: @shift.id, shift: {role: 'Updated Tabling'}
 
-      shift = Shift.find_by_id @shift.id
-      shift.role.should == 'Updated Tabling'
+      @shift.reload
+      @shift.role.should == 'Updated Tabling'
+    end
+
+    it 'should allow a shift to be updated when super user is logged in' do
+      sign_in @super_user
+      @shift = FactoryGirl.create :shift, event: @event
+      put :update, event_id: @event.id, id: @shift.id, shift: {role: 'Updated Tabling'}
+
+      @shift.reload
+      @shift.role.should == 'Updated Tabling'
     end
 
     it 'should notify a user when a shift is updated to have matching skills' do
@@ -150,8 +169,17 @@ describe ShiftsController do
       shift.nil?.should == false
     end
 
-    it 'should allow a shift to be destroyed when a user other than the event creator is logged in' do
+    it 'should allow a shift to be destroyed when the event creator is logged in' do
       sign_in @user
+      @shift = FactoryGirl.create :shift, event: @event
+      delete :destroy, event_id: @event.id, id: @shift.id
+
+      shift = Shift.find_by id: @shift.id
+      shift.nil?.should == true
+    end
+
+    it 'should allow a shift to be destroyed when a user other than the event creator is logged in' do
+      sign_in @super_user
       @shift = FactoryGirl.create :shift, event: @event
       delete :destroy, event_id: @event.id, id: @shift.id
 
