@@ -2,8 +2,8 @@ require 'set'
 
 class Event < ActiveRecord::Base
   belongs_to :user
-  has_many :shifts
-  has_many :event_issues
+  has_many :shifts, dependent: :destroy
+  has_many :event_issues, dependent: :destroy
   has_many :issues, through: :event_issues
 
   validates :event_name, presence: true
