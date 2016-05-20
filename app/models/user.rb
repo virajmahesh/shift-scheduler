@@ -43,4 +43,14 @@ class User < ActiveRecord::Base
   def self.users_with_skills skills
     User.joins(:user_skills).where(user_skills: {skill: skills}).uniq
   end
+
+  def populate_skills skills
+    self.skills = Skill.where id: skills
+    self.save
+  end
+
+  def populate_issues issues
+    self.issues = Issue.where id: issues
+    self.save
+  end
 end

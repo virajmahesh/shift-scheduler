@@ -10,7 +10,7 @@
     <span flex=''></span>
 
     <% unless @user.nil? or @user.id.nil? %>
-        <span><%= @user.username %></span>
+        <md-button ng-href='<%= edit_user_registration_path %>' %><%= @user.username %></md-button>
         <md-button ng-href='<%= destroy_user_session_path %>' data-method='delete'>Logout</md-button>
 
         <!-- Notifications link and badge -->

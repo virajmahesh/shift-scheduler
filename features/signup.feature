@@ -16,6 +16,11 @@ Feature: Users Can Signup for an Account and Use it to Login
       | Issue 3     |
     And the following skills exist:
       | Description |
+      | Skill 1     |
+      | Skill 2     |
+      | Skill 3     |
+    And the following skills exist:
+      | Description |
       | Organizing  |
       | Outreach    |
       | Fundraising |
@@ -31,7 +36,7 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I press "Sign Up"
     Then a user with the username "john_doe" and password "password" should exist in the database
     And I should be on the homepage
-    And I should see "john_doe"
+    And I should see "Welcome! You have signed up successfully."
 
 
   Scenario: Attempt to signup with an existing user's email
@@ -119,3 +124,14 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I should be on the homepage
     And user "john_doe" should have "Issue 1" as an issue
     And user "john_doe" should have "Issue 2" as an issue
+
+  Scenario: Edit signup information
+    Given I log in with username "jane_doe" and password "jane_doe_password"
+    And I follow "jane_doe"
+    When I fill in "City" with "Berkeley"
+    And I fill in "Current password" with "jane_doe_password"
+    And I fill in "State" with "CA"
+    And I select the following issues: "Issue 1, Issue 2"
+    And I press "Save Changes"
+    Then I should be on the homepage
+    And I should see "Your account has been updated successfully."
