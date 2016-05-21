@@ -1,7 +1,7 @@
 /*
  *= require_tree .
- *= require_self
  *= require angular-material
+ *= require_self
  */
 
 md-toolbar {
@@ -112,13 +112,33 @@ md-icon {
     float: right !important;
 }
 
-.md-autocomplete-suggestions-container, span.md-contact-name {
-    width: 350px !important;
+div.md-text.ng-binding {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    display: inline-block;
 }
 
-md-chips-wrap {
-    max-width: 350px !important;
-    display: inline-block !important;
+.select-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+md-select {
+    min-width: 172px;
+}
+
+.searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0;
 }
 
 .notification_count {
@@ -127,4 +147,5 @@ md-chips-wrap {
     border-radius: 5px;
     vertical-align: middle !important;
     background-color: rgba(255, 33, 38, 0.8);
+    color: white;
 }

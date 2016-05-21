@@ -23,6 +23,7 @@ end
 Capybara.default_driver = :poltergeist
 
 
+# Enables parallel testing
 Capybara.server_port = 3001 + ENV['TEST_ENV_NUMBER'].to_i
 Capybara.app_host = "http://localhost:#{Capybara.server_port}"
 

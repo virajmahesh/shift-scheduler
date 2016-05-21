@@ -1,0 +1,25 @@
+<div layout="row">
+  <md-input-container>
+    <label>Skills</label>
+
+    <!-- Select issues -->
+    <md-select id="skills"
+               ng-model="skills"
+               multiple
+               md-on-close="clearSkillSearchTerm()"
+               ng-model-options="{trackBy: '$value.id'}">
+
+      <!-- Search bar -->
+      <md-select-header class="select-header">
+        <input ng-model="skillSearchTerm"
+               type="search"
+               placeholder="Search for a skill.."
+               class="searchbox md-text">
+      </md-select-header>
+
+      <md-option ng-value="skill" ng-repeat="skill in allSkills | filter:skillSearchTerm">
+        {{skill.description}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>

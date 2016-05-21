@@ -32,15 +32,7 @@
 
     <input type="hidden" id="skill_ids" name="skill_ids">
 
-    <md-contact-chips
-        id="skills"
-        ng-model="skills"
-        md-contacts="findSkills($query)"
-        md-contact-name="description"
-        md-require-match="true"
-        md-highlight-flags="i"
-        placeholder="Shift Skills">
-    </md-contact-chips><br><br>
+    <%= render 'shared/select_skills' %><br>
 
     <md-button type="submit" class="md-raised md-primary">
         <%= @submit_button_text %>

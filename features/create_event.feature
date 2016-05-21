@@ -136,6 +136,7 @@ Feature: User can Create, edit and delete events
     And I fill in "Description" with "A fund raiser for Batman"
     And I select the following issues: "First Issue, Second Issue"
     And I press "Create Event"
+    Then I should see "Batman for President was successfully created."
     Then the "Batman for President" event should have "First Issue" as an issue
     And the "Batman for President" event should have "Second Issue" as an issue
     And I should be on the page for the "Batman for President" event

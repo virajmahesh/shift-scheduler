@@ -2,11 +2,13 @@
 
   <div>
     <h2 class="event-name"><%= @event.event_name %></h2>
+
     <% if can? :destroy, @event %>
         <a href="<%= event_path(@event) %>" data-method="delete">
           <md-icon aria-label="Delete" class="modify-icon">delete</md-icon>
         </a>
     <% end %>
+
     <% if can? :edit, @event %>
         <a href="<%= edit_event_path(@event) %>">
           <md-icon aria-label="Edit" class="modify-icon">mode_edit</md-icon>
@@ -23,7 +25,7 @@
 
   <div>
     <md-icon aria-label="Calendar" class="material-icons">perm_contact_calendar</md-icon>
-    <span><%= @event.event_date.strftime("%B %-d, %Y") %></span>
+    <span><%= @event.formatted_event_date %></span>
   </div><br>
 
   <% if not @event.start_time.nil? and not @event.end_time.nil? %>

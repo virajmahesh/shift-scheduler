@@ -161,27 +161,19 @@ Then (/^I should see "(.*)" in "(.*)"$/) do |value, field|
 end
 
 When (/^I select the following issues: "(.*)"$/) do |issues|
-  issues = issues.split(', ')
-  issues.each do |issue|
-    input = page.find('#issues').find('input')
+  issues_to_add = Issue.where description: issues.split(', ')
+  current_issues = find('#issue_ids', visible: false).value.split(',').map { |i| i.to_i }
 
-    # Click the input and type in the issue
-    input.click
-    input.set(issue)
-    page.find('span.highlight', text: issue, visible: false).trigger('click')
-  end
+  current_issues << issues_to_add.pluck(:id)
+  page.find('#issue_ids', visible: false).set current_issues.join(',')
 end
 
 When (/^I select the following skills: "(.*)"$/) do |skills|
-  skills = skills.split(', ')
-  skills.each do |skill|
-    input = page.find('#skills').find('input')
+  skills_to_add = Skill.where description: skills.split(', ')
+  current_skills = find('#skill_ids', visible: false).value.split(',').map { |i| i.to_i }
 
-    # Click the input and type in the skill
-    input.click
-    input.set skill
-    page.find('span.highlight', text: skill, visible: false).trigger('click')
-  end
+  current_skills << skills_to_add.pluck(:id)
+  page.find('#skill_ids', visible: false).set current_skills.join(',')
 end
 
 When (/^I remove the following skills: "(.*)"$/) do |skills|
@@ -245,6 +237,10 @@ end
 
 Then (/^the page should contain a multiline textbox$/) do
   page.body.include?('textarea').should == true
+end
+
+When (/^I wait (.*) second(?:|s)$/) do |seconds|
+  sleep seconds.to_d
 end
 
 Given (/^the "(.*)" event is today$/) do |event_name|

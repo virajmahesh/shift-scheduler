@@ -1,0 +1,25 @@
+<div layout="row">
+  <md-input-container>
+    <label>Issues</label>
+
+    <!-- Select issues -->
+    <md-select id="issues"
+               ng-model="issues"
+               multiple
+               md-on-close="clearIssueSearchTerm()"
+               ng-model-options="{trackBy: '$value.id'}">
+
+      <!-- Search bar -->
+      <md-select-header class="select-header">
+        <input ng-model="issueSearchTerm"
+               type="search"
+               placeholder="Search for an issue.."
+               class="searchbox md-text">
+      </md-select-header>
+
+      <md-option ng-value="issue" ng-repeat="issue in allIssues | filter:issueSearchTerm">
+        {{issue.description}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>

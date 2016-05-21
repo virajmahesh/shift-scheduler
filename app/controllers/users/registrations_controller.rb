@@ -8,13 +8,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra sign up params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :username, :city,
-                                                       :state, :zip_code, :phone_number])
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: [:email, :username, :city,
+                                             :state, :zip_code, :phone_number])
   end
 
   def configure_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :username, :city,
-                                                       :state, :zip_code, :phone_number])
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: [:email, :username, :city,
+                                             :state, :zip_code, :phone_number])
   end
 
   def issues
@@ -39,12 +41,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  # Notify users about shifts that have one or more skills that match the skills
+  # listed on their profile. This does not generate a notification if the user
+  # has already been notified about the shift in the past.
   def notify_users
     @user = current_user
-    if not @user.nil?
+    unless @user.nil?
       Shift.shifts_with_skills(@user.skills).each do |shift|
 
-        if not @user.notified_about? shift
+        unless @user.notified_about? shift
           MatchingShiftMailer.notify_user(@user, shift).deliver_now
           MatchingShiftActivity.create owner_id: @user.id, event: shift.event, shift: shift
         end
@@ -53,23 +58,40 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def new
+    @method = :create
+    @submit_button_text = 'Sign Up'
+
+    super
+  end
+
   def create
+    # Load the skills and issues previously filled in the form
     if params.has_key? :skill_ids
       gon.skills = Skill.where id: skills
     end
     if params.has_key? :issue_ids
       gon.issues = Issue.where id: issues
     end
+
+    @method = :create
+    @submit_button_text = 'Sign Up'
     super
   end
 
   def update
+    @method = :update
+    @submit_button_text = 'Save Changes'
+
     gon.skills = current_user.skills
     gon.issues = current_user.issues
     super
   end
 
   def edit
+    @method = :update
+    @submit_button_text = 'Save Changes'
+
     gon.skills = current_user.skills
     gon.issues = current_user.issues
     super
