@@ -46,16 +46,18 @@ class ShiftsController < ApplicationController
   def create
     if can? :create_shift, @event
       @shift = Shift.create shift_params.merge(event: @event)
+
       if @shift.invalid?
-        flash[:error] = @shift.errors.full_messages.first
-        redirect_to new_event_shift_path
+        flash.alert = @shift.errors.full_messages.first
+        redirect_to new_event_shift_path @event
       else
         populate_skills
-        flash[:notice] = 'Shift was successfully created'
+
+        flash.notice = 'Shift was successfully created'
         redirect_to event_shift_path @event, @shift
       end
     else
-      render file: 'public/422.html', status: :unauthorized
+      redirect_to new_user_session_path
     end
   end
 
@@ -64,13 +66,18 @@ class ShiftsController < ApplicationController
   def update
     if can? :update, @shift
       @shift.update_attributes shift_params
+
       if @shift.valid?
         populate_skills
-        flash[:notice] = 'Shift was successfully updated'
+
+        flash.notice = 'Shift was successfully updated'
         redirect_to event_shift_path @event, @shift
+      else
+        flash.alert = @shift.errors.full_messages.first
+        redirect_to edit_event_shift_path @event, @shift
       end
     else
-      render file: 'public/422.html', status: :unauthorized
+      redirect_to new_user_session_path
     end
   end
 
