@@ -28,28 +28,19 @@
 
     <%= label :event, :end_time, 'End Time' %>
     <%= time_select :event, :end_time, ampm: true %>
-    <br>
+    <br><br>
 
     <md-input-container>
       <%= f.label :description, 'Event Description' %>
       <%= f.text_area :description %>
     </md-input-container>
-    <br>
+    <br><br>
 
     <input type="hidden" id="issue_ids" name="issue_ids">
-
-    <md-contact-chips
-        id="issues"
-        ng-model="issues"
-       md-contacts="findIssues($query)"
-        md-contact-name="description"
-        md-require-match="true"
-        md-highlight-flags="i"
-        placeholder="Issues">
-    </md-contact-chips><br><br>
+    <%= render 'shared/select_issues' %>
 
     <md-button type="submit" class="md-raised md-primary">
-        <%= @submit_button_text %>
+      <%= @submit_button_text %>
     </md-button>
     <br>
 

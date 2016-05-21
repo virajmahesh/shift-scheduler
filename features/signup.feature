@@ -120,8 +120,8 @@ Feature: Users Can Signup for an Account and Use it to Login
     And I fill in "Password confirmation" with "password"
     And I select the following issues: "Issue 1, Issue 2"
     And I press "Sign Up"
-    Then a user with the username "john_doe" and password "password" should exist in the database
-    And I should be on the homepage
+    Then I should be on the homepage
+    And a user with the username "john_doe" and password "password" should exist in the database
     And user "john_doe" should have "Issue 1" as an issue
     And user "john_doe" should have "Issue 2" as an issue
 

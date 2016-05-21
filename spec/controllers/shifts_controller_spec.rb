@@ -22,6 +22,15 @@ describe ShiftsController do
       @event.shifts.length.should == 0
     end
 
+    it 'should not allow a shift to be created without a role' do
+      sign_in @user
+      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', has_limit: 'false'}
+      post :create, event_id: @event.id, shift: @shift
+
+      @event.shifts.length.should == 0
+      flash.alert.should == "Role can't be blank"
+    end
+
     it 'should not allow a shift to be created when a user other than the event creator is not logged in' do
       @new_user = FactoryGirl.create :user
       @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling',

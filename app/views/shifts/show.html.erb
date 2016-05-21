@@ -21,13 +21,16 @@ Skills: <%= @shift.skills.pluck(:description).join ', ' %><br>
     <% end %>
 <% end %>
 </br>
+
 <% if can? :update, @shift %>
     <%= link_to 'View Volunteers', shift_viewUsers_path(@event, @shift) %> <br>
     <%= link_to 'Edit Shift', edit_event_shift_path(@event, @shift) %> <br>
 <%end%>
+
 <% if can? :create, @shift %>
     <%= link_to 'Add Shift', new_event_shift_path(@event) %> <br>
 <% end %>
+
 <% if can? :destroy, @shift %>
     <%= button_to 'Delete Shift', event_shift_path(@event, @shift), :method => :delete %> <br>
 <% end %>

@@ -45,12 +45,19 @@ app.config(function ($mdDateLocaleProvider) {
  * @param $scope
  */
 function handleIssues($scope) {
+    $scope.issueSearchTerm = '';
     $scope.issues = gon.issues || [];
 
     // Populate the list of all issues from the API
     $.get('/issues', function(data) {
         $scope.allIssues = data;
+        $scope.$apply();
     });
+
+    // Clear the search term when the select box is closed.
+    $scope.clearIssueSearchTerm = function() {
+        $scope.issueSearchTerm = '';
+    };
 
     // Find an issue based on the query string
     $scope.findIssues = function(query) {
@@ -69,12 +76,19 @@ function handleIssues($scope) {
  * @param $scope
  */
 function handleSkills($scope) {
+    $scope.skillSearchTerm = '';
     $scope.skills = gon.skills || [];
 
     // Populate the list of all skills from the API
     $.get('/skills', function(data) {
         $scope.allSkills = data;
+        $scope.$apply();
     });
+
+    // Clear the search term when the select box is closed.
+    $scope.clearSkillSearchTerm = function() {
+        $scope.skillSearchTerm = '';
+    };
 
     // Find a skill based on the query text
     $scope.findSkills = function(query) {
@@ -92,6 +106,7 @@ app.controller('EventController', function ($scope) {
     $scope.init = function () {
         $('.md-datepicker-input').attr('name', 'event[event_date]');
     };
+    
     handleIssues($scope);
 
     // If an event date was passed in, use it in the date picker
@@ -117,5 +132,10 @@ $(document).ready(function() {
     // Display the transfer ownership form when someone clicks the transfer ownership link.
     $('#transfer_ownership_link').click(function() {
         $('#transfer_ownership_form').toggle();
+    });
+
+    // Allow the search box to capture key presses.
+    $('input.searchbox').on('keydown', function(ev) {
+        ev.stopPropagation();
     });
 });
