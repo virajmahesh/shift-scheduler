@@ -36,19 +36,22 @@ class EventsController < ApplicationController
   # Create a new event. Checks that the user attempting to create the event is
   # authorized to do so
   def create
+    new  # Use the new action to set the required controller variables
+
     if can? :create, Event
       @event = Event.create event_params.merge user: @user
+
       if @event.invalid?
-        flash[:error] = @event.errors.full_messages.first
+        flash.alert = @event.errors.full_messages.first
         render :new
-      else
-        populate_issues
-        flash[:notice] = "#{@event.event_name} was successfully created."
-        event_create_activity @event
-        redirect_to event_path @event
+        return
       end
-    else
-      redirect_to 'public/422.html', status: :unauthorized
+
+      populate_issues
+      event_create_activity @event
+      redirect_to event_path @event
+
+      flash.notice = "#{@event.event_name} was successfully created."
     end
   end
 
@@ -68,9 +71,17 @@ class EventsController < ApplicationController
   # Update an existing event. Checks that the user attempting to update the event
   # is authorized to do so
   def update
+    edit  # Call the edit method and use it to set the controller variables
+
     if can? :update, @event
       old_date = @event.event_date
       @event.update_attributes event_params
+
+      if @event.invalid?
+        flash.alert = @event.errors.full_messages.first
+        render :edit
+        return
+      end
 
       if old_date != @event.event_date && @event.event_date.future?
         create_event_reminder_job_for @event
@@ -78,10 +89,9 @@ class EventsController < ApplicationController
       end
 
       populate_issues
-      flash[:notice] = "#{@event.event_name} was successfully updated."
+      flash.notice = "#{@event.event_name} was successfully updated."
       redirect_to event_path @event
-    else
-      redirect_to 'public/422.html', status: :unauthorized
+
     end
   end
 
@@ -91,10 +101,10 @@ class EventsController < ApplicationController
   def destroy
     if can? :destroy, @event
       @event.destroy
-      flash[:notice] = "Event '#{@event.event_name}' deleted."
+      flash.notice = "Event '#{@event.event_name}' deleted."
       redirect_to root_path
     else
-      redirect_to 'public/422.html', status: :unauthorized
+      redirect_to new_user_session_path
     end
   end
 
@@ -104,7 +114,7 @@ class EventsController < ApplicationController
       @new_event = @event.duplicate @user
       event_create_activity @new_event
 
-      flash[:notice] = 'Event successfully copied'
+      flash.notice = 'Event successfully copied'
       redirect_to event_path @new_event
     else
       redirect_to new_user_session_path
@@ -114,6 +124,7 @@ class EventsController < ApplicationController
   def event_create_activity event
     EventCreateMailer.notify_creator(@event).deliver_now
     EventCreateActivity.create :owner_id => event.user.id, :user_id => nil, :shift_id => nil, :event_id => event.id
+
     if event.event_date.future?
       create_event_reminder_job_for event
     end
