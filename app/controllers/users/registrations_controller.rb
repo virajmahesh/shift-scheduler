@@ -83,8 +83,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @method = :update
     @submit_button_text = 'Save Changes'
 
-    gon.skills = current_user.skills
-    gon.issues = current_user.issues
+    if params.has_key? :skill_ids
+      gon.skills = Skill.where id: skills
+    end
+    if params.has_key? :issue_ids
+      gon.issues = Issue.where id: issues
+    end
     super
   end
 
