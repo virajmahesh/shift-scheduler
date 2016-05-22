@@ -36,6 +36,21 @@ describe Users::RegistrationsController do
       @new_user = User.find_by_username 'username_new'
       MatchingShiftActivity.where(owner_id: @new_user, shift: @shift).count.should == 1
     end
+
+    it 'should not notify users about past shifts that match their skills' do
+      @skill = FactoryGirl.create :skill
+      @event = FactoryGirl.create :event, user: @user, event_date: 3.days.ago
+      @shift = FactoryGirl.create :shift, event: @event
+      ShiftSkill.create shift: @shift, skill: @skill
+
+      # Sign up as a new user
+      @new_user = {email: 'email@email.com', username: 'username_new',
+                   password: 'password', password_confirmation: 'password'}
+      post :create, user: @new_user, skill_ids: @skill.id
+
+      @new_user = User.find_by_username 'username_new'
+      MatchingShiftActivity.where(owner_id: @new_user, shift: @shift).count.should == 0
+    end
   end
 
   describe 'PUT update' do

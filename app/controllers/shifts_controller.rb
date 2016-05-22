@@ -130,7 +130,7 @@ class ShiftsController < ApplicationController
     unless @shift.nil?
 
       User.users_with_skills(@shift.skills).each do |user|
-        unless user.notified_about? @shift
+        if not user.notified_about? @shift and @shift.event.is_future?
           MatchingShiftMailer.notify_user(user, @shift).deliver_now
           MatchingShiftActivity.create owner_id: user.id, event: @shift.event, shift: @shift
         end
