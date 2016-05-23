@@ -30,26 +30,22 @@ class ShiftsController < ApplicationController
     @form_path = event_shifts_path @event
     @submit_button_text = 'Add Shift'
 
-    gon.skills = Array.new
-  end
-
-  def edit
-    @form_method = :put
-    @form_path = event_shift_path @event, @shift
-    @submit_button_text = 'Save Changes'
-
-    gon.skills = @shift.skills
+    if params.has_key? :skill_ids
+      gon.skills = Skill.where id: skills
+    end
   end
 
   # Create a new shift. Checks that the user attempting to create the shift
   # is authorized to do so.
   def create
+    new
+
     if can? :create_shift, @event
       @shift = Shift.create shift_params.merge(event: @event)
 
       if @shift.invalid?
         flash.alert = @shift.errors.full_messages.first
-        redirect_to new_event_shift_path @event
+        render :new
       else
         populate_skills
 
@@ -61,9 +57,23 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def edit
+    @form_method = :put
+    @form_path = event_shift_path @event, @shift
+    @submit_button_text = 'Save Changes'
+
+    if params.has_key? :skill_ids
+      gon.skills = Skill.where id: skills
+    else
+      gon.skills = @shift.skills
+    end
+  end
+
   # Update an existing shift. Checks that the user attempting to update the
   # shift is authorized to do so.
   def update
+    edit
+
     if can? :update, @shift
       @shift.update_attributes shift_params
 
@@ -74,7 +84,7 @@ class ShiftsController < ApplicationController
         redirect_to event_shift_path @event, @shift
       else
         flash.alert = @shift.errors.full_messages.first
-        redirect_to edit_event_shift_path @event, @shift
+        render :edit
       end
     else
       redirect_to new_user_session_path
