@@ -38,6 +38,11 @@ class EventsController < ApplicationController
   def create
     new  # Use the new action to set the required controller variables
 
+    # Load the issues previously filled in the form
+    if params.has_key? :issue_ids
+      gon.issues = Issue.where id: issues
+    end
+
     if can? :create, Event
       @event = Event.create event_params.merge user: @user
 
@@ -64,7 +69,13 @@ class EventsController < ApplicationController
     @form_path = event_path @event
     @submit_button_text = 'Save Changes'
 
-    gon.issues = @event.issues
+    # If the user has already attempted to edit the event, use the new issues.
+    # Otherwise, use the issues already associated with the event.
+    if params.has_key? :issue_ids
+      gon.issues = Issue.where id: issues
+    else
+      gon.issues = @event.issues
+    end
     gon.event_date = @event.formatted_event_date
   end
 
