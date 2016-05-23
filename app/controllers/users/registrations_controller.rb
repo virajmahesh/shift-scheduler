@@ -43,13 +43,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Notify users about shifts that have one or more skills that match the skills
   # listed on their profile. This does not generate a notification if the user
-  # has already been notified about the shift in the past.
+  # has already been notified about the shift in the past. It also checks if the
+  # event date has already passed before generating a notification.
   def notify_users
     @user = current_user
     unless @user.nil?
       Shift.shifts_with_skills(@user.skills).each do |shift|
 
-        unless @user.notified_about? shift
+        if not @user.notified_about? shift and shift.event.is_future?
           MatchingShiftMailer.notify_user(@user, shift).deliver_now
           MatchingShiftActivity.create owner_id: @user.id, event: shift.event, shift: shift
         end

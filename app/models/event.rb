@@ -26,6 +26,10 @@ class Event < ActiveRecord::Base
     self.where('event_date >= ?', Time.now.to_date).order(:event_date)
   end
 
+  def is_future?
+    self.event_date >= Time.now.to_date
+  end
+
   def formatted_event_date
     self.event_date.strftime '%B %-d, %Y'
   end

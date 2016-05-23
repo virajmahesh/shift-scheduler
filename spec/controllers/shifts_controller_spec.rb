@@ -62,6 +62,8 @@ describe ShiftsController do
 
     it 'should notify a user when a shift with matching skills is created' do
       sign_in @user
+
+      @event = FactoryGirl.create :event, user: @user, event_date: 3.days.from_now
       @new_user = FactoryGirl.create :user
 
       @skill_1 = FactoryGirl.create :skill
@@ -80,6 +82,31 @@ describe ShiftsController do
       @shift = Shift.find_by_role 'Tabling'
 
       MatchingShiftActivity.where(owner_id: @user, shift: @shift).count.should == 1
+      MatchingShiftActivity.where(owner_id: @new_user, shift: @shift).count.should == 0
+    end
+
+    it 'should not notify a user when a shift with matching skills is created for an event in the past' do
+      sign_in @user
+
+      @event = FactoryGirl.create :event, user: @user, event_date: 3.days.ago
+      @new_user = FactoryGirl.create :user
+
+      @skill_1 = FactoryGirl.create :skill
+      @skill_2 = FactoryGirl.create :skill
+      @skill_3 = FactoryGirl.create :skill
+
+      UserSkill.create user: @user, skill: @skill_1
+      UserSkill.create user: @user, skill: @skill_2
+      UserSkill.create user: @new_user, skill: @skill_3
+
+      @shift = {start_time: '10:00 PM', end_time: '10:10 PM', role: 'Tabling',
+                has_limit: 'false'}
+
+      post :create, event_id: @event.id, shift: @shift, skill_ids: [@skill_1.id, @skill_2.id].join(',')
+
+      @shift = Shift.find_by_role 'Tabling'
+
+      MatchingShiftActivity.where(owner_id: @user, shift: @shift).count.should == 0
       MatchingShiftActivity.where(owner_id: @new_user, shift: @shift).count.should == 0
     end
   end
