@@ -138,4 +138,7 @@ $(document).ready(function() {
     $('input.searchbox').on('keydown', function(ev) {
         ev.stopPropagation();
     });
+
+    // Redraw elements that aren't rendering correcty in Safari.
+    $('.redraw').hide().show(0);
 });
