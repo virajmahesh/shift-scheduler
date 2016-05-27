@@ -1,38 +1,39 @@
 <md-card class="event-info-card">
 
   <div>
-    <h2 class="event-name"><%= @event.event_name %></h2>
+      <h2 class="event-name"><%= @event.event_name %></h2>
+      <!-- Icons for editing and deleting events -->
+      <% if can? :destroy, @event %>
+          <a ng-href="<%= event_path(@event) %>" data-method="delete" id="delete-event">
+              <md-icon class="modify-icon">delete</md-icon>
+          </a>
+      <% end %>
 
-    <% if can? :destroy, @event %>
-        <a href="<%= event_path(@event) %>" data-method="delete">
-          <md-icon aria-label="Delete" class="modify-icon">delete</md-icon>
-        </a>
-    <% end %>
-
-    <% if can? :edit, @event %>
-        <a href="<%= edit_event_path(@event) %>">
-          <md-icon aria-label="Edit" class="modify-icon">mode_edit</md-icon>
-        </a>
-    <% end %>
+      <% if can? :edit, @event %>
+          <a ng-href="<%= edit_event_path(@event) %>" id="edit-event">
+              <md-icon class="modify-icon">mode_edit</md-icon>
+          </a>
+      <% end %>
   </div>
 
+  <!-- Number of unique users signed up for all shifts of the event -->
   <span><%= @event.number_signed_up %></span><br><br>
 
   <div>
-    <md-icon aria-label="Location" class="material-icons">location_on</md-icon>
+    <md-icon class="material-icons">location_on</md-icon>
     <span><%= @event.location %></span>
-  </div><br>
+  </div> <br>
 
   <div>
-    <md-icon aria-label="Calendar" class="material-icons">perm_contact_calendar</md-icon>
+    <md-icon class="material-icons">today</md-icon>
     <span><%= @event.formatted_event_date %></span>
-  </div><br>
+  </div> <br>
 
   <% if not @event.start_time.nil? and not @event.end_time.nil? %>
       <div>
-        <md-icon aria-label="Time" class="material-icons">access_time</md-icon>
+        <md-icon class="material-icons">access_time</md-icon>
         <span><%= @event.formatted_start_time %> - <%= @event.formatted_end_time %></span>
-      </div><br>
+      </div> <br>
   <% end %>
 
   <div>
@@ -42,35 +43,29 @@
           (<%= mail_to @event.user.email %>)
       <% end %>
     </span>
-  </div><br>
+  </div> <br>
 
   <div>
-      Issues:
-      <span><%= @event.issues.pluck(:description).join ', ' %></span>
-  </div><br>
+    Issues:
+    <span><%= @event.issues.pluck(:description).join ', ' %></span>
+  </div> <br>
 
+  <span><%= @event.description %></span>
 
-  <p><%= @event.description %></p>
-
-  <% if can? :edit, @event %>
-      <%= link_to 'Edit Event', edit_event_path(@event) %><br>
-  <% end %>
-  <% if can? :destroy, @event %>
-      <%= link_to 'Delete Event', event_path(@event), method: :delete %><br>
-  <% end %>
+  <!-- Superuser actions -->
   <% if not @user.nil? and @user.is_super_user? %>
       <a id='transfer_ownership_link' href="#">Transfer Ownership</a> <br>
 
       <!-- Form to transfer event ownership -->
       <%= form_tag @event.transfer_owner_path, id: :transfer_ownership_form do %>
-        <md-input-container>
-          <p>Enter new event creator's username/email:</p>
-          <%= text_field_tag :login %>
-        </md-input-container><br>
+          <md-input-container>
+            <p>Enter new event creator's username/email:</p>
+            <%= text_field_tag :login %>
+          </md-input-container>
+          <br>
 
-        <md-button type="submit">Transfer Ownership</md-button>
+          <md-button type="submit">Transfer Ownership</md-button>
       <% end %>
-
   <% end %>
 
 </md-card>

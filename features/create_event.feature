@@ -37,6 +37,8 @@ Feature: User can Create, edit and delete events
     And I should see "Batman for President"
     And I should see "Gotham"
     And I should see "john_doe@uprise.com"
+    And I should see "mode_edit"
+    And I should see "delete"
     And an event named "Batman for President" should exist
  
   Scenario: Attempt to create event without a name
@@ -86,8 +88,8 @@ Feature: User can Create, edit and delete events
     Then I should be on the homepage
     And I should not see "john_doe"
     When I follow "Go Batman"
-    Then I should not see "Edit Event"
-    And I should not see "Delete Event"
+    Then I should not see "mode_edit"
+    And I should not see "delete"
     And I should not see "Add Shift"
 
   Scenario: Attempt to modify an event when logged in as a user that did not create the event
@@ -97,19 +99,21 @@ Feature: User can Create, edit and delete events
     And I log in with username "jane_doe" and password "jane_doe_password"
     Then I should be on the homepage
     When I follow "Go Batman"
-    Then I should not see "Edit Event"
-    And I should not see "Delete Event"
+    Then I should not see "mode_edit"
+    And I should not see "delete"
 
   Scenario: Attempt to delete an event
     Given I am on the page for the "Go Batman" event
-    And I follow "Delete Event"
-    Then I should be on the home page
+    And I follow "delete-event"
+    Then I should see "Find a way to get involved"
+    And I should be on the home page
     And an event named "Go Batman" should not exist
 
   Scenario: Attempt to edit an event
     Given I am on the page for the "Go Batman" event
-    And I follow "Edit Event"
-    Then I should be on the edit page for the "Go Batman" event
+    When I follow "edit-event"
+    Then I should see "Edit Event"
+    And I should be on the edit page for the "Go Batman" event
     When I fill in "event[event_date]" with "03/04/2019"
     And I press "Save Changes"
     Then I should be on the page for the "Go Batman" event
@@ -146,8 +150,9 @@ Feature: User can Create, edit and delete events
 
   Scenario: Add issues while editing an event
     Given I am on the page for the "Go Batman" event
-    And I follow "Edit Event"
-    Then I should be on the edit page for the "Go Batman" event
+    And I follow "edit-event"
+    Then I should see "Edit Event"
+    And I should be on the edit page for the "Go Batman" event
     And I select the following issues: "Third Issue"
     And I press "Save Changes"
     Then the "Go Batman" event should have "First Issue" as an issue
@@ -160,8 +165,9 @@ Feature: User can Create, edit and delete events
 
   Scenario: Remove issues while editing an event
     Given I am on the page for the "Go Batman" event
-    And I follow "Edit Event"
-    Then I should be on the edit page for the "Go Batman" event
+    And I follow "edit-event"
+    Then I should see "Edit Event"
+    And I should be on the edit page for the "Go Batman" event
     When I remove the following issues: "Second Issue"
     And I press "Save Changes"
     Then the "Go Batman" event should have "First Issue" as an issue
@@ -174,8 +180,9 @@ Feature: User can Create, edit and delete events
 
   Scenario: Remove all issues while editing an event
     Given I am on the page for the "Go Batman" event
-    And I follow "Edit Event"
-    Then I should be on the edit page for the "Go Batman" event
+    And I follow "edit-event"
+    Then I should see "Edit Event"
+    And I should be on the edit page for the "Go Batman" event
     And I remove the following issues: "First Issue, Second Issue"
     And I press "Save Changes"
     Then the "Go Batman" event should not have "First Issue" as an issue
@@ -266,7 +273,7 @@ Feature: User can Create, edit and delete events
 
   Scenario: Edit event shows all information
     Given I am on the page for the "Go Batman" event
-    When I follow "Edit Event"
+    When I follow "edit-event"
     Then I should see "SAVE CHANGES"
     And I should see "First Issue"
     And I should see "Second Issue"

@@ -58,7 +58,11 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
-  click_link(link)
+  begin
+    find(:link, link, {}).click
+  rescue Capybara::Poltergeist::MouseEventFailed
+    find(:link, link, {}).trigger 'click'
+  end
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
