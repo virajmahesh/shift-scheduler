@@ -43,4 +43,22 @@ describe Shift do
     end
   end
 
+  describe 'validate :limit_settings' do
+    it 'should check that limit is not blank if has limit is checked' do
+      @shift = Shift.create role: 'Tabling', start_time: '10:00 AM', end_time: '10:30 AM',
+                            has_limit: true
+
+      @shift.valid?.should == false
+      @shift.errors.full_messages.first.should == "Limit can't be blank if has limit is checked"
+    end
+
+    it 'should check that limit is blank if has limit is not checked' do
+      @shift = Shift.create role: 'Tabling', start_time: '10:00 AM', end_time: '10:30 AM',
+                            has_limit: false, limit: 5
+
+      @shift.valid?.should == false
+      @shift.errors.full_messages.first.should == "Limit must be blank if has limit is not checked"
+    end
+  end
+
 end
