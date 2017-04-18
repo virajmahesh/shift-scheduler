@@ -11,6 +11,16 @@ class Shift < ActiveRecord::Base
   validates :role, presence: true
   validates :has_limit, inclusion: {in: [true, false]}
 
+  validate :limit_settings, on: :create
+
+  def limit_settings
+    if has_limit and limit.nil?
+      errors.add(:limit, "can't be blank if has limit is checked")
+    elsif not has_limit and not limit.nil?
+      errors.add(:limit, "must be blank if has limit is not checked")
+    end
+  end
+
   after_destroy :cleanup
 
   def cleanup
